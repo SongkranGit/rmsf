@@ -15,10 +15,10 @@ class MY_Controller extends CI_Controller
     {
         parent::__construct();
 
-        $this->data["error"] = array();
-
-
     }
 
 
 }
+
+require_once APPPATH.'core/Admin_controller.php';
+require_once APPPATH.'core/Frontend_controller.php';

@@ -23,8 +23,7 @@ $role = $this->session->userdata('role_id');
             </li>
 
             <!--Content-->
-            <li class="treeview <?= ($controller == PAGE
-                || $controller == ARTICLE
+            <li class="treeview <?= ($controller == ARTICLE
                 || $controller == GALLERIES
                 || $controller == GALLERY_IMAGE
                 || $controller == SLIDE_SHOW
@@ -36,16 +35,6 @@ $role = $this->session->userdata('role_id');
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                    <?php if (intval($role) == ROLE_SUPER_ADMIN || intval($role) == ROLE_SYSTEM_ADMIN): ?>
-
-                        <!--Page-->
-                        <li class="<?= (strcasecmp($controller, PAGE) == 0) ? "active" : "" ?>">
-                            <a href="<?= base_url(ADMIN_PAGE) ?>">
-                                <i class="<?= (strcasecmp($controller, PAGE) == 0) ? "fa fa-circle-o text-orange" : "fa fa-circle-o" ?>"></i>
-                                <?= $this->lang->line("menu_content_pages"); ?></a>
-                        </li>
-
-                    <?php endif; ?>
 
                     <!--News-->
                     <li class="<?= (strcasecmp($controller, NEWS) == 0) ? "active" : "" ?>">
@@ -101,35 +90,16 @@ $role = $this->session->userdata('role_id');
                             <i class="<?= (strcasecmp($controller, SLIDE_SHOW) == 0) ? "fa fa-circle-o text-orange" : "fa fa-circle-o" ?>"></i>
                             <?= $this->lang->line("menu_galleries_slideshow"); ?></a>
 
-                        <!--Clip-->
-                    <li class="<?= (strcasecmp($controller, CLIP) == 0) ? "active" : "" ?>">
-                        <a href="<?= base_url(ADMIN_CLIP) ?>">
-                            <i class="<?= (strcasecmp($controller, CLIP) == 0) ? "fa fa-circle-o text-orange" : "fa fa-circle-o" ?>"></i>
-                            <?= $this->lang->line("menu_media_clip"); ?>
-                        </a>
                 </ul>
             </li>
 
             <!--User-->
-            <li class="treeview <?= ($controller == CONTACT || $controller == STUDENT) ? "active" : "" ?>">
-                <a href="#">
-                    <i class="glyphicon glyphicon-user"></i> <span><?= $this->lang->line("menu_member"); ?></span>
-                    <i class="fa fa-angle-left pull-right"></i>
+            <li class="<?= (strcasecmp($controller, CONTACT) == 0) ? "active" : "" ?>">
+                <a href="<?= base_url(ADMIN_CONTACT) ?>">
+                    <i class="glyphicon glyphicon-user"></i> <span><?= $this->lang->line("menu_contact_list"); ?></span>
                 </a>
-                <ul class="treeview-menu">
-
-                    <li class="<?= (strcasecmp($controller, CONTACT) == 0) ? "active" : "" ?>">
-                        <a href="<?= base_url(ADMIN_CONTACT) ?>">
-                            <i class="<?= (strcasecmp($controller, CONTACT) == 0) ? "fa fa-circle-o text-orange" : "fa fa-circle-o" ?>"></i>
-                            <?= $this->lang->line("menu_contact_list"); ?></a>
-                    </li>
-                    <li class="<?= (strcasecmp($controller, STUDENT) == 0) ? "active" : "" ?>">
-                        <a href="<?= base_url(ADMIN_STUDENT) ?>">
-                            <i class="<?= (strcasecmp($controller, STUDENT) == 0) ? "fa fa-circle-o text-orange" : "fa fa-circle-o" ?>"></i>
-                            <?= $this->lang->line("menu_students"); ?></a>
-                    </li>
-                </ul>
             </li>
+
             <!--Settings-->
             <li class="treeview  <?= ($controller == SETTING || $controller == USER) ? "active" : "" ?>">
                 <a href="#">

@@ -18,7 +18,7 @@ class News extends Admin_Controller
 
     public function index()
     {
-        $this->load->view("backend/news/list_news");
+        $this->load->view("admin/news/list_news");
     }
 
     public function create()
@@ -68,7 +68,7 @@ class News extends Admin_Controller
                     "heading_text" => $this->lang->line("news_title_add")
                 )
             );
-            $this->load->view("backend/news/news_entry", $view_data);
+            $this->load->view("admin/news/news_entry", $view_data);
         }
     }
 
@@ -121,7 +121,7 @@ class News extends Admin_Controller
                     "row" => $arr_result
                 )
             );
-            $this->load->view("backend/news/news_entry", $view_data);
+            $this->load->view("admin/news/news_entry", $view_data);
         }
     }
 

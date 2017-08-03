@@ -6556,9 +6556,9 @@ var ColorSpace = (function ColorSpaceClosure() {
 
   ColorSpace.prototype = {
     /**
-     * Converts the color value to the RGB color. The color components are
+     * Converts the color value to the RGB color. The color includes are
      * located in the src array starting from the srcOffset. Returns the array
-     * of the rgb components, each value ranging from [0,255].
+     * of the rgb includes, each value ranging from [0,255].
      */
     getRgb: function ColorSpace_getRgb(src, srcOffset) {
       var rgb = new Uint8Array(3);
@@ -6578,7 +6578,7 @@ var ColorSpace = (function ColorSpaceClosure() {
      * The colors are located in the src array starting from the srcOffset.
      * The result is placed into the dest array starting from the destOffset.
      * The src array items shall be in [0,2^bits) range, the dest array items
-     * will be in [0,255] range. alpha01 indicates how many alpha components
+     * will be in [0,255] range. alpha01 indicates how many alpha includes
      * there are in the dest array; it will be either 0 (RGB array) or 1 (RGBA
      * array).
      */
@@ -6604,7 +6604,7 @@ var ColorSpace = (function ColorSpaceClosure() {
     },
     /**
      * Fills in the RGB colors in the destination buffer.  alpha01 indicates
-     * how many alpha components there are in the dest array; it will be either
+     * how many alpha includes there are in the dest array; it will be either
      * 0 (RGB array) or 1 (RGBA array).
      */
     fillRgb: function ColorSpace_fillRgb(dest, originalWidth,
@@ -6689,7 +6689,7 @@ var ColorSpace = (function ColorSpaceClosure() {
       }
     },
     /**
-     * True if the colorspace has components in the default range of [0, 1].
+     * True if the colorspace has includes in the default range of [0, 1].
      * This should be true for all colorspaces except for lab color spaces
      * which are [0,100], [-128, 127], [-128, 127].
      */
@@ -6866,7 +6866,7 @@ var ColorSpace = (function ColorSpaceClosure() {
    * This does not handle Lab, Indexed, or Pattern decode maps since they are
    * slightly different.
    * @param {Array} decode Decode map (usually from an image).
-   * @param {Number} n Number of components the color space has.
+   * @param {Number} n Number of includes the color space has.
    */
   ColorSpace.isDefaultDecode = function ColorSpace_isDefaultDecode(decode, n) {
     if (!decode) {
@@ -7261,7 +7261,7 @@ var CalGrayCS = (function CalGrayCSClosure() {
 
     // Validate variables as per spec.
     if (this.XW < 0 || this.ZW < 0 || this.YW !== 1) {
-      error('Invalid WhitePoint components for ' + this.name +
+      error('Invalid WhitePoint includes for ' + this.name +
             ', no fallback available');
     }
 
@@ -7399,7 +7399,7 @@ var CalRGBCS = (function CalRGBCSClosure() {
 
     // Validate variables as per spec.
     if (XW < 0 || ZW < 0 || YW !== 1) {
-      error('Invalid WhitePoint components for ' + this.name +
+      error('Invalid WhitePoint includes for ' + this.name +
             ', no fallback available');
     }
 
@@ -7549,7 +7549,7 @@ var CalRGBCS = (function CalRGBCSClosure() {
   }
 
   function convertToRgb(cs, src, srcOffset, dest, destOffset, scale) {
-    // A, B and C represent a red, green and blue components of a calibrated
+    // A, B and C represent a red, green and blue includes of a calibrated
     // rgb space.
     var A = adjustToRange(0, 1, src[srcOffset] * scale);
     var B = adjustToRange(0, 1, src[srcOffset + 1] * scale);
@@ -7664,7 +7664,7 @@ var LabCS = (function LabCSClosure() {
 
     // Validate vars as per spec
     if (this.XW < 0 || this.ZW < 0 || this.YW !== 1) {
-      error('Invalid WhitePoint components, no fallback available');
+      error('Invalid WhitePoint includes, no fallback available');
     }
 
     if (this.XB < 0 || this.YB < 0 || this.ZB < 0) {
@@ -26669,7 +26669,7 @@ var PDFImage = (function PDFImageClosure() {
             break;
           default:
             error('JPX images with ' + this.numComps +
-                  ' color components not supported.');
+                  ' color includes not supported.');
         }
       }
       this.colorSpace = ColorSpace.parse(colorSpace, xref, res);
@@ -26750,7 +26750,7 @@ var PDFImage = (function PDFImageClosure() {
    * supports one and three component images.
    * @param {TypedArray} pixels The original image with one component.
    * @param {Number} bpc Number of bits per component.
-   * @param {Number} components Number of color components, 1 or 3 is supported.
+   * @param {Number} components Number of color includes, 1 or 3 is supported.
    * @param {Number} w1 Original width.
    * @param {Number} h1 Original height.
    * @param {Number} w2 New width.
@@ -27044,7 +27044,7 @@ var PDFImage = (function PDFImageClosure() {
       for (var i = 0; i < length; i += 4) {
         var alpha = buffer[i + 3];
         if (alpha === 0) {
-          // according formula we have to get Infinity in all components
+          // according formula we have to get Infinity in all includes
           // making it white (typical paper color) should be okay
           buffer[i] = 255;
           buffer[i + 1] = 255;
@@ -35895,7 +35895,7 @@ var JpxImage = (function JpxImageClosure() {
   }
   function calculateTileGrids(context, components) {
     var siz = context.SIZ;
-    // Section B.3 Division into tile and tile-components
+    // Section B.3 Division into tile and tile-includes
     var tile, tiles = [];
     var numXtiles = Math.ceil((siz.Xsiz - siz.XTOsiz) / siz.XTsiz);
     var numYtiles = Math.ceil((siz.Ysiz - siz.YTOsiz) / siz.YTsiz);
@@ -36878,7 +36878,7 @@ var JpxImage = (function JpxImageClosure() {
         var y3items = fourComponents ? transformedTiles[3].items : null;
 
         // HACK: The multiple component transform formulas below assume that
-        // all components have the same precision. With this in mind, we
+        // all includes have the same precision. With this in mind, we
         // compute shift and offset only once.
         shift = components[0].precision - 8;
         offset = (128 << shift) + 0.5;

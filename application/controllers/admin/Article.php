@@ -21,7 +21,7 @@ class Article extends Admin_Controller
     public function index()
     {
         $data["pages"] = $this->Page_model->getAll();
-        $this->load->view("backend/article/list_articles", $data);
+        $this->load->view("admin/article/list_articles", $data);
     }
 
     public function create()
@@ -74,7 +74,7 @@ class Article extends Admin_Controller
                     "heading_text" => $this->lang->line("article_title_add")
                 )
             );
-            $this->load->view("backend/article/article_entry", $view_data);
+            $this->load->view("admin/article/article_entry", $view_data);
         }
     }
 
@@ -129,7 +129,7 @@ class Article extends Admin_Controller
                     "row" => $arr_result
                 )
             );
-            $this->load->view("backend/article/article_entry", $view_data);
+            $this->load->view("admin/article/article_entry", $view_data);
         }
     }
 

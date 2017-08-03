@@ -16,7 +16,7 @@ class User extends Admin_Controller
 
     public function index()
     {
-        $this->load->view("backend/user/list_users");
+        $this->load->view("admin/user/list_users");
     }
 
     public function create()
@@ -61,7 +61,7 @@ class User extends Admin_Controller
                     "roles" => $this->getListOfRoles()
                 )
             );
-            $this->load->view("backend/user/user_entry", $view_data);
+            $this->load->view("admin/user/user_entry", $view_data);
         }
     }
 
@@ -114,7 +114,7 @@ class User extends Admin_Controller
                     "result"=> $arr_result
                 )
             );
-            $this->load->view("backend/user/user_entry", $view_data);
+            $this->load->view("admin/user/user_entry", $view_data);
         }
     }
 
@@ -139,7 +139,7 @@ class User extends Admin_Controller
     {
         if($id != null){
             $result["data"] = $this->User_model->getUserById($id);
-            $this->load->view('backend/user/user_profile' , $result);
+            $this->load->view('admin/user/user_profile' , $result);
         }
     }
 

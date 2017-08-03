@@ -22,7 +22,7 @@ class GalleryImage extends Admin_Controller
     public function index()
     {
         $data["galleries"] = $this->Gallery_model->getAll();
-        $this->load->view("backend/gallery/list_upload_images", $data);
+        $this->load->view("admin/gallery/list_upload_images", $data);
     }
 
     public function upload()
@@ -74,7 +74,7 @@ class GalleryImage extends Admin_Controller
                     "galleries" => $this->Gallery_model->getAll()
                 )
             );
-            $this->load->view("backend/gallery/upload_images", $view_data);
+            $this->load->view("admin/gallery/upload_images", $view_data);
         }
     }
 
@@ -116,7 +116,7 @@ class GalleryImage extends Admin_Controller
                     "row" => $this->Gallery_images_model->getById($id)
                 )
             );
-            $this->load->view("backend/gallery/upload_images", $view_data);
+            $this->load->view("admin/gallery/upload_images", $view_data);
         }
     }
 
@@ -143,7 +143,7 @@ class GalleryImage extends Admin_Controller
         $view_data = array();
         if ($id != "") {
             $view_data["gallery_images"] = $this->Gallery_images_model->getImagesByGalleryId($id);
-            $this->load->view("backend/gallery/gallery_detail", $view_data);
+            $this->load->view("admin/gallery/gallery_detail", $view_data);
         } else {
             show_404(current_url());
         }

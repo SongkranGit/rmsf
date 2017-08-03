@@ -15,7 +15,7 @@ class Setting extends Admin_Controller
     public function index()
     {
         $data["row"] = $this->Setting_model->getSettings();
-        $this->load->view("backend/settings/setting_general" , $data );
+        $this->load->view("admin/settings/setting_general" , $data );
     }
 
     public function save()

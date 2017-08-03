@@ -2823,7 +2823,7 @@ var WorkerTransport = (function WorkerTransportClosure() {
         var components = data[1];
         if (components !== 3 && components !== 1) {
           return Promise.reject(
-            new Error('Only 3 components or 1 component can be returned'));
+            new Error('Only 3 includes or 1 component can be returned'));
         }
 
         return new Promise(function (resolve, reject) {

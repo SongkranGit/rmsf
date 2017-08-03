@@ -52,8 +52,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 
 
-// Sub folder of Admin (backend)
-//$route['backend/(:any)'] = "backend/$1";
+// Sub folder of Admin (admin)
+//$route['admin/(:any)'] = "admin/$1";
 //$route['(:any)'] = "frontend/$1";
 
 $route['default_controller'] = 'Home';

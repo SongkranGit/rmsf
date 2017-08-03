@@ -17,7 +17,7 @@ class Page extends Admin_Controller
 
     public function index()
     {
-        $this->load->view("backend/pages/list_pages");
+        $this->load->view("admin/pages/list_pages");
     }
 
     public function create()
@@ -72,7 +72,7 @@ class Page extends Admin_Controller
                 )
             );
 
-            $this->load->view("backend/pages/page_entry", $view_data);
+            $this->load->view("admin/pages/page_entry", $view_data);
         }
     }
 
@@ -118,7 +118,7 @@ class Page extends Admin_Controller
 
            // dump($this->Article_model->getArticleByPageId($page_id));
 
-            $this->load->view("backend/pages/page_entry", $view_data);
+            $this->load->view("admin/pages/page_entry", $view_data);
         }
     }
 
@@ -165,7 +165,7 @@ class Page extends Admin_Controller
 
     public function order()
     {
-        $this->load->view("backend/pages/order_pages");
+        $this->load->view("admin/pages/order_pages");
     }
 
     public function orderPageAjax()
@@ -180,7 +180,7 @@ class Page extends Admin_Controller
         } else {
             $data["pages"] = $this->Page_model->getNestedPages();
             // dump($data["pages"]);
-            $this->load->view("backend/pages/order_pages_ajax", $data);
+            $this->load->view("admin/pages/order_pages_ajax", $data);
         }
     }
 

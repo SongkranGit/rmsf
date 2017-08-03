@@ -20,7 +20,7 @@ class Slideshow extends Admin_Controller
 
     public function index()
     {
-        $this->load->view("backend/slideshow/list_slideshow");
+        $this->load->view("admin/slideshow/list_slideshow");
     }
 
     public function create()
@@ -57,7 +57,7 @@ class Slideshow extends Admin_Controller
                     "heading_text" => $this->lang->line("slideshow_title_add")
                 )
             );
-            $this->load->view("backend/slideshow/slideshow_entry", $view_data);
+            $this->load->view("admin/slideshow/slideshow_entry", $view_data);
         }
     }
 
@@ -91,7 +91,7 @@ class Slideshow extends Admin_Controller
                     "row" => $arr_result
                 )
             );
-            $this->load->view("backend/slideshow/slideshow_entry", $view_data);
+            $this->load->view("admin/slideshow/slideshow_entry", $view_data);
         }
     }
 

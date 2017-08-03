@@ -40,7 +40,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * Loader Class
  *
- * Loads framework components.
+ * Loads framework includes.
  *
  * @package		CodeIgniter
  * @subpackage	Libraries

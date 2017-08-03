@@ -1759,7 +1759,7 @@ abstract class CI_DB_query_builder extends CI_DB_driver {
 	 */
 	public function update($table = '', $set = NULL, $where = NULL, $limit = NULL)
 	{
-		// Combine any cached components with the current statements
+		// Combine any cached includes with the current statements
 		$this->_merge_cache();
 
 		if ($set !== NULL)

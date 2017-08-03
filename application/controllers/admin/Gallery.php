@@ -14,7 +14,7 @@ class Gallery extends Admin_Controller
 
     public function index()
     {
-        $this->load->view("backend/gallery/list_galleries");
+        $this->load->view("admin/gallery/list_galleries");
     }
 
     public function create()
@@ -58,7 +58,7 @@ class Gallery extends Admin_Controller
                     "heading_text" => $this->lang->line("gallery_title_add")
                 )
             );
-            $this->load->view("backend/gallery/gallery_entry", $view_data);
+            $this->load->view("admin/gallery/gallery_entry", $view_data);
         }
     }
 
@@ -96,7 +96,7 @@ class Gallery extends Admin_Controller
                     "row" => $arr_result
                 )
             );
-            $this->load->view("backend/gallery/gallery_entry", $view_data);
+            $this->load->view("admin/gallery/gallery_entry", $view_data);
         }
     }
 

@@ -23,7 +23,7 @@ class Login extends CI_Controller
             $this->setSession($data);
             redirect("Login/index", "refresh");
         } else {
-            $this->load->view("backend/login");
+            $this->load->view("admin/login");
         }
     }
 
@@ -69,7 +69,7 @@ class Login extends CI_Controller
             
            echo json_encode($response);
         } else {
-            $this->load->view("backend/login");
+            $this->load->view("admin/login");
         }
     }
 

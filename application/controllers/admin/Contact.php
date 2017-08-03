@@ -14,12 +14,12 @@ class Contact extends Admin_Controller
 
     public function index()
     {
-        $this->load->view("backend/contact/list_contact");
+        $this->load->view("admin/contact/list_contact");
     }
 
     public function detail($id){
         $result["data"] = $this->Contact_model->getById($id);
-        $this->load->view("backend/contact/contact_detail" , $result);
+        $this->load->view("admin/contact/contact_detail" , $result);
     }
 
     public function delete($id)
@@ -41,14 +41,14 @@ class Contact extends Admin_Controller
     public function approveGetCoupon($qr_code_id= null , $is_approve = null ){
         if($qr_code_id != null && $is_approve == null){
             $result["data"] = $this->Contact_model->findByQrCode($qr_code_id);
-            $this->load->view("backend/contact/contact_detail" , $result);
+            $this->load->view("admin/contact/contact_detail" , $result);
         }else if($qr_code_id != null && $is_approve != null){
             $data = array(
                 "is_approve"=> 1,
                 "updated_date"=>Calendar::currentDateTime()
             );
             $this->Contact_model->approveCoupon($qr_code_id , $data);
-            $this->load->view("backend/contact/list_contact");
+            $this->load->view("admin/contact/list_contact");
         }
 
     }

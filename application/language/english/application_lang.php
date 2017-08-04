@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: BERM-PC
- * Date: 11/4/2559
- * Time: 23:07
- */
 
 // messages
 $lang['message_this_field_is_require'] 	  	                    = 'This field is require';

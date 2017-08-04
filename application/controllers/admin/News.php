@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-
+require_once APPPATH.'core/Admin_controller.php';
 
 class News extends Admin_Controller
 {

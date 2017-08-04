@@ -1,11 +1,7 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: BERM-PC
- * Date: 15/1/2559
- * Time: 21:31
- */
+require_once APPPATH.'core/Admin_controller.php';
+
 class Login extends CI_Controller
 {
 

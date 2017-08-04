@@ -19,6 +19,3 @@ class MY_Controller extends CI_Controller
 
 
 }
-
-require_once APPPATH.'core/Admin_controller.php';
-require_once APPPATH.'core/Frontend_controller.php';

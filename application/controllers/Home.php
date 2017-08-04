@@ -17,6 +17,4 @@ class Home extends Frontend_Controller
     }
 
 
-
-
 }

@@ -1,13 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-require_once APPPATH.'core/Admin_controller.php';
+require_once APPPATH . 'core/Admin_controller.php';
 
 class Slideshow extends Admin_Controller
 {
-
-    private $prefix_image_name = "slide_show_";
-    private $file_element_name = 'user_files';
 
     function __construct()
     {
@@ -25,7 +22,16 @@ class Slideshow extends Admin_Controller
 
     public function create()
     {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if ($_SERVER["REQUEST_METHOD"] == "GET") {
+            $view_data = array(
+                "data" => array(
+                    "action" => ACTION_CREATE,
+                    "heading_text" => $this->lang->line("slideshow_title_add")
+                )
+            );
+            $this->load->view("admin/slideshow/slideshow_entry", $view_data);
+
+        } else if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $result = array('success' => false, 'messages' => array());
 
             $data = array(
@@ -40,7 +46,7 @@ class Slideshow extends Admin_Controller
             //$image_file_type = $this->input->post("image_file_type");
             $image_base_64 = $this->input->post("imageBase64");
 
-            $arr_file_info = $this->saveBase64StrImageToFile($image_base_64 );
+            $arr_file_info = $this->saveBase64StrImageToFile($image_base_64);
 
             if (!empty($arr_file_info)) {
                 $data["file_name"] = $arr_file_info["file_name"];
@@ -50,39 +56,13 @@ class Slideshow extends Admin_Controller
                 $result['success'] = $this->Slideshow_model->save($data);
             }
             echo json_encode($result);
-        } else {
-            $view_data = array(
-                "data" => array(
-                    "action" => ACTION_CREATE,
-                    "heading_text" => $this->lang->line("slideshow_title_add")
-                )
-            );
-            $this->load->view("admin/slideshow/slideshow_entry", $view_data);
         }
     }
 
     public function update($id)
     {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $result = array('success' => false, 'messages' => array());
+        if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
-            $data = array(
-                "description_th" => $this->input->post("description_th"),
-                "description_en" => $this->input->post("description_en"),
-                "published" => intval($this->input->post("published")),
-                "updated_date" => Calendar::currentDateTime()
-            );
-
-            if(!empty($this->input->post("imageBase64"))){
-                $arr_file_info = $this->saveBase64StrImageToFile($this->input->post("imageBase64"));
-                if (!empty($arr_file_info)) {
-                    $data["file_name"] = $arr_file_info["file_name"];
-                }
-            }
-
-            $result['success'] = $this->Slideshow_model->update($data, $id);
-            echo json_encode($result);
-        } else {
             $arr_result = $this->Slideshow_model->getById($id);
             $view_data = array(
                 "data" => array(
@@ -92,6 +72,25 @@ class Slideshow extends Admin_Controller
                 )
             );
             $this->load->view("admin/slideshow/slideshow_entry", $view_data);
+
+        } else if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $result = array('success' => false, 'messages' => array());
+            $data = array(
+                "description_th" => $this->input->post("description_th"),
+                "description_en" => $this->input->post("description_en"),
+                "published" => intval($this->input->post("published")),
+                "updated_date" => Calendar::currentDateTime()
+            );
+
+            if (!empty($this->input->post("imageBase64"))) {
+                $arr_file_info = $this->saveBase64StrImageToFile($this->input->post("imageBase64"));
+                if (!empty($arr_file_info)) {
+                    $data["file_name"] = $arr_file_info["file_name"];
+                }
+            }
+
+            $result['success'] = $this->Slideshow_model->update($data, $id);
+            echo json_encode($result);
         }
     }
 
@@ -157,15 +156,6 @@ class Slideshow extends Admin_Controller
         return $data_uploaded;
     }
 
-    private function deleteFile($path_file)
-    {
-        if ($path_file != '') {
-            if (file_exists($path_file)) {
-                @unlink($path_file);
-            }
-        }
-    }
-
     private function resizeImage($arr_data_uploaded)
     {
         $this->load->library("SimpleImage");
@@ -174,7 +164,7 @@ class Slideshow extends Admin_Controller
     }
 
 
-    private function saveBase64StrImageToFile($base64img )
+    private function saveBase64StrImageToFile($base64img)
     {
         $uuid = $this->uuid->v4();
         $image_file_type = "png";
@@ -184,11 +174,10 @@ class Slideshow extends Admin_Controller
         file_put_contents($file, $data);
 
         $arr_file_info = array();
-        $arr_file_info["file_name"] = $uuid.".".$image_file_type;
+        $arr_file_info["file_name"] = $uuid . "." . $image_file_type;
 
         return $arr_file_info;
     }
-
 
 
 }

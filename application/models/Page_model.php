@@ -67,12 +67,12 @@ class Page_Model extends CI_Model
     public function getAll()
     {
         $data = array();
-        $this->db->select('p.id , p.name , p.parent_id , p.order, p.title_en , p.title_th' );
+        $this->db->select('p.id , p.name , p.parent_id , p.title_en , p.title_th' );
         $this->db->select('(select name from pages where id = p.parent_id ) as parent_name' );
         $this->db->from('pages p');
         $this->db->where('is_deleted', 0);
         $this->db->where('published', 1);
-        $this->db->order_by('order' , 'ASC');
+
         $query = $this->db->get();
        // dump($this->db->last_query());
         if ($query->num_rows() > 0) {
@@ -111,41 +111,6 @@ class Page_Model extends CI_Model
         return $data;
     }
 
-    public function getNestedPages()
-    {
-        $pages = $this->getAll();
-        $data = array();
-        if ($pages != null && count($pages) > 0) {
-            foreach ($pages as $key => $page) {
-                if (intval($page["parent_id"])==0) {
-                    $data[$page["id"]] = $page;
-                } else {
-                    $data[$page["parent_id"]]["children"][] = $page;
-                }
-            }
-        }
-        return $data;
-    }
-
-
-    public function isRecursiveParent( $primary_key , $parent_id){
-        // for loop check pk is same
-        $is_recursive = false;
-        $this->db->select('id');
-        $this->db->from('pages');
-        $this->db->where('is_deleted', 0);
-        $this->db->where('parent_id=',  $parent_id);
-        $query = $this->db->get();
-        if ($query->num_rows() > 0) {
-            foreach ($query->result_array() as $row) {
-               if($primary_key == $row["id"]){
-                    $is_recursive = true;
-               }
-            }
-        }
-        $query->free_result();
-        return $is_recursive;
-    }
 
     public function loadPagesDataTable()
     {
@@ -154,7 +119,7 @@ class Page_Model extends CI_Model
         $this->db->select("p.*, p.title_th as title_thai , p.title_en as title_eng ,(select title_en from pages where id=p.parent_id) as parent_title ");
         $this->db->from("pages p");
         $this->db->where("p.is_deleted =", 0);
-        $this->db->order_by("p.created_date", 'DESC');
+        $this->db->order_by("p.id", 'ASC');
         $query = $this->db->get();
 
         // echo $this->db->last_query();
@@ -163,8 +128,8 @@ class Page_Model extends CI_Model
                 $rows[] = array(
                     "id" => $row->id,
                     "name" => $row->name,
-                    "title" =>  (isEnglishLang())?$row->title_eng:$row->title_thai ,
-                    "parent_title" => $row->parent_title,
+                    "title_thai" =>  $row->title_thai ,
+                    "title_eng" =>  $row->title_eng ,
                     "published" => $row->published,
                     "updated_date" => Calendar::formatDateTimeToDDMMYYYY($row->updated_date)
                 );

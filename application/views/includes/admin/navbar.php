@@ -2,8 +2,6 @@
 $controller = $this->uri->segment(2);
 $fuc = $this->uri->segment(3);
 $role = $this->session->userdata('role_id');
-
-
 ?>
 
 <!-- Left side column. contains the logo and sidebar -->
@@ -22,26 +20,27 @@ $role = $this->session->userdata('role_id');
                 </a>
             </li>
 
+            <!--WebPages-->
+
             <!--Content-->
             <li class="treeview <?= ($controller == ARTICLE
                 || $controller == GALLERIES
                 || $controller == GALLERY_IMAGE
                 || $controller == SLIDE_SHOW
-                || $controller == CLIP
-                || $controller == CLIP_CATEGORY
-                || $controller == NEWS) ? "active" : "" ?>">
+                || $controller == PAGE) ? "active" : "" ?>">
+
                 <a href="#">
                     <i class="glyphicon glyphicon-pencil"></i> <span><?= $this->lang->line("menu_content"); ?></span>
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
-
-                    <!--News-->
-                    <li class="<?= (strcasecmp($controller, NEWS) == 0) ? "active" : "" ?>">
-                        <a href="<?= base_url(ADMIN_NEWS) ?>">
-                            <i class="<?= (strcasecmp($controller, NEWS) == 0) ? "fa fa-circle-o text-orange" : "fa fa-circle-o" ?>"></i>
-                            <?= $this->lang->line("menu_news"); ?></a>
+                    <!--Page-->
+                    <li class="<?= (strcasecmp($controller, PAGE) == 0) ? "active" : "" ?>">
+                        <a href="<?= base_url(ADMIN_PAGE) ?>">
+                            <i class="<?= (strcasecmp($controller, PAGE) == 0) ? "fa fa-circle-o text-orange" : "fa fa-circle-o" ?>"></i>
+                            <?= $this->lang->line("menu_content_pages"); ?></a>
                     </li>
+                    <!--News-->
 
                     <!--Article-->
                     <li class="<?= (strcasecmp($controller, ARTICLE) == 0) ? "active" : "" ?>">

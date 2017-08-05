@@ -97,11 +97,11 @@ class Slideshow_Model extends CI_Model
         }
     }
 
+
     public function delete($id)
     {
-        $data = array('is_deleted' => 1);
         $this->db->where('id', $id);
-        $this->db->update('slideshow', $data);
+        $this->db->delete('slideshow');
         if ($this->db->affected_rows() > 0) {
             return true;
         } else {

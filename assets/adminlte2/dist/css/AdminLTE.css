@@ -21,6 +21,18 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'Kanit-Medium';
+  src: url('../font/Kanit-Medium.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Kanit-Light";
+  src: url(../font/Kanit-Light.ttf) format("truetype");
+  font-weight: 300;
+  font-style: normal; }
+
 
 html,
 body {
@@ -33,7 +45,7 @@ body {
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family: 'CSChatThaiUI',Leelawadee, Helvetica, Arial, sans-serif;
+  font-family: 'Kanit-Light',Leelawadee, Helvetica, Arial, sans-serif;
   font-weight: 200;
   font-size: 15px;
   overflow-x: hidden;

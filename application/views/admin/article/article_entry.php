@@ -39,7 +39,7 @@
 
                 <div class="panel-body">
                     <div class="form-group ">
-                        <label class="col-sm-2 control-label"><?= $this->lang->line("pages_title"); ?></label>
+                        <label class="col-sm-2 control-label"><?= $this->lang->line("web_page"); ?></label>
                         <div class="col-md-7">
                             <div class="col-md-5 input-group dateinput-group date">
                                 <select class="form-control" id="page_id" name="page_id">
@@ -54,33 +54,88 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group required">
                         <label class="col-md-2  control-label"><?= $this->lang->line("article_publish_date"); ?></label>
                         <div class="col-md-7">
                             <div class='col-md-5 input-group date' id='datetimepicker_published_date'>
                                 <input type='text' class="form-control" name="published_date"
-                                       value="<?php echo setFormData($data , $key="published_date") ?>"/>
-                                 <span class="input-group-addon">
+                                       value="<?php echo setFormData($data, $key = "published_date") ?>"/>
+                                <span class="input-group-addon">
                                      <span class="glyphicon glyphicon-calendar"></span>
                             </div>
                         </div>
                     </div>
 
-                    <div class="form-group required ">
-                        <label class="col-md-2  control-label"><?= $this->lang->line("article_name"); ?></label>
+                    <div class="form-group ">
+                        <label class="col-md-2  control-label"><?= $this->lang->line("content"); ?></label>
                         <div class="col-md-8">
-                            <input type="text" id="name" name="name" placeholder="<?=isEnglishLang()?"Article name":"ชื่อบทความ"?>" class="form-control"
-                                   value="<?php echo setFormData( $data ,  $key="name" ); ?>">
+                            <ul class="nav nav-tabs">
+                                <li role="presentation" class="active"><a href="#tab1" aria-controls="tab1" data-toggle="tab">ไทย</a></li>
+                                <li role="presentation"><a href="#tab2" aria-controls="tab2"  data-toggle="tab">English</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <!--TAB Thai-->
+                                <div class="tab-pane active" id="tab1">
+                                    <br>
+                                    <div class="form-group required ">
+                                        <label class="col-md-12 label-required "><?= $this->lang->line("article_name"); ?></label>
+                                        <div class="col-md-12">
+                                            <input type="text" id="name_th" name="name_th" placeholder="ชื่อบทความ"
+                                                   class="form-control"
+                                                   value="<?php echo setFormData($data, $key = "name_th"); ?>">
+                                        </div>
+                                    </div>
+                                    <div class="form-group required ">
+                                        <label class="col-sm-12 label-required" for="TextArea"><?= $this->lang->line("short_description"); ?></label>
+                                        <div class="col-md-12">
+                                             <textarea id="title" name="title"
+                                                       placeholder="รายละเอียดบทความแบบย่อ"
+                                                       class="form-control"
+                                                       rows="3"><?php echo setFormData($data, $key = "title_th"); ?></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group required">
+                                        <label class="col-md-12 label-required" for="body"><?= $this->lang->line("description"); ?></label>
+                                        <div class="col-md-12 ">
+                                            <textarea name="body_th" id="body_th" class="form-control" rows="5"><?php echo setFormData($data, $key = "body"); ?></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--TAB Eng-->
+                                <div class="tab-pane fade" id="tab2">
+                                    <br>
+                                    <div class="form-group required ">
+                                        <label class="col-md-12 label-required"><?= $this->lang->line("article_name"); ?></label>
+                                        <div class="col-md-12">
+                                            <input type="text" id="name_en" name="name_en" placeholder="Article name"
+                                                   class="form-control"
+                                                   value="<?php echo setFormData($data, $key = "name_en"); ?>">
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group required ">
+                                        <label class="col-sm-12 label-required" for="TextArea"><?= $this->lang->line("short_description"); ?></label>
+                                        <div class="col-md-12">
+                                             <textarea id="title" name="title"
+                                                       placeholder="Short description of Article"
+                                                       class="form-control"
+                                                       rows="3"><?php echo setFormData($data, $key = "title_en"); ?></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group required">
+                                        <label class="col-md-12 label-required" for="body_en"><?= $this->lang->line("description"); ?></label>
+                                        <div class="col-md-12">
+                                        <textarea name="body_en" id="body_en" class="form-control" rows="5"><?php echo setFormData($data, $key = "body_en"); ?></textarea>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
                         </div>
                     </div>
 
-                    <div class="form-group required ">
-                        <label class="col-md-2  control-label"><?= $this->lang->line("short_description"); ?></label>
-                        <div class="col-md-8">
-                              <textarea id="title" name="title" placeholder="<?=isEnglishLang()?"Short description of Article":"รายละเอียดบทความแบบย่อ"?>" class="form-control"
-                                                             rows="3"><?php echo setFormData( $data ,  $key="title"); ?></textarea>
-                        </div>
-                    </div>
                     <div class="form-group ">
                         <label class="col-md-2  control-label"><?= $this->lang->line("upload_image"); ?></label>
                         <div class="col-md-8">
@@ -90,14 +145,6 @@
                         </div>
                     </div>
 
-                    <div class="form-group required">
-                        <label class="control-label col-md-2" for="body"><?= $this->lang->line("content"); ?></label>
-                        <div class="col-md-8">
-                           <textarea name="body" id="body" class="form-control"
-                                     rows="5"><?php echo setFormData( $data ,  $key="body"); ?>
-                                    </textarea>
-                        </div>
-                    </div>
 
                     <div class="form-group ">
                         <label class="col-md-2 control-label"><?= $this->lang->line("form_field_published"); ?></label>
@@ -142,6 +189,11 @@
 
         validateForm();
 
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+            var hash = $(e.target).attr("href");
+            $('.nav a').filter('a[href="'+hash+'"]').tab('show');
+        });
+
     });
 
     function setupDatePicker() {
@@ -156,7 +208,7 @@
         var external_filemanager_path = '<?=base_url("assets")?>/libraries/filemanager/';
         var filemanager = '<?=base_url("assets/libraries/filemanager/plugin.min.js")?>';
         tinymce.init({
-            selector: "#body", theme: "modern", height: 300,
+            selector: "#body_th,#body_en", theme: "modern", height: 300,
             relative_urls: false,
             remove_script_host: false,
             convert_urls: true,

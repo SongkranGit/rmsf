@@ -70,7 +70,7 @@ $config = array(
     | with start and final /
     |
     */
-    'upload_dir' => '/assets/uploads-files/',
+    'upload_dir' => '/uploads/',
 
     /*
     |--------------------------------------------------------------------------
@@ -80,7 +80,7 @@ $config = array(
     | with final /
     |
     */
-    'current_path' => '../../uploads-files/',
+    'current_path' => '../../../uploads/',
 
     /*
     |--------------------------------------------------------------------------
@@ -91,7 +91,7 @@ $config = array(
     | DO NOT put inside upload folder
     |
     */
-    'thumbs_base_path' => '../../thumbs-files/',
+    'thumbs_base_path' => '../../../uploads/',
 
     /*
     |--------------------------------------------------------------------------

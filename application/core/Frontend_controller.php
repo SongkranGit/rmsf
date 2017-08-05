@@ -17,18 +17,12 @@ class Frontend_Controller extends MY_Controller
 
         $this->load->model("Page_model");
 
-        $this->initNavigationBar();
-
         $this->setConfig();
 
         $this->setDefaultLanguage();
 
     }
 
-    private function initNavigationBar()
-    {
-        $this->data['menu'] = $this->Page_model->getNestedPages();
-    }
 
     private function setConfig()
     {

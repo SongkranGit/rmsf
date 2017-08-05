@@ -81,11 +81,19 @@ input[readonly] {
 }
 
 .form-group.required .control-label:before {
+     color: red;
+     content: "*";
+     position: absolute;
+     margin-left: -10px;
+     top: 5px;
+ }
+
+.form-group.required .label-required:before {
     color: red;
     content: "*";
     position: absolute;
     margin-left: -10px;
-    top: 5px;
+    top: 0px;
 }
 
 .form-group.required-vertical .control-label:after {

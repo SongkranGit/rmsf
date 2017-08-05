@@ -12,7 +12,7 @@
     <!-- Bootstrap 3.3.5 -->
     <link rel="stylesheet" href="<?= base_url("assets/adminlte2/bootstrap/css/bootstrap.min.css") ?>">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="<?= base_url("assets/font-awesome/css/font-awesome.min.css") ?>">
+    <link rel="stylesheet" href="<?= base_url("assets/adminlte2/plugins/font-awesome/css/font-awesome.min.css") ?>">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="<?= base_url("assets/adminlte2/dist/css/skins/_all-skins.min.css") ?>">
@@ -139,12 +139,12 @@
                         </a>
                         <ul class="dropdown-menu lang-selection">
                             <?php if ($this->session->userdata('language') == "thai") { ?>
-                                <li><a href="<?= base_url("admin/setting/switchLanguage/english") ?>"><img width="22" height="22"
-                                                                                                           src="<?= base_url("assets/images/flags/en.png") ?>">&nbsp;Eng</a>
+                                <li><a href="<?= base_url("admin/setting/switchLanguage/english") ?>">
+                                        <img width="22" height="22" src="<?= base_url("assets/images/flags/en.png") ?>">&nbsp;Eng</a>
                                 </li>
                             <?php } else { ?>
-                                <li><a href="<?= base_url("admin/setting/switchLanguage/thai") ?>"><img width="22" height="22"
-                                                                                                        src="<?= base_url("assets/images/flags/th.png") ?>">&nbsp;ไทย</a>
+                                <li><a href="<?= base_url("admin/setting/switchLanguage/thai") ?>">
+                                        <img width="22" height="22" src="<?= base_url("assets/images/flags/th.png") ?>">&nbsp;ไทย</a>
                                 </li>
                             <?php } ?>
                         </ul>

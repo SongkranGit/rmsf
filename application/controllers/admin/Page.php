@@ -12,7 +12,6 @@ class Page extends Admin_Controller
         $this->load->model("Page_model");
         $this->load->model("Gallery_model");
         $this->load->model("Article_model");
-        $this->load->model("Template_model");
     }
 
     public function index()
@@ -32,7 +31,6 @@ class Page extends Admin_Controller
                 $data = array(
                     "name" => trim($this->input->post("name")),
                     "parent_id" => trim($this->input->post("parent_id")),
-                    "template_id" => trim($this->input->post("template_id")),
                     "order" => $this->Page_model->getLatestOrderNumber() + 1,
                     "gallery_id" => $this->input->post("gallery_id"),
                     "published" => intval($this->input->post("published")),
@@ -66,7 +64,6 @@ class Page extends Admin_Controller
                     "action" => ACTION_CREATE,
                     "heading_text" => $this->lang->line("pages_button_add"),
                     "galleries" => $this->Gallery_model->getAll(),
-                    "templates" => $this->Template_model->getAll(),
                     "articles" => null,
                     "pages_no_parent" => $this->Page_model->getPagesWithoutParent(Null)
                 )
@@ -83,7 +80,6 @@ class Page extends Admin_Controller
             $data = array(
                 "name" => trim($this->input->post("name")),
                 "parent_id" => trim($this->input->post("parent_id")),
-                "template_id" => trim($this->input->post("template_id")),
                 "gallery_id" => $this->input->post("gallery_id"),
                 "published" => intval($this->input->post("published")),
                 "updated_date" => Calendar::currentDateTime()
@@ -109,7 +105,6 @@ class Page extends Admin_Controller
                     "action" => ACTION_UPDATE,
                     "heading_text" => $this->lang->line("pages_button_edit"),
                     "galleries" => $this->Gallery_model->getAll(),
-                    "templates" => $this->Template_model->getAll(),
                     "articles" => $this->Article_model->getArticleByPageId($page_id),
                     "pages_no_parent" => $this->Page_model->getPagesWithoutParent($page_id),
                     "row" => $this->Page_model->getById($page_id)
@@ -146,7 +141,7 @@ class Page extends Admin_Controller
         $this->load->library('form_validation');
 //        $this->form_validation->set_rules("parent_id", "ParentId", "trim|required");
         $this->form_validation->set_rules("name", "Name", "trim|required");
-//        $this->form_validation->set_rules("template", "Template", "trim|required");
+
         // $this->form_validation->set_rules("body", "Body", "trim|required");
         $this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
     }
@@ -163,26 +158,6 @@ class Page extends Admin_Controller
         return false;
     }
 
-    public function order()
-    {
-        $this->load->view("admin/pages/order_pages");
-    }
-
-    public function orderPageAjax()
-    {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $result = array('success' => false);
-            $pages = $this->input->post("sortable");
-            if ($pages != null && $pages != '') {
-                $result['success'] = $this->Page_model->saveOrderPages($pages);
-            }
-            echo json_encode($result);
-        } else {
-            $data["pages"] = $this->Page_model->getNestedPages();
-            // dump($data["pages"]);
-            $this->load->view("admin/pages/order_pages_ajax", $data);
-        }
-    }
 
     public function saveOrderPages()
     {

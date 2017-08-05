@@ -27,6 +27,9 @@ $lang['short_description'] 	  	        = 'Short Description';
 $lang['show_on_home_page'] 	  	        = 'Show on Home page';
 $lang['show'] 	  	                    = 'Show';
 $lang['not_show'] 	  	                = 'Not show';
+$lang['information'] 	  	            = 'Information';
+$lang['description'] 	  	            = 'Description';
+$lang['web_page'] 	  	                = 'Web Page';
 
 //Menu
 $lang['menu_main'] 	  	                = 'Main Menu';
@@ -108,16 +111,7 @@ $lang['article_image'] 	                    = 'Image';
 $lang['article_publish_date'] 	            = 'Publication date';
 $lang['article_category'] 	                = 'Article Category';
 
-// Clip
-$lang['clip_title'] 	  	                = 'Clip';
-$lang['clip_list'] 	                        = 'Clips';
-$lang['clip_button_add'] 	                = 'Add Clip';
-$lang['clip_title_add'] 	                = 'Add Clip';
-$lang['clip_title_edit'] 	                = 'Edit Clip';
-$lang['clip_name'] 	                        = 'Name';
-$lang['clip_description'] 	                = 'Description';
-$lang['clip_publish_date'] 	                = 'Publication date';
-$lang['clip_link'] 	                        = 'Link';
+
 
 // Dashboard
 $lang['dashboard_title'] 	  	            = 'Dashboard';
@@ -284,6 +278,3 @@ $lang['settings_twitter_link'] 	                = 'Twitter link';
 $lang['settings_instargram_link'] 	            = 'Instargram link';
 $lang['settings_vision'] 	                    = 'Vision';
 
-//Student
-$lang['student_title'] 	  	                    = 'Students';
-$lang['student_list'] 	                        = 'Students';

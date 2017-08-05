@@ -71,16 +71,6 @@
                         </div>
                         <span class="divider"></span>
                     </div>
-                    <div class="row">
-                        <div class="col-md-4 form-group ">
-                            <label class="control-label"><?= $this->lang->line("user_external_login"); ?></label>
-                        </div>
-                        <div class="col-md-8 form-group ">
-                            <?php if ( isset($data["facebook_id"]) && ($data["facebook_id"] != NULL && $data["facebook_id"] !="")): ?>
-                               <img src="<?=base_url("assets/images/facebook_icon.png")?>">
-                            <?php endif; ?>
-                        </div>
-                    </div>
                 </div>
             </div>
             <div class="panel-footer">

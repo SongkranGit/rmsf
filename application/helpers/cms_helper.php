@@ -188,3 +188,28 @@ if (!function_exists('IsExistFile')) {
     }
 }
 
+if(!function_exists('setHeaderClass')){
+  function setHeaderClass($action){
+      if($action == 'create'){
+          $class = 'heading-create';
+      }else if($action == 'update'){
+          $class = 'heading-update';
+      }else{
+          $class = 'heading-show';
+      }
+      return $class;
+  }
+}
+
+if(!function_exists('setHeaderIcon')){
+    function setHeaderIcon($action){
+        if($action == 'create'){
+            $icon = 'fa fa-plus-circle';
+        }else if($action == 'update'){
+            $icon = 'fa fa-edit';
+        }else{
+            $icon = 'fa fa-info-circle';
+        }
+        return $icon;
+    }
+}

@@ -110,10 +110,10 @@
 
                 <div class="panel-body">
                     <div class="form-group required ">
-                        <label class="col-md-1  control-label"><?= $this->lang->line("slideshow_image"); ?></label>
-                        <div class="col-md-11">
+                        <label class="col-md-2  control-label"><?= $this->lang->line("slideshow_image"); ?></label>
+                        <div class="col-md-8">
                             <div class="row">
-                                <div class="col-md-7">
+                                <div class="col-md-12">
                                     <div class="img-container">
                                         <img id="image">
                                     </div>
@@ -126,17 +126,20 @@
                                        <span class="fa fa-upload"> เลือกรูป</span>
                                    </span>
                                     </label>
-
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="img-preview text-center"></div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
+                    <div class="form-group">
+                        <label class="col-md-2  control-label"><?= $this->lang->line("caption"); ?></label>
+                        <div class="col-md-8">
+                            <div class="img-preview text-center"></div>
+                        </div>
+                    </div>
+
                     <div class="form-group ">
-                        <label class="col-md-1  control-label"><?= $this->lang->line("slideshow_description"); ?></label>
+                        <label class="col-md-2  control-label"><?= $this->lang->line("caption"); ?></label>
                         <div class="col-md-8">
                             <ul class="nav nav-tabs">
                                 <li role="presentation" class="active"><a href="#tab1" data-toggle="tab">Thai</a></li>
@@ -146,12 +149,12 @@
                                 <div class="tab-pane active" id="tab1">
                                     <br>
                                     <textarea name="description_th" id="description_th" class="form-control"
-                                              rows="5"><?= (isset($data["row"]["description_th"]) ? $data["row"]["description_th"] : "") ?></textarea>
+                                              rows="3"><?= (isset($data["row"]["description_th"]) ? $data["row"]["description_th"] : "") ?></textarea>
                                 </div>
                                 <div class="tab-pane fade" id="tab2">
                                     <br>
                                    <textarea name="description_en" id="description_en" class="form-control"
-                                             rows="5"><?= (isset($data["row"]["description_en"]) ? $data["row"]["description_en"] : "") ?></textarea>
+                                             rows="3"><?= (isset($data["row"]["description_en"]) ? $data["row"]["description_en"] : "") ?></textarea>
                                 </div>
                             </div>
 
@@ -159,7 +162,7 @@
                     </div>
 
                     <div class="form-group ">
-                        <label class="col-md-1 control-label"><?= $this->lang->line("form_field_published"); ?></label>
+                        <label class="col-md-2 control-label"><?= $this->lang->line("form_field_published"); ?></label>
                         <div class="col-md-2">
                             <select class="form-control" id="published" name="published">
                                 <option
@@ -197,8 +200,6 @@
 
         initValidation();
 
-        initialTinyMCE();
-
         initView();
 
     });
@@ -215,27 +216,6 @@
 
         $('form').submit(function () {
             $(this).find(':submit').attr('disabled', 'disabled');
-        });
-    }
-
-    function initialTinyMCE() {
-        tinymce.init({
-            selector: "textarea", theme: "modern",
-            relative_urls: false,
-            remove_script_host: false,
-            convert_urls: true,
-            setup: function (editor) {
-                editor.on('change', function () {
-                    editor.save();
-                });
-            },
-            plugins: [
-                "advlist autolink link image lists charmap print preview hr anchor pagebreak",
-                "searchreplace wordcount visualblocks visualchars insertdatetime media nonbreaking",
-                "table contextmenu directionality emoticons paste textcolor responsivefilemanager code"
-            ],
-            toolbar1: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | print preview code   ',
-            image_advtab: true,
         });
     }
 

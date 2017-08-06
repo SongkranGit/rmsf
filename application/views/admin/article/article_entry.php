@@ -19,7 +19,7 @@
             <span><?= $this->lang->line("article_title"); ?></span>
         </h1>
         <div class="group-buttons-right">
-            <ul class="nav nav-pills">
+            <ul class="nav nav-pills ">
                 <li>
                     <a href="<?= base_url(ADMIN_ARTICLE) ?>"> <i class="fa fa-list"></i><?= $this->lang->line("article_list"); ?></a>
                 </li>
@@ -30,9 +30,9 @@
     <section class="content">
         <form id="form_article_entry" role="form" class="form-horizontal">
             <div class="panel panel-default">
-                <div class="panel-heading <?php echo ($data["action"] === "create") ? "heading-create" : "heading-update"; ?>">
+                <div class="panel-heading <?php echo setHeaderClass($data['action'])?>">
                 <span>
-                    <i class="<?php echo ($data["action"] === "create") ? "fa fa-plus-circle " : "fa fa-edit"; ?>"></i>
+                    <i class="<?php echo setHeaderIcon($data['action'])?>"></i>
                     <?= $data["heading_text"] ?>
                 </span>
                 </div>
@@ -66,6 +66,7 @@
                         </div>
                     </div>
 
+
                     <div class="form-group ">
                         <label class="col-md-2  control-label"><?= $this->lang->line("content"); ?></label>
                         <div class="col-md-8">
@@ -86,18 +87,18 @@
                                         </div>
                                     </div>
                                     <div class="form-group required ">
-                                        <label class="col-sm-12 label-required" for="TextArea"><?= $this->lang->line("short_description"); ?></label>
+                                        <label class="col-sm-12 label-required" for="TextArea"><?= $this->lang->line("description"); ?></label>
                                         <div class="col-md-12">
-                                             <textarea id="title" name="title"
-                                                       placeholder="รายละเอียดบทความแบบย่อ"
+                                             <textarea id="description_th" name="description_th"
+                                                       placeholder="คำอธิบาย"
                                                        class="form-control"
-                                                       rows="3"><?php echo setFormData($data, $key = "title_th"); ?></textarea>
+                                                       rows="3"><?php echo setFormData($data, $key = "description_th"); ?></textarea>
                                         </div>
                                     </div>
                                     <div class="form-group required">
-                                        <label class="col-md-12 label-required" for="body"><?= $this->lang->line("description"); ?></label>
+                                        <label class="col-md-12 label-required" for="body"><?= $this->lang->line("detail"); ?></label>
                                         <div class="col-md-12 ">
-                                            <textarea name="body_th" id="body_th" class="form-control" rows="5"><?php echo setFormData($data, $key = "body"); ?></textarea>
+                                            <textarea name="detail_th" id="detail_th" class="form-control" rows="5"><?php echo setFormData($data, $key = "detail_th"); ?></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -114,19 +115,19 @@
 
                                     </div>
                                     <div class="form-group required ">
-                                        <label class="col-sm-12 label-required" for="TextArea"><?= $this->lang->line("short_description"); ?></label>
+                                        <label class="col-sm-12 label-required" for="TextArea"><?= $this->lang->line("description"); ?></label>
                                         <div class="col-md-12">
-                                             <textarea id="title" name="title"
-                                                       placeholder="Short description of Article"
+                                             <textarea id="description_en" name="description_en"
+                                                       placeholder="Article decription"
                                                        class="form-control"
-                                                       rows="3"><?php echo setFormData($data, $key = "title_en"); ?></textarea>
+                                                       rows="3"><?php echo setFormData($data, $key = "description_en"); ?></textarea>
                                         </div>
                                     </div>
 
                                     <div class="form-group required">
-                                        <label class="col-md-12 label-required" for="body_en"><?= $this->lang->line("description"); ?></label>
+                                        <label class="col-md-12 label-required" for="body_en"><?= $this->lang->line("detail"); ?></label>
                                         <div class="col-md-12">
-                                        <textarea name="body_en" id="body_en" class="form-control" rows="5"><?php echo setFormData($data, $key = "body_en"); ?></textarea>
+                                        <textarea name="detail_en" id="detail_en" class="form-control" rows="5"><?php echo setFormData($data, $key = "detail_en"); ?></textarea>
                                         </div>
                                     </div>
 
@@ -136,10 +137,10 @@
                         </div>
                     </div>
 
-                    <div class="form-group ">
+                    <div class="form-group " id="div_upload">
                         <label class="col-md-2  control-label"><?= $this->lang->line("upload_image"); ?></label>
                         <div class="col-md-8">
-                            <div id="dZUpload" class="dropzone">
+                            <div id="dZUpload" class="dropzone" >
                                 <div class="dz-default dz-message"></div>
                             </div>
                         </div>
@@ -189,10 +190,7 @@
 
         validateForm();
 
-        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-            var hash = $(e.target).attr("href");
-            $('.nav a').filter('a[href="'+hash+'"]').tab('show');
-        });
+        showDetail();
 
     });
 
@@ -208,7 +206,7 @@
         var external_filemanager_path = '<?=base_url("assets")?>/libraries/filemanager/';
         var filemanager = '<?=base_url("assets/libraries/filemanager/plugin.min.js")?>';
         tinymce.init({
-            selector: "#body_th,#body_en", theme: "modern", height: 300,
+            selector: "#detail_th,#detail_en", theme: "modern", height: 300,
             relative_urls: false,
             remove_script_host: false,
             convert_urls: true,
@@ -216,6 +214,8 @@
                 editor.on('change', function () {
                     editor.save();
                 });
+                if($('#'+editor.id).attr('readonly'))
+                    editor.settings.readonly = true;
             },
             plugins: [
                 "advlist autolink link image lists charmap print preview hr anchor pagebreak",
@@ -228,39 +228,6 @@
             external_filemanager_path: external_filemanager_path,
             filemanager_title: "Responsive Filemanager",
             external_plugins: {"filemanager": filemanager}
-        });
-    }
-
-    function validateForm() {
-        validator = $('#form_article_entry').validate({
-            rules: {
-                published_date: "required",
-                title: "required",
-                name: "required"
-            },
-            messages: {
-                published_date: '<?php echo $this->lang->line("message_this_field_is_require");?>',
-                title: '<?php echo $this->lang->line("message_this_field_is_require");?>',
-                name: '<?php echo $this->lang->line("message_this_field_is_require");?>'
-            },
-            highlight: function (element) {
-                $(element).closest('.form-group').addClass('has-error');
-            },
-            unhighlight: function (element) {
-                $(element).closest('.form-group').removeClass('has-error');
-            },
-            errorElement: 'span',
-            errorClass: 'help-block',
-            errorPlacement: function (error, element) {
-                if (element.parent('.input-group').length) {
-                    error.insertAfter(element.parent());
-                } else {
-                    error.insertAfter(element);
-                }
-            },
-            submitHandler: function (form) {
-                save();
-            }
         });
     }
 
@@ -355,6 +322,52 @@
         });
 
         $('div.dz-preview .dz-size').hide();
+    }
+
+    function validateForm() {
+        validator = $('#form_article_entry').validate({
+            rules: {
+                published_date: "required",
+                description_en: "required",
+                description_th: "required",
+                name_en: "required",
+                name_th: "required"
+            },
+            messages: {
+                published_date: '<?php echo $this->lang->line("message_this_field_is_require");?>',
+                description_en: '<?php echo $this->lang->line("message_this_field_is_require");?>',
+                description_th: '<?php echo $this->lang->line("message_this_field_is_require");?>',
+                name_en: '<?php echo $this->lang->line("message_this_field_is_require");?>',
+                name_th: '<?php echo $this->lang->line("message_this_field_is_require");?>'
+            },
+            highlight: function (element) {
+                $(element).closest('.form-group').addClass('has-error');
+            },
+            unhighlight: function (element) {
+                $(element).closest('.form-group').removeClass('has-error');
+            },
+            errorElement: 'span',
+            errorClass: 'help-block',
+            errorPlacement: function (error, element) {
+                if (element.parent('.input-group').length) {
+                    error.insertAfter(element.parent());
+                } else {
+                    error.insertAfter(element);
+                }
+            },
+            submitHandler: function (form) {
+                save();
+            }
+        });
+    }
+
+    function showDetail() {
+        var isShowData = '<?=array_key_exists ('is_show_data' , $data)?>';
+        if(isShowData){
+            $("form :input").attr("disabled","disabled");
+            $('#detail_th,#detail_en').prop('readonly', true);
+            $('#dZUpload').css( 'pointer-events', 'none' );
+        }
     }
 
     function save() {

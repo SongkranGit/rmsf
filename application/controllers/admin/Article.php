@@ -16,6 +16,7 @@ class Article extends Admin_Controller
         $this->load->model("Page_model");
         $this->load->library("Uuid");
         $this->upload_path = realpath(APPPATH . '../uploads/article');
+
     }
 
     public function index()
@@ -26,7 +27,17 @@ class Article extends Admin_Controller
 
     public function create()
     {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if ($_SERVER["REQUEST_METHOD"] == "GET") {
+            $view_data = array(
+                "data" => array(
+                    "action" => ACTION_CREATE,
+                    "pages" => $this->Page_model->getAll(),
+                    "heading_text" => $this->lang->line("article_title_add")
+                )
+            );
+            $this->load->view("admin/article/article_entry", $view_data);
+
+        } else  if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $result = array('success' => false, 'messages' => array());
 
             $this->validateForm();
@@ -34,21 +45,16 @@ class Article extends Admin_Controller
             if ($this->form_validation->run()) {
                 $data = array(
                     "page_id" => $this->input->post("page_id"),
+                    "description_th" => $this->input->post("description_th"),
+                    "description_en" => $this->input->post("description_en"),
+                    "name_th" => $this->input->post("name_th"),
+                    "name_en" => $this->input->post("name_en"),
+                    "detail_th" => $this->input->post("detail_th"),
+                    "detail_en" => $this->input->post("detail_en"),
                     "published" => intval($this->input->post("published")),
                     "published_date" => Calendar::con2MysqlDate($this->input->post("published_date")),
                     "created_date" => Calendar::currentDateTime()
                 );
-
-                // Check language
-                if(isEnglishLang()){
-                    $data["title_en"] = $this->input->post("title");
-                    $data["name_en"] = $this->input->post("name");
-                    $data["body_en"] = $this->input->post("body");
-                }else{
-                    $data["title_th"] = $this->input->post("title");
-                    $data["name_th"] = $this->input->post("name");
-                    $data["body_th"] = $this->input->post("body");
-                }
 
                 $isSuccess = $this->Article_model->save($data);
                 if ($isSuccess) {
@@ -65,16 +71,6 @@ class Article extends Admin_Controller
 
             // response to client
             echo json_encode($result);
-
-        } else {
-            $view_data = array(
-                "data" => array(
-                    "action" => ACTION_CREATE,
-                    "pages" => $this->Page_model->getAll(),
-                    "heading_text" => $this->lang->line("article_title_add")
-                )
-            );
-            $this->load->view("admin/article/article_entry", $view_data);
         }
     }
 
@@ -88,21 +84,16 @@ class Article extends Admin_Controller
             if ($this->form_validation->run()) {
                 $data = array(
                     "page_id" => $this->input->post("page_id"),
+                    "description_th" => $this->input->post("description_th"),
+                    "description_en" => $this->input->post("description_en"),
+                    "name_th" => $this->input->post("name_th"),
+                    "name_en" => $this->input->post("name_en"),
+                    "detail_th" => $this->input->post("detail_th"),
+                    "detail_en" => $this->input->post("detail_en"),
                     "published_date" => $this->input->post("published_date"),
                     "published" => intval($this->input->post("published")),
                     "updated_date" => Calendar::currentDateTime()
                 );
-
-                // Check language
-                if(isEnglishLang()){
-                    $data["title_en"] = $this->input->post("title");
-                    $data["name_en"] = $this->input->post("name");
-                    $data["body_en"] = $this->input->post("body");
-                }else{
-                    $data["title_th"] = $this->input->post("title");
-                    $data["name_th"] = $this->input->post("name");
-                    $data["body_th"] = $this->input->post("body");
-                }
 
                 $isSuccess = $this->Article_model->update($data, $article_id);
                 if ($isSuccess) {
@@ -126,6 +117,23 @@ class Article extends Admin_Controller
                     "heading_text" => $this->lang->line("article_title_edit"),
                     "pages" => $this->Page_model->getAll(),
                     "article_id" => $article_id,
+                    "row" => $arr_result
+                )
+            );
+            $this->load->view("admin/article/article_entry", $view_data);
+        }
+    }
+
+    public function show($id){
+        if($id != null){
+            $arr_result = $this->Article_model->getById($id);
+            $view_data = array(
+                "data" => array(
+                    "action" => ACTION_SHOW,
+                    "heading_text" => $this->lang->line("show_data_info"),
+                    "pages" => $this->Page_model->getAll(),
+                    "is_show_data"=> true,
+                    "article_id" => $id,
                     "row" => $arr_result
                 )
             );
@@ -164,7 +172,8 @@ class Article extends Admin_Controller
     {
         $this->load->library('form_validation');
         $this->form_validation->set_rules("published_date", "Publish Date", "trim|required");
-        $this->form_validation->set_rules("name", "Name", "trim|required");
+        $this->form_validation->set_rules("name_th", "Name", "trim|required");
+        $this->form_validation->set_rules("description_th", "Description", "trim|required");
         $this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
     }
 

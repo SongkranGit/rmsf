@@ -101,6 +101,8 @@ define('ACTION_CREATE' , 'create');
 define('ACTION_UPDATE' , 'update');
 define('ACTION_DELETE' , 'delete');
 define('ACTION_UPLOAD' , 'upload');
+define('ACTION_SHOW' , 'show');
+
 
 define('DASHBOARD' , 'Dashboard');
 define('USER' , 'User');

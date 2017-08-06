@@ -33,10 +33,10 @@
                                 <tr>
                                     <th><?=$this->lang->line("table_seq");?></th>
                                     <th><?=$this->lang->line("slideshow_name");?></th>
-                                    <th><?=$this->lang->line("slideshow_description");?>(Thai)</th>
-                                    <th><?=$this->lang->line("slideshow_description");?>(Eng)</th>
-                                    <th><?=$this->lang->line("table_published");?></th>
-                                    <th><?=$this->lang->line("table_order");?></th>
+                                    <th><?=$this->lang->line("caption");?> (ไทย)</th>
+                                    <th><?=$this->lang->line("caption");?> (Eng)</th>
+                                    <th class="text-center"><?=$this->lang->line("table_published");?></th>
+                                    <th class="text-center"><?=$this->lang->line("table_order");?></th>
                                     <th></th>
                                 </tr>
                                 </thead>
@@ -72,22 +72,22 @@
                     }
                 }
             },
-            {data: "description_th", "sClass": "text", "sWidth": "20%"},
-            {data: "description_en", "sClass": "text", "sWidth": "20%"},
+            {data: "description_th", "sClass": "text", "sWidth": "25%"},
+            {data: "description_en", "sClass": "text", "sWidth": "25%"},
             {
                 orderable: false, "sWidth": "10%",
                 mRender: function (data, type, row) {
                     if(parseInt(row.published) == 1){
-                        return '<h4><span class=\"label label-success\" >' + '<?=$this->lang->line("form_field_published");?>' + '</span></h4>';
+                        return '<h4 class=text-center><span class=\"label label-success\" >' + '<?=$this->lang->line("form_field_published");?>' + '</span></h4>';
                     }
-                    return '<h4><span class=\"label label-danger\" >' + '<?=$this->lang->line("form_field_unpublished");?>'+ '</span></h4>';
+                    return '<h4 class=text-center><span class=\"label label-danger\" >' + '<?=$this->lang->line("form_field_unpublished");?>'+ '</span></h4>';
                 }
             },
             {
                 orderable: false, "sWidth": "5%",
                 mRender: function (data, type, row) {
                     var value_order = (row.order_seq!=null && row.order_seq != '')?row.order_seq:1;
-                    return  '<input type="number" onblur="updateOrderSeq(this , '+row.id+')" value="'+value_order+'" class="form-control" name="order" step="1" min="1" style="width: 60px" >';
+                    return  '<div class="text-center"><input type="number" onblur="updateOrderSeq(this , '+row.id+')" value="'+value_order+'" class="form-control" name="order" step="1" min="1" style="width: 60px" ></div>';
                 }
             },
             {

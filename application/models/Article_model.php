@@ -127,7 +127,7 @@ class Article_Model extends CI_Model
     {
         $data = array();
         $rows = array();
-        $this->db->select("a.* , p.id as page_id , p.title_th as page_name_th , p.title_en as page_name_en ");
+        $this->db->select("a.* , p.id as page_id   , p.title_en as page_name ");
         $this->db->from("articles a");
         $this->db->join("pages p", "p.id = a.page_id");
         $this->db->where("a.is_deleted ", 0);
@@ -141,9 +141,9 @@ class Article_Model extends CI_Model
                 $rows[] = array(
                     "id" => $row->id,
                     "page_id" => $row->page_id,
-                    "page_name" => (isEnglishLang())?$row->page_name_en:$row->page_name_th,
-                    "name" =>  (isEnglishLang())?$row->name_en:$row->name_th,
-                    "title" => (isEnglishLang())?character_limiter($row->title_en  , 100):character_limiter( $row->title_th, 100),
+                    "page_name" => $row->page_name,
+                    "name_th" =>  $row->name_th,
+                    "name_en" =>  $row->name_en,
                     "order_seq" => $row->order_seq,
                     "published_date" => Calendar::formatDateToDDMMYYYY($row->published_date),
                     "published" => $row->published,

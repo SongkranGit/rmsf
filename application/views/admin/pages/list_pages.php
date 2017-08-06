@@ -10,10 +10,11 @@
         <div class="group-buttons-right">
             <ul class="nav nav-pills">
                 <li>
-                    <?php if($this->session->userdata('role_id') == ROLE_SYSTEM_ADMIN): ?>
-                    <a href="<?= base_url(ADMIN_PAGE . "/create") ?>"> <i
-                            class="fa fa-plus-circle fa-1x"></i><?= $this->lang->line("pages_button_add"); ?></a>
-                    <?php endif;?>
+                    <?php if ($this->session->userdata('role_id') == ROLE_SYSTEM_ADMIN): ?>
+                        <a href="<?= base_url(ADMIN_PAGE . "/create") ?>"> <i
+                                    class="fa fa-plus-circle fa-1x"></i><?= $this->lang->line("pages_button_add"); ?>
+                        </a>
+                    <?php endif; ?>
                 </li>
             </ul>
         </div>
@@ -40,7 +41,7 @@
                         <div class="col-md-4 ">
                             <div class="form-group">
                                 <label class="col-md-5 control-label text-right"><?= $this->lang->line("pages_title"); ?>
-                                    </label>
+                                </label>
                                 <div class="col-md-7">
                                     <input class="form-control" type="text" id="title">
                                 </div>
@@ -61,7 +62,7 @@
                         <div class="col-md-4 ">
                             <div class="form-group ">
                                 <label
-                                    class="col-md-5 control-label text-right"><?= $this->lang->line("form_field_published"); ?></label>
+                                        class="col-md-5 control-label text-right"><?= $this->lang->line("form_field_published"); ?></label>
                                 <div class="col-md-7">
                                     <select class="form-control" id="published" name="published">
                                         <option value=""></option>
@@ -76,7 +77,7 @@
                     <div class="box-footer">
                         <div class="text-center">
                             <button type="button" id="btn_search" onclick="search()" class="btn btn-primary "><i
-                                    class="fa fa-search"></i> <?= $this->lang->line("button_search"); ?>
+                                        class="fa fa-search"></i> <?= $this->lang->line("button_search"); ?>
                             </button>
                             <button id="btn_clear_search" onclick="clearTextSearch()" type="button"
                                     class="btn btn-default">
@@ -101,14 +102,16 @@
                                 <thead>
                                 <tr>
                                     <th class="text-center"><?= $this->lang->line("table_seq"); ?></th>
-                                    <th class="text-center"><?= $this->lang->line("pages_title"); ?>(ไทย)</th>
-                                    <th class="text-center"><?= $this->lang->line("pages_title"); ?>(Eng)</th>
+                                    <th ><?= $this->lang->line("pages_title"); ?> (ไทย)</th>
+                                    <th ><?= $this->lang->line("pages_title"); ?> (Eng)</th>
                                     <th class="text-center"><?= $this->lang->line("table_last_update"); ?></th>
                                     <th class="text-center"><?= $this->lang->line("table_record_status"); ?></th>
                                     <th class="text-center">
-                                        <button type="button" id="btn_search" onclick="setVisibleSearchPanel()" class="btn btn-primary ">
+                                        <button type="button" id="btn_search" onclick="setVisibleSearchPanel()"
+                                                class="btn btn-primary ">
                                             <i class="fa fa-search"></i>
-                                        </button></th>
+                                        </button>
+                                    </th>
                                 </tr>
                                 </thead>
                             </table>
@@ -176,7 +179,7 @@
                 mRender: function (data, type, row) {
                     var btnEdit = '<a href=<?=base_url(ADMIN_PAGE)?>/update/' + row.id + '  class="btn btn-warning glyphicon glyphicon-pencil" data-toggle="tooltip" data-placement="top" title="แก้ไขข้อมูล"></a>';
                     var btnDelete = ' <a href="javascript:void(0)" onclick=deleteData(' + row.id + ') class=\"button_delete btn btn-danger glyphicon glyphicon-trash\" data-toggle="tooltip" data-placement="top" title="ลบข้อมูล"></a>';
-                    return '<div class="text-center">'+ btnEdit + '&nbsp;' + btnDelete +'</div>';
+                    return '<div class="text-center">' + btnEdit + '&nbsp;' + btnDelete + '</div>';
                 }
             },
             {data: "published", "sClass": "text", "visible": false},
@@ -254,7 +257,7 @@
 
         dataTable
             .column(1).search(title)
-            .column(columnCont-3).search(datetimepicker)
+            .column(columnCont - 3).search(datetimepicker)
             .column(columnCont).search(published)
             .draw();
     }
@@ -265,14 +268,13 @@
         $('#title').val('');
     }
 
-    function setVisibleSearchPanel(){
-        if($('#div_search_panel').is(":visible")){
+    function setVisibleSearchPanel() {
+        if ($('#div_search_panel').is(":visible")) {
             $('#div_search_panel').hide();
-        }else{
+        } else {
             $('#div_search_panel').show();
         }
     }
-
 
 
 </script>

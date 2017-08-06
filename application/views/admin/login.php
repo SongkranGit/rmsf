@@ -195,29 +195,12 @@
                             </div>
                         </div>
 
-                       <!-- <div class="row">
-                            <div class="col-sm-12 col-md-10  col-md-offset-1 ">
-                                <div class="form-group">
-                                    <?php /*if($this->facebook->logged_in()):*/?>
-                                        <a href="javascript:loginWithFacebook();" class="btn btn-block btn-social btn-facebook">
-                                            <span class="fa fa-facebook"></span> Login
-                                        </a>
-                                    <?php /*else:*/?>
-                                        <a href="<?php /*echo $this->facebook->login_url()*/?>" class="btn btn-block btn-social btn-facebook">
-                                            <span class="fa fa-facebook"></span> Login
-                                        </a>
-                                    <?php /*endif;*/?>
-
-                                </div>
-                            </div>
-                        </div>-->
-
                     </form>
                 </div>
                 <div class="panel-footer ">
                     <p class="copyright">
-                        Powered by <a href="http://www.modernsofttech.com/" title="ModernSoftTech">ModernSoftTech CMS</a><br>
-                        Copyright © 2016
+                        Powered by <a href="http://www.modernsofttech.com/" title="ModernSoftTech">ModernSoft Technology</a>
+                       <span class="pull-right">Copyright © 2017</span>
                     </p>
                 </div>
             </div>

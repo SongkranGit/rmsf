@@ -30,6 +30,9 @@ $lang['not_show'] 	  	                = 'Not show';
 $lang['information'] 	  	            = 'Information';
 $lang['description'] 	  	            = 'Description';
 $lang['web_page'] 	  	                = 'Web Page';
+$lang['detail'] 	  	                = 'Detail';
+$lang['show_data_info'] 	  	        = 'Data information';
+$lang['caption']                        = 'Caption';
 
 //Menu
 $lang['menu_main'] 	  	                = 'Main Menu';
@@ -169,8 +172,8 @@ $lang['pages_button_edit'] 	  	        = 'Edit Page';
 $lang['pages_title_information'] 	    = 'Page Information';
 $lang['pages_title_order_pages'] 	    = 'Order Pages';
 $lang['pages_heading_order_pages'] 	    = 'Order Pages';
-$lang['pages_title'] 	                = 'Web page';
-$lang['pages_name'] 	                = 'Name';
+$lang['pages_title'] 	                = 'Page Title';
+$lang['pages_name'] 	                = 'Page Name';
 $lang['pages_body'] 	                = 'Body';
 $lang['pages_image'] 	                = 'Image';
 $lang['pages_parent'] 	                = 'Parent';

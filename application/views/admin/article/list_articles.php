@@ -19,7 +19,7 @@
     <!-- Main content -->
     <section class="content">
         <!--Row Search-->
-        <div class="row">
+        <div class="row" id="div_search_panel">
             <div class="col-xs-12">
                 <div class="box box-info box-solid ">
                     <div class="box-header">
@@ -29,7 +29,6 @@
                                     data-toggle="tooltip" title="Collapse" style="margin-right: 5px;">
                                 <i class="fa fa-plus" style="font-size: large"></i></button>
                         </div><!-- /. tools -->
-                        <i class="fa fa-search"></i>
                         <h3 class="box-title">
                             <?= $this->lang->line("button_search"); ?>
                         </h3>
@@ -73,7 +72,7 @@
                     </div><!-- /.box-body-->
 
                     <div class="box-footer">
-                        <div class="pull-right">
+                        <div class="text-center">
                             <button id="btn_search" type="button" onclick="search()" class="btn btn-primary "><i
                                     class="fa fa-search"></i> <?= $this->lang->line("button_search"); ?>
                             </button>
@@ -95,17 +94,23 @@
                     <!--Body-->
                     <div class="box-body">
                         <div class="dataTable_wrapper">
-                            <table class="table table-striped table-bordered table-hover" id="articles_datatable">
+                            <table class="table table-striped table-bordered table-hover " id="articles_datatable">
                                 <thead>
                                 <tr>
                                     <th><?= $this->lang->line("table_seq"); ?></th>
-                                    <th><?= $this->lang->line("pages_title"); ?></th>
-                                    <th><?= $this->lang->line("article_name"); ?></th>
-                                    <th><?= $this->lang->line("short_description"); ?></th>
+                                    <th><?= $this->lang->line("web_page"); ?></th>
+                                    <th><?= $this->lang->line("article_name");?> (ไทย)</th>
+                                    <th><?= $this->lang->line("article_name");?> (English)</th>
                                     <th><?= $this->lang->line("article_publish_date"); ?></th>
                                     <th><?= $this->lang->line("table_order"); ?></th>
                                     <th><?= $this->lang->line("table_record_status"); ?></th>
-                                    <th style="150px" class="text-center"></th>
+                                    <th class="text-center">
+                                        <button type="button" id="btn_search" onclick="setVisibleSearchPanel()"
+                                                data-toggle="tooltip" data-placement="top" title="แสดงการค้นหา"
+                                                class="btn btn-primary ">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                    </th>
                                 </tr>
                                 </thead>
                             </table>
@@ -140,6 +145,8 @@
         loadArticlesDataTable();
 
         setupKeyEnterSearch();
+
+        setVisibleSearchPanel();
     });
 
     function setupKeyEnterSearch() {
@@ -154,12 +161,12 @@
         var columns = [
             {data: null, "sClass": "right", "bSortable": false, "sWidth": "3%"}, //1st column
             {data: "page_name", "sClass": "text", "sWidth": "10%"},
-            {data: "name", "sClass": "text", "sWidth": "15%"},
-            {data: "title", "sClass": "text", "sWidth": "20%"},
+            {data: "name_th", "sClass": "text", "sWidth": "15%"},
+            {data: "name_en", "sClass": "text", "sWidth": "15%"},
             {data: "published_date", "sClass": "text", "sWidth": "10%"},
             {data: "sequence", "sClass": "text", "sWidth": "5%"},
             {data: "status", "sClass": "text", "sWidth": "5%"},
-            {sClass: "text", "sWidth": "7%"},
+            {sClass: "text", "sWidth": "10%"},
             {data: "published", "sClass": "text", "visible": false},
             {data: "page_id", "sClass": "text", "visible": false},
         ];
@@ -182,7 +189,8 @@
                 return label_text;
             }},
             {targets: 7, render: function (data, type, row) {
-                var buttons = '<div class="btn-toolbar"> ';
+                var buttons = '<div class="text-center"> ';
+                buttons += '<a href=<?=base_url(ADMIN_ARTICLE)?>/show/' + row.id + '  class="btn btn-info glyphicon glyphicon-info-sign " data-toggle="tooltip" data-placement="top" title="แสดงข้อมูลรายละเเอียด"></a> ';
                 buttons += '<a href=<?=base_url(ADMIN_ARTICLE)?>/update/' + row.id + '  class="btn btn-warning glyphicon glyphicon-pencil " data-toggle="tooltip" data-placement="top" title="แก้ไขข้อมูล"></a>';
                 buttons += ' <a href="javascript:void(0)" onclick=deleteData(' + row.id + ') class="button_delete btn btn-danger glyphicon glyphicon-trash" data-toggle="tooltip" data-placement="top" title="ลบข้อมูล"></a>';
                 buttons += '</div>'
@@ -218,6 +226,7 @@
                 cell.innerHTML = i + 1;
             });
         }).draw();
+
     }
 
     function updateOrderSeq(element, rowId) {
@@ -283,8 +292,6 @@
         dataTable.column(2).search(name);
         dataTable.column(8).search(published);
         dataTable.column(9).search(page);
-//        if(published != '')dataTable.column(8).search("^" + published + "$", true, false, true);
-//        if(page != '')dataTable.column(9).search("^" + page + "$", true, false, true);
         dataTable.draw();
     }
 
@@ -292,6 +299,14 @@
         $('#published').prop('selectedIndex', 0);
         $('#page_id').prop('selectedIndex', 0);
         $('#name').val('');
+    }
+
+    function setVisibleSearchPanel() {
+        if ($('#div_search_panel').is(":visible")) {
+            $('#div_search_panel').hide();
+        } else {
+            $('#div_search_panel').show();
+        }
     }
 
 </script>

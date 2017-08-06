@@ -109,7 +109,7 @@
                                     <th class="text-center">
                                         <button type="button" id="btn_search" onclick="setVisibleSearchPanel()"
                                                 class="btn btn-primary ">
-                                            <i class="fa fa-search"></i>
+                                            <i class="glyphicon glyphicon-zoom-in"></i>
                                         </button>
                                     </th>
                                 </tr>

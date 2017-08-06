@@ -10,7 +10,7 @@
         <div class="group-buttons-right">
             <ul class="nav nav-pills">
                 <li>
-                    <a href="<?= base_url(ADMIN_GALLERY) ?>"> <i class="fa fa-list"></i><?= $this->lang->line("gallery_list"); ?></a>
+                    <a href="<?= base_url(ADMIN_GALLERY) ?>"> <i class="fa fa-list"></i><?= $this->lang->line("gallery_title"); ?></a>
                 </li>
             </ul>
         </div>
@@ -37,7 +37,7 @@
                     </div>
 
                     <div class="form-group required ">
-                        <label class="col-md-2  control-label"><?= $this->lang->line("gallery_description"); ?></label>
+                        <label class="col-md-2  control-label"><?= $this->lang->line("description"); ?></label>
                         <div class="col-md-8">
                             <textarea rows="5" class="form-control" name="description"><?php echo isset($data["row"]["description"]) ? $data["row"]["description"] : "" ?></textarea>
                         </div>

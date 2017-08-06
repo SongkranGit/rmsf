@@ -9,80 +9,15 @@
         </h1>
         <div class="group-buttons-right">
             <ul class="nav nav-pills">
-                <li>
-                    <a href="<?= base_url(ADMIN_UPLOAD_IMAGE) ?>"> <i class="fa fa-plus-circle fa-1x"></i><?= $this->lang->line("upload_image"); ?></a>
-                </li>
+                <li><a href="<?= base_url(ADMIN_GALLERY) ?>"> <i class="fa fa-arrow-circle-o-left fa-1x"></i><?= $this->lang->line("menu_galleries"); ?></a></li>
+                <li><a href="<?= base_url(ADMIN_UPLOAD_IMAGE) ?>"> <i class="fa fa-plus-circle fa-1x"></i><?= $this->lang->line("upload_image"); ?></a></li>
             </ul>
         </div>
     </section>
 
     <!-- Main content -->
     <section class="content">
-        <!--Row Search-->
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="box box-info box-solid">
-                    <div class="box-header">
-                        <!-- tools box -->
-                        <div class="pull-right box-tools">
-                            <button class="btn btn-default btn-sm pull-right" data-widget='collapse'
-                                    data-toggle="tooltip" title="Collapse" style="margin-right: 5px;">
-                                <i class="fa fa-minus" style="font-size: large"></i></button>
-                        </div><!-- /. tools -->
-                        <i class="fa fa-search"></i>
-                        <h3 class="box-title">
-                            <?= $this->lang->line("button_search"); ?>
-                        </h3>
-                    </div>
 
-                    <?php // dump($galleries)?>
-                    <div class="box-body">
-                        <div class="row form-horizontal">
-                            <div class="col-md-6 ">
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label"><?= $this->lang->line("gallery_name"); ?></label>
-                                    <div class="col-md-9">
-                                        <select class="form-control select2" id="select_gallery_id" name="gallery_id">
-                                            <?php if (!empty($galleries)): ?>
-                                                <?php foreach ($galleries as $key => $value): ?>
-                                                    <option value="<?= $value["id"] ?>"> <?= $value["name"] ?> </option>
-                                                <?php endforeach; ?>
-                                            <?php endif; ?>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4 ">
-                                <div class="form-group ">
-                                    <label
-                                            class="col-md-5 control-label"><?= $this->lang->line("form_field_published"); ?></label>
-                                    <div class="col-md-7">
-                                        <select class="form-control" id="published" name="published">
-                                            <option value="1"><?= $this->lang->line("form_field_published"); ?></option>
-                                            <option
-                                                    value="0"><?= $this->lang->line("form_field_unpublished"); ?></option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="pull-right">
-                                    <button type="button" onclick="search()" class="btn btn-primary "><i
-                                                class="fa fa-search"></i> <?= $this->lang->line("button_search"); ?>
-                                    </button>
-                                    <button id="btn_clear_search" onclick="clearTextSearch()" type="button"
-                                            class="btn btn-default">
-                                        <i class="fa fa-refresh"></i>
-                                        <?= $this->lang->line("button_clear"); ?>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!-- /.box-body-->
-
-                </div>
-            </div>
-        </div>
         <!-- Row Data Table -->
         <div class="row">
             <div class="col-lg-12">
@@ -97,8 +32,9 @@
                                 <tr>
                                     <th><?= $this->lang->line("table_seq"); ?></th>
                                     <th class="text-center"><?= $this->lang->line("gallery_image"); ?></th>
-                                    <th class="text-center"><?= $this->lang->line("gallery_name"); ?></th>
-                                    <th class="text-center"><?= $this->lang->line("gallery_description"); ?></th>
+                                    <th ><?= $this->lang->line("gallery_name"); ?></th>
+                                    <th ><?= $this->lang->line("caption");  ?> (ไทย)</th>
+                                    <th ><?= $this->lang->line("caption");  ?> (English)</th>
                                     <th class="text-center"><?= $this->lang->line("table_published"); ?></th>
                                     <th class="text-center"><?= $this->lang->line("table_order"); ?></th>
                                     <th></th>
@@ -112,7 +48,6 @@
             </div>
         </div>
 
-
     </section>
     <!-- /.content -->
 </div>
@@ -121,7 +56,7 @@
     var dataTable = $('#upload_datatable');
 
     $(document).ready(function () {
-        $(".select2").select2();
+
         loadDataTable();
     });
 
@@ -135,8 +70,9 @@
                     return '<div align="center"><img width="50" height="50" src=' + img_src + ' class=\"img-responsive\" ></div>';
                 }
             },
-            {data: "gallery_name", "sClass": "text", "sWidth": "25%"},
-            {data: "caption", "sClass": "text", "sWidth": "35%"},
+            {data: "gallery_name", "sClass": "text", "sWidth": "20%"},
+            {data: "caption", "sClass": "text", "sWidth": "20%"},
+            {data: "caption", "sClass": "text", "sWidth": "20%"},
             {
                 orderable: false, "sWidth": "10%",
                 mRender: function (data, type, row) {
@@ -154,7 +90,7 @@
                 }
             },
             {
-                orderable: false, "sWidth": "20%",
+                orderable: false, "sWidth": "10%",
                 mRender: function (data, type, row) {
                     var buttons = '<div class="text-center"> ';
                     buttons += '<a href=<?=base_url("admin/GalleryImage/editImage")?>/' + row.gallery_id + '/' + row.id + '  class="btn btn-warning glyphicon glyphicon-pencil" data-toggle="tooltip" data-placement="top" title="แก้ไขข้อมูล"></a>&nbsp;';
@@ -167,7 +103,7 @@
             {data: "gallery_id", "sClass": "text", "visible": false}
         ];
 
-        var gallery_id = $("#select_gallery_id option:selected").val();
+        var gallery_id = '<?=$this->uri->segment(4)?>';
         var published = 1;
         dataTable = $('#upload_datatable').DataTable({
             'ajax': {
@@ -253,20 +189,6 @@
         }
     }
 
-    function search() {
-        var gallery_id = $("#select_gallery_id option:selected").val();
-        var published = $("#published option:selected").val();
-        var targetUrl = BASE_URL + 'admin/GalleryImage/loadUploadImageDataTable/' + gallery_id + '/' + published;
-        var refreshedDataTable = $('#upload_datatable').dataTable();
-        refreshedDataTable.fnReloadAjax(targetUrl);
-    }
-
-    function clearTextSearch() {
-        location.reload();
-//        $('#select_gallery_id').prop('selectedIndex', 0);
-//        $('#select_gallery_id').trigger("chosen:updated");
-//        $('#published').prop('selectedIndex', 0);
-    }
 
 </script>
 

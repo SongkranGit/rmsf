@@ -108,7 +108,7 @@
                                         <button type="button" id="btn_search" onclick="setVisibleSearchPanel()"
                                                 data-toggle="tooltip" data-placement="top" title="แสดงการค้นหา"
                                                 class="btn btn-primary ">
-                                            <i class="fa fa-search"></i>
+                                            <i class="glyphicon glyphicon-zoom-in"></i>
                                         </button>
                                     </th>
                                 </tr>

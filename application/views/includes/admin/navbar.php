@@ -37,56 +37,28 @@ $role = $this->session->userdata('role_id');
                     <!--Page-->
                     <li class="<?= (strcasecmp($controller, PAGE) == 0) ? "active" : "" ?>">
                         <a href="<?= base_url(ADMIN_PAGE) ?>">
-                            <i class="<?= (strcasecmp($controller, PAGE) == 0) ? "fa fa-circle-o text-orange" : "fa fa-circle-o" ?>"></i>
+                            <i class="<?= (strcasecmp($controller, PAGE) == 0) ? "fa fa-circle-o text-green" : "fa fa-circle-o" ?>"></i>
                             <?= $this->lang->line("menu_content_pages"); ?></a>
                     </li>
-                    <!--News-->
 
                     <!--Article-->
                     <li class="<?= (strcasecmp($controller, ARTICLE) == 0) ? "active" : "" ?>">
                         <a href="<?= base_url(ADMIN_ARTICLE) ?>">
-                            <i class="<?= (strcasecmp($controller, ARTICLE) == 0) ? "fa fa-circle-o text-orange" : "fa fa-circle-o" ?>"></i>
+                            <i class="<?= (strcasecmp($controller, ARTICLE) == 0) ? "fa fa-circle-o text-green" : "fa fa-circle-o" ?>"></i>
                             <?= $this->lang->line("menu_content_articles"); ?></a>
                     </li>
 
                     <!--Gallery-->
                     <li class="<?= ($controller == GALLERIES || $controller == GALLERY_IMAGE) ? "active" : "" ?>">
-                        <a href="#"><i class="<?= (strcasecmp($controller, GALLERIES) == 0) ? "fa fa-circle-o text-green" : "fa fa-circle-o" ?>"></i>
-                            <?= $this->lang->line("menu_galleries"); ?> &nbsp;<i class="fa fa-angle-left pull-right"></i>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li class="<?= ($controller == GALLERIES) && $fuc == NULL ? "active" : "" ?>">
-                                <a href="<?= base_url(ADMIN_GALLERY) ?>">
-                                    <i class="<?= (strcasecmp($controller, GALLERIES) == 0 && $fuc == NULL) ? "fa fa-circle-o text-orange" : "fa fa-circle-o" ?>"></i>
-                                    <?= $this->lang->line("menu_galleries_list"); ?></a></li>
-                            <li class="<?= (strcasecmp($controller, GALLERY_IMAGE) == 0) ? "active" : "" ?>">
-                                <a href="#"><i
-                                            class="<?= (strcasecmp($controller, GALLERY_IMAGE) == 0) ? "fa fa-circle-o text-green" : "fa fa-circle-o" ?>"></i>
-                                    <?= $this->lang->line("upload"); ?> &nbsp;<i class="fa fa-angle-left pull-right"></i>
-                                </a>
-                                <ul class="treeview-menu">
-                                    <li class="<?= (strcasecmp($controller, GALLERY_IMAGE) == 0 && $fuc == "index") ? "active" : "" ?>">
-                                        <a href="<?= base_url(ADMIN_GALLERY_UPLOAD) ?>">
-                                            <i class="<?= (strcasecmp($controller, GALLERY_IMAGE) == 0 && $fuc == "index") ? "fa fa-circle-o text-orange" : "fa fa-circle-o" ?>"></i>
-                                            <?= $this->lang->line("menu_galleries_upload"); ?>
-                                        </a>
-                                    </li>
-                                    <li class="<?= (strcasecmp($controller, GALLERY_IMAGE) == 0 && $fuc == "upload") ? "active" : "" ?>">
-                                        <a href="<?= base_url(ADMIN_UPLOAD_IMAGE) ?>">
-                                            <i class="<?= (strcasecmp($controller, GALLERY_IMAGE) == 0 && $fuc == "upload") ? "fa fa-circle-o text-orange" : "fa fa-circle-o" ?>"></i>
-                                            <?= $this->lang->line("upload_image"); ?>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
+                        <a href="<?= base_url(ADMIN_GALLERY) ?>">
+                            <i class="<?= ($controller == GALLERIES || $controller == GALLERY_IMAGE) ? "fa fa-circle-o text-green" : "fa fa-circle-o" ?>"></i>
+                            <?= $this->lang->line("menu_galleries"); ?></a>
                     </li>
-
 
                     <!--Slide Show-->
                     <li class="<?= (strcasecmp($controller, SLIDE_SHOW) == 0) ? "active" : "" ?>">
                         <a href="<?= base_url(ADMIN_SLIDE_SHOW) ?>">
-                            <i class="<?= (strcasecmp($controller, SLIDE_SHOW) == 0) ? "fa fa-circle-o text-orange" : "fa fa-circle-o" ?>"></i>
+                            <i class="<?= (strcasecmp($controller, SLIDE_SHOW) == 0) ? "fa fa-circle-o text-green" : "fa fa-circle-o" ?>"></i>
                             <?= $this->lang->line("menu_galleries_slideshow"); ?></a>
 
                 </ul>
@@ -108,13 +80,13 @@ $role = $this->session->userdata('role_id');
                 <ul class="treeview-menu">
                     <li class="<?= (strcasecmp($controller, SETTING) == 0) ? "active" : "" ?>">
                         <a href="<?= base_url(ADMIN_SETTING) ?>">
-                            <i class="<?= (strcasecmp($controller, SETTING) == 0) ? "fa fa-circle-o text-orange" : "fa fa-circle-o" ?>"></i> <?= $this->lang->line("menu_settings_general"); ?>
+                            <i class="<?= (strcasecmp($controller, SETTING) == 0) ? "fa fa-circle-o text-green" : "fa fa-circle-o" ?>"></i> <?= $this->lang->line("menu_settings_general"); ?>
                         </a>
                     </li>
 
                     <li class="<?= (strcasecmp($controller, USER) == 0) ? "active" : "" ?>">
                         <a href="<?= base_url(ADMIN_USER) ?>">
-                            <i class="<?= (strcasecmp($controller, USER) == 0) ? "fa fa-circle-o text-orange" : "fa fa-circle-o" ?>"></i>
+                            <i class="<?= (strcasecmp($controller, USER) == 0) ? "fa fa-circle-o text-green" : "fa fa-circle-o" ?>"></i>
                             <?= $this->lang->line("menu_users"); ?></a>
                     </li>
                 </ul>

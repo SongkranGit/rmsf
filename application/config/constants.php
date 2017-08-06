@@ -125,7 +125,7 @@ define('STUDENT' , 'Student');
 define('ADMIN_DASHBOARD' , 'admin/Dashboard');
 define('ADMIN_USER' , 'admin/User');
 define('ADMIN_GALLERY' , 'admin/Gallery');
-define('ADMIN_GALLERY_UPLOAD' , 'admin/GalleryImage/index');
+define('ADMIN_GALLERY_UPLOAD' , 'admin/GalleryImage');
 define('ADMIN_UPLOAD_IMAGE' , 'admin/GalleryImage/upload');
 define('ADMIN_SLIDE_SHOW' , 'admin/Slideshow');
 define('ADMIN_SETTING' , 'admin/Setting');

@@ -22,7 +22,7 @@
     <!-- Main content -->
     <section class="content">
         <!--Row Search-->
-        <div class="row">
+        <div class="row" id="div_search_panel">
             <div class="col-xs-12">
                 <div class="box box-info box-solid">
                     <div class="box-header">
@@ -38,20 +38,20 @@
                         </h3>
                     </div>
                     <div class="box-body">
-                        <div class="col-md-6 ">
+                        <div class="col-md-8 ">
                             <div class="form-group">
                                 <label
-                                    class="col-md-4 control-label text-right"><?= $this->lang->line("gallery_name"); ?></label>
-                                <div class="col-md-8">
+                                    class="col-md-2 control-label text-right"><?= $this->lang->line("gallery_name"); ?></label>
+                                <div class="col-md-10">
                                     <input class="form-control" type="text" id="name">
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3 ">
+                        <div class="col-md-4 ">
                             <div class="form-group ">
                                 <label
-                                    class="col-md-4 control-label text-right"><?= $this->lang->line("form_field_published"); ?></label>
-                                <div class="col-md-8">
+                                    class="col-md-3 control-label text-right"><?= $this->lang->line("form_field_published"); ?></label>
+                                <div class="col-md-7">
                                     <select class="form-control" id="published" name="published">
                                         <option value=""></option>
                                         <option value="1"><?= $this->lang->line("form_field_published"); ?></option>
@@ -60,20 +60,19 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3 ">
-                            <div class="pull-right">
-                                <button type="button" onclick="search()" class="btn btn-primary "><i
-                                        class="fa fa-search"></i> <?= $this->lang->line("button_search"); ?>
-                                </button>
-                                <button id="btn_clear_search" onclick="clearTextSearch()" type="button"
-                                        class="btn btn-default">
-                                    <i class="fa fa-refresh"></i>
-                                    <?= $this->lang->line("button_clear"); ?>
-                                </button>
-                            </div>
-                        </div>
-                    </div><!-- /.box-body-->
 
+                    </div><!-- /.box-body-->
+                    <div class="box-footer">
+                        <div class="text-center">
+                            <button id="btn_search" type="button" onclick="search()" class="btn btn-primary "><i
+                                        class="fa fa-search"></i> <?= $this->lang->line("button_search"); ?>
+                            </button>
+                            <button id="btn_clear_search" onclick="clearTextSearch()" type="button" class="btn btn-default">
+                                <i class="fa fa-refresh"></i>
+                                <?= $this->lang->line("button_clear"); ?>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -91,10 +90,16 @@
                                 <tr>
                                     <th><?= $this->lang->line("table_seq"); ?></th>
                                     <th><?= $this->lang->line("gallery_name"); ?></th>
-                                    <th><?= $this->lang->line("gallery_description"); ?></th>
+                                    <th><?= $this->lang->line("description"); ?></th>
                                     <th class="text-center"><?= $this->lang->line("table_published"); ?></th>
                                     <th class="text-center"><?= $this->lang->line("table_order"); ?></th>
-                                    <th></th>
+                                    <th class="text-center">
+                                        <button type="button" id="btn_search" onclick="setVisibleSearchPanel()"
+                                                data-toggle="tooltip" data-placement="top" title="แสดงการค้นหา"
+                                                class="btn btn-primary ">
+                                            <i class="glyphicon glyphicon-zoom-in"></i>
+                                        </button>
+                                    </th>
                                 </tr>
                                 </thead>
                             </table>
@@ -114,14 +119,17 @@
     var dataTable = $('#gallerys_datatable');
 
     $(document).ready(function () {
+
         loadArticlesDataTable();
+
+        setVisibleSearchPanel();
     });
 
     function loadArticlesDataTable() {
         var columns = [
             {data: null, "sClass": "right", "bSortable": false, "sWidth": "3%"}, //1st column
-            {data: "name", "sClass": "text", "sWidth": "20%"},
-            {data: "description", "sClass": "text", "sWidth": "20%"},
+            {data: "name", "sClass": "text", "sWidth": "25%"},
+            {data: "description", "sClass": "text", "sWidth": "25%"},
             {
                 orderable: false, "sWidth": "10%",
                 mRender: function (data, type, row) {
@@ -139,10 +147,10 @@
                 }
             },
             {
-                orderable: false, "sWidth": "10%",
+                orderable: false, "sWidth": "15%",
                 mRender: function (data, type, row) {
                     var buttons = '<div class="text-center"> ';
-                   // buttons += '<a href=<?=base_url(ADMIN_GALLERY)?>/upload/' + row.id + '  class="btn btn-info fa fa-upload" data-toggle="tooltip" data-placement="top" title="อัปโหลดข้อมูล"></a> &nbsp;';
+                    buttons += '<a href=<?=base_url(ADMIN_GALLERY_UPLOAD)?>/uploadList/' + row.id + '  class="btn btn-info glyphicon glyphicon-th-list" data-toggle="tooltip" data-placement="top" title="รายการอัปโหลด"></a> &nbsp;';
                     buttons += '<a href=<?=base_url(ADMIN_GALLERY)?>/update/' + row.id + '  class="btn btn-warning glyphicon glyphicon-pencil" data-toggle="tooltip" data-placement="top" title="แก้ไขข้อมูล"></a>&nbsp;';
                     buttons += ' <a href="javascript:void(0)" onclick=deleteData(' + row.id + ') class="button_delete btn btn-danger glyphicon glyphicon-trash" data-toggle="tooltip" data-placement="top" title="ลบข้อมูล"></a>';
                     buttons += '</div>'
@@ -250,6 +258,14 @@
         $('#published').prop('selectedIndex', 0);
         $('#description').val('');
         $('#name').val('');
+    }
+
+    function setVisibleSearchPanel() {
+        if ($('#div_search_panel').is(":visible")) {
+            $('#div_search_panel').hide();
+        } else {
+            $('#div_search_panel').show();
+        }
     }
 
 </script>

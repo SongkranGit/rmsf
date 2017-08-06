@@ -25,6 +25,12 @@ class GalleryImage extends Admin_Controller
         $this->load->view("admin/gallery/list_upload_images", $data);
     }
 
+    public function uploadList($gallery_id){
+        $data["galleries"] = $this->Gallery_model->getAll();
+        $this->load->view("admin/gallery/list_upload_images", $data);
+    }
+
+
     public function upload()
     {
         $response = array('success' => false, 'messages' => array());

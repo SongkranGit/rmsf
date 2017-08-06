@@ -23,7 +23,7 @@
         <div class="group-buttons-right">
             <ul class="nav nav-pills">
                 <li>
-                    <a href="<?= base_url(ADMIN_GALLERY_UPLOAD) ?>"> <i class="fa fa-list"></i><?= $this->lang->line("gallery_upload_list"); ?></a>
+                    <a href="<?= base_url(ADMIN_GALLERY_UPLOAD.'/uploadList/'.$this->uri->segment(4)) ?>"> <i class="fa fa-list"></i><?= $this->lang->line("gallery_upload_list"); ?></a>
                 </li>
             </ul>
         </div>
@@ -117,14 +117,6 @@
                             </div>
                         </div>
 
-                        <div class="form-group ">
-                            <label class="col-md-2  control-label"><?= $this->lang->line("gallery_description"); ?></label>
-                            <div class="col-md-8">
-                            <textarea name="description" id="description" class="form-control"
-                                      rows="5"><?php echo setFormData($data , $key="description") ?></textarea>
-                            </div>
-                        </div>
-
                     </div>
 
                     <div class="form-group ">
@@ -144,7 +136,7 @@
                 <div class="panel-footer">
                     <div class="pull-right">
                         <?= buttonSubmitCreateOrUpdate($data["action"]); ?>
-                        <?= buttonCancelWithRedirectPage("admin/GalleryImage/index"); ?>
+                        <?= buttonCancelWithRedirectPage(ADMIN_GALLERY_UPLOAD.'/uploadList/'.$this->uri->segment(4)); ?>
                     </div>
                     <div class="clearfix"></div>
                 </div>

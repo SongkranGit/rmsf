@@ -10,7 +10,7 @@
         <div class="group-buttons-right">
             <ul class="nav nav-pills">
                 <li><a href="<?= base_url(ADMIN_GALLERY) ?>"> <i class="fa fa-arrow-circle-o-left fa-1x"></i><?= $this->lang->line("menu_galleries"); ?></a></li>
-                <li><a href="<?= base_url(ADMIN_UPLOAD_IMAGE) ?>"> <i class="fa fa-plus-circle fa-1x"></i><?= $this->lang->line("upload_image"); ?></a></li>
+                <li><a href="<?= base_url(ADMIN_GALLERY.'/create') ?>"> <i class="fa fa-plus-circle fa-1x"></i><?= $this->lang->line("upload_image"); ?></a></li>
             </ul>
         </div>
     </section>
@@ -93,7 +93,7 @@
                 orderable: false, "sWidth": "10%",
                 mRender: function (data, type, row) {
                     var buttons = '<div class="text-center"> ';
-                    buttons += '<a href=<?=base_url("admin/GalleryImage/editImage")?>/' + row.gallery_id + '/' + row.id + '  class="btn btn-warning glyphicon glyphicon-pencil" data-toggle="tooltip" data-placement="top" title="แก้ไขข้อมูล"></a>&nbsp;';
+                    buttons += '<a href=<?=base_url("admin/GalleryImage/update")?>/' + row.gallery_id + '/' + row.id + '  class="btn btn-warning glyphicon glyphicon-pencil" data-toggle="tooltip" data-placement="top" title="แก้ไขข้อมูล"></a>&nbsp;';
                     buttons += ' <a href="javascript:void(0)" onclick=deleteData(' + row.id + ') class="button_delete btn btn-danger glyphicon glyphicon-trash" data-toggle="tooltip" data-placement="top" title="ลบข้อมูล"></a>';
                     buttons += '</div>'
                     return buttons;

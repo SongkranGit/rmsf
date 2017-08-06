@@ -41,24 +41,15 @@
                 </div>
 
                 <div class="panel-body">
-                    <div class="form-group required ">
+                    <div class="form-group  ">
                         <label class="col-md-2  control-label"><?= $this->lang->line("gallery_title"); ?></label>
                         <div class="col-md-8">
-                            <?php
-                            $selected_gallery_id = isset($data["gallery_id"]) ? $data["gallery_id"] : '';
-                            ?>
-                            <select class="form-control" id="gallery_id" name="gallery_id">
-                                <?php if (isset($data["galleries"]) && count($data["galleries"]) > 0): ?>
-                                    <?php foreach ($data["galleries"] as $item): ?>
-                                        <option value="<?= $item["id"] ?>" <?= ($item["id"] == $selected_gallery_id) ? "Selected" : "" ?> ><?= $item["name"] ?></option>
-                                    <?php endforeach; ?>
-                                <?php endif; ?>
-                            </select>
+                            <input type="text" value="" >
                         </div>
                     </div>
 
                     <div id="div_cbx_allow_image_detail" class="form-group">
-                        <label class="col-md-2 control-label"><?= $this->lang->line("gallery_caption"); ?></label>
+                        <label class="col-md-2 control-label"><?= $this->lang->line("caption"); ?></label>
                         <div class="col-md-8">
                             <div class="row">
                                 <div class="col-md-2 col-sm-6">
@@ -110,10 +101,25 @@
                         </div>
 
                         <div class="form-group ">
-                            <label class="col-md-2  control-label"><?= $this->lang->line("gallery_caption"); ?></label>
+                            <label class="col-md-2  control-label"><?= $this->lang->line("caption"); ?></label>
                             <div class="col-md-8">
-                                 <textarea name="caption" id="caption" class="form-control"
-                                           rows="2"><?php echo setFormData($data , $key="caption") ?></textarea>
+                                <ul class="nav nav-tabs">
+                                    <li role="presentation" class="active"><a href="#tab1" data-toggle="tab">Thai</a></li>
+                                    <li role="presentation"><a href="#tab2" data-toggle="tab">English</a></li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="tab1">
+                                        <br>
+                                        <textarea name="caption" id="caption" class="form-control"
+                                                  rows="2"><?php echo setFormData($data , $key="caption_th") ?></textarea>
+                                    </div>
+                                    <div class="tab-pane fade" id="tab2">
+                                        <br>
+                                        <textarea name="caption" id="caption" class="form-control"
+                                                  rows="2"><?php echo setFormData($data , $key="caption_en") ?></textarea>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
 
@@ -338,11 +344,11 @@
         var targetUrl;
         var action = '<?=$this->uri->segment(3)?>';
         if (action === "upload") {
-            targetUrl = BASE_URL + 'admin/GalleryImage/upload';
+            targetUrl = BASE_URL + 'admin/GalleryImage/create';
         } else {
             var gallery_id = '<?=$this->uri->segment(4)?>';
             var gallery_image_id = '<?=$this->uri->segment(5)?>';
-            targetUrl = BASE_URL + 'admin/GalleryImage/editImage/' + gallery_id + '/' + gallery_image_id;
+            targetUrl = BASE_URL + 'admin/GalleryImage/update/' + gallery_id + '/' + gallery_image_id;
         }
 
 

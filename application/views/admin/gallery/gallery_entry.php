@@ -59,7 +59,7 @@
                 <div class="panel-footer">
                     <div class="pull-right">
                         <?= buttonSubmitCreateOrUpdate($data["action"]); ?>
-                        <?= buttonCancelWithRedirectPage("admin/Gallery/index"); ?>
+                        <?= buttonCancelWithRedirectPage(ADMIN_GALLERY); ?>
                     </div>
                     <div class="clearfix"></div>
                 </div>

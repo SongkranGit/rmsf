@@ -30,8 +30,7 @@ class GalleryImage extends Admin_Controller
         $this->load->view("admin/gallery/list_upload_images", $data);
     }
 
-
-    public function upload()
+    public function crate()
     {
         $response = array('success' => false, 'messages' => array());
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -48,19 +47,12 @@ class GalleryImage extends Admin_Controller
                 $gallery_id = $this->input->post("gallery_id");
                 $data = array(
                     "gallery_id" => $gallery_id,
+                    "caption_th" => $this->input->post("caption_th"),
+                    "caption_en" => $this->input->post("caption_en"),
                     "published" => intval($this->input->post("published")),
                     "order_seq" => 1,
                     "created_date" => Calendar::currentDateTime()
                 );
-
-                // Check language
-                if (isEnglishLang()) {
-                    $data["caption_en"] = $this->input->post("caption");
-                    $data["description_en"] = $this->input->post("description");
-                } else {
-                    $data["caption_th"] = $this->input->post("caption");
-                    $data["description_th"] = $this->input->post("description");
-                }
 
                 $arr_upload = $this->doUploadImage($gallery_id);
                 if (!empty($arr_upload)) {
@@ -84,24 +76,17 @@ class GalleryImage extends Admin_Controller
         }
     }
 
-    public function editImage($gallery_id = NULL, $id = NULL)
+    public function update($gallery_id = NULL, $id = NULL)
     {
         $response = array('success' => false, 'messages' => array());
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $data = array(
                 "gallery_id" => $this->input->post("gallery_id"),
+                "caption_th" => $this->input->post("caption_th"),
+                "caption_en" => $this->input->post("caption_en"),
                 "published" => intval($this->input->post("published")),
                 "updated_date" => Calendar::currentDateTime()
             );
-
-            // Check language
-            if (isEnglishLang()) {
-                $data["caption_en"] = $this->input->post("caption");
-                $data["description_en"] = $this->input->post("description");
-            } else {
-                $data["caption_th"] = $this->input->post("caption");
-                $data["description_th"] = $this->input->post("description");
-            }
 
             if (!empty($_FILES)) {
                 $arr_upload = $this->doUploadImage($gallery_id);

@@ -89,8 +89,8 @@
                                 <thead>
                                 <tr>
                                     <th><?= $this->lang->line("table_seq"); ?></th>
-                                    <th><?= $this->lang->line("gallery_name"); ?></th>
-                                    <th><?= $this->lang->line("description"); ?></th>
+                                    <th><?= $this->lang->line("gallery_name"); ?> (ไทย)</th>
+                                    <th><?= $this->lang->line("gallery_name"); ?> (english)</th>
                                     <th class="text-center"><?= $this->lang->line("table_published"); ?></th>
                                     <th class="text-center"><?= $this->lang->line("table_order"); ?></th>
                                     <th class="text-center">
@@ -128,8 +128,8 @@
     function loadArticlesDataTable() {
         var columns = [
             {data: null, "sClass": "right", "bSortable": false, "sWidth": "3%"}, //1st column
-            {data: "name", "sClass": "text", "sWidth": "25%"},
-            {data: "description", "sClass": "text", "sWidth": "25%"},
+            {data: "name_th", "sClass": "text", "sWidth": "25%"},
+            {data: "name_en", "sClass": "text", "sWidth": "25%"},
             {
                 orderable: false, "sWidth": "10%",
                 mRender: function (data, type, row) {

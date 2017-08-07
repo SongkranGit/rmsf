@@ -153,8 +153,8 @@
                                 </div>
                                 <div class="tab-pane fade" id="tab2">
                                     <br>
-                                   <textarea name="description_en" id="description_en" class="form-control"
-                                             rows="3"><?= (isset($data["row"]["description_en"]) ? $data["row"]["description_en"] : "") ?></textarea>
+                                    <textarea name="description_en" id="description_en" class="form-control"
+                                              rows="3"><?= (isset($data["row"]["description_en"]) ? $data["row"]["description_en"] : "") ?></textarea>
                                 </div>
                             </div>
 

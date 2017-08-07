@@ -32,10 +32,18 @@ class GalleryImage extends Admin_Controller
 
     public function crate()
     {
-        $response = array('success' => false, 'messages' => array());
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if ($_SERVER["REQUEST_METHOD"] == "GET") {
+            $view_data = array(
+                "data" => array(
+                    "action" => ACTION_CREATE,
+                    "heading_text" => $this->lang->line("gallery_title_upload"),
+                    "galleries" => $this->Gallery_model->getAll()
+                )
+            );
+            $this->load->view("admin/gallery/upload_images", $view_data);
 
-            //upload image only
+        } else if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $response = array('success' => false, 'messages' => array());
             if (!empty($this->input->post("list_image_uuid"))) {
                 $list_image_uuid = $this->input->post("list_image_uuid");
                 $gallery_id = $this->input->post("gallery_id");
@@ -62,24 +70,27 @@ class GalleryImage extends Admin_Controller
                     }
                 }
             }
-
             echo json_encode($response);
-        } else {
-            $view_data = array(
-                "data" => array(
-                    "action" => ACTION_CREATE,
-                    "heading_text" => $this->lang->line("gallery_title_upload"),
-                    "galleries" => $this->Gallery_model->getAll()
-                )
-            );
-            $this->load->view("admin/gallery/upload_images", $view_data);
         }
     }
 
     public function update($gallery_id = NULL, $id = NULL)
     {
         $response = array('success' => false, 'messages' => array());
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if ($_SERVER["REQUEST_METHOD"] == "GET") {
+
+            $view_data = array(
+                "data" => array(
+                    "action" => ACTION_UPDATE,
+                    "heading_text" => $this->lang->line("gallery_title_upload"),
+                    "gallery" => $this->Gallery_model->getById($gallery_id),
+                    'gallery_id' => $gallery_id,
+                    "row" => $this->Gallery_images_model->getById($id)
+                )
+            );
+            $this->load->view("admin/gallery/upload_images", $view_data);
+
+        } else  if ($_SERVER["REQUEST_METHOD"] == "POST"){
             $data = array(
                 "gallery_id" => $this->input->post("gallery_id"),
                 "caption_th" => $this->input->post("caption_th"),
@@ -94,20 +105,8 @@ class GalleryImage extends Admin_Controller
                     $data["file_name"] = $arr_upload["file_name"];
                 }
             }
-
             $response['success'] = $this->Gallery_images_model->update($data, $id);
             echo json_encode($response);
-        } else {
-            $view_data = array(
-                "data" => array(
-                    "action" => ACTION_UPDATE,
-                    "heading_text" => $this->lang->line("gallery_title_upload"),
-                    "galleries" => $this->Gallery_model->getAll(),
-                    'gallery_id' => $gallery_id,
-                    "row" => $this->Gallery_images_model->getById($id)
-                )
-            );
-            $this->load->view("admin/gallery/upload_images", $view_data);
         }
     }
 

@@ -44,7 +44,7 @@
                     <div class="form-group  ">
                         <label class="col-md-2  control-label"><?= $this->lang->line("gallery_title"); ?></label>
                         <div class="col-md-8">
-                            <input type="text" value="" >
+                            <input type="text" value="<?=(isEnglishLang())?$data["gallery"]['name_en']:'name_th'?>" >
                         </div>
                     </div>
 

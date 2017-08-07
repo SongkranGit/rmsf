@@ -72,8 +72,10 @@ class Gallery_Model extends CI_Model
             foreach ($query->result() as $row) {
                 $rows[] = array(
                     "id" => $row->id,
-                    "name" => $row->name,
-                    "description" => $row->description,
+                    "name_th" => $row->name_th,
+                    "name_en" => $row->name_en,
+                    "description_th" => $row->description_th,
+                    "description_en" => $row->description_en,
                     "order_seq" => $row->order_seq,
                     "published" => $row->published,
                     "created_date" => Calendar::formatDateTimeToDDMMYYYY($row->updated_date)

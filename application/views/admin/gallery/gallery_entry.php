@@ -28,20 +28,51 @@
                 </div>
 
                 <div class="panel-body">
-                    <div class="form-group required ">
+                    <div class="form-group ">
                         <label class="col-md-2  control-label"><?= $this->lang->line("gallery_name"); ?></label>
                         <div class="col-md-8">
-                            <input type="text" id="name" name="name" class="form-control"
-                                   value="<?php echo isset($data["row"]["name"]) ? $data["row"]["name"] : "" ?>">
+                            <ul class="nav nav-tabs">
+                                <li role="presentation" class="active"><a href="#tab1" data-toggle="tab">Thai</a></li>
+                                <li role="presentation"><a href="#tab2" data-toggle="tab">English</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="tab1">
+                                    <br>
+                                    <div class="form-group required ">
+                                        <label class="col-md-12 label-required"><?= $this->lang->line("gallery_name"); ?></label>
+                                        <div class="col-md-12">
+                                            <input type="text"  name="name_th" class="form-control"
+                                                   value="<?php echo setFormData($data, $key = "name_th"); ?>">
+                                        </div>
+                                    </div>
+                                    <div class="form-group required ">
+                                        <label class="col-md-12 label-required"><?= $this->lang->line("description"); ?></label>
+                                        <div class="col-md-12">
+                                            <textarea rows="3" class="form-control" name="description_th"><?php echo isset($data["row"]["description"]) ? $data["row"]["description"] : "" ?></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="tab2">
+                                    <br>
+                                    <div class="form-group required ">
+                                        <label class="col-md-12 label-required"><?= $this->lang->line("gallery_name"); ?></label>
+                                        <div class="col-md-12">
+                                            <input type="text" id="name" name="name_en" class="form-control"
+                                                   value="<?php echo isset($data["row"]["name_th"]) ? $data["row"]["name_en"] : "" ?>">
+                                        </div>
+                                    </div>
+                                    <div class="form-group required ">
+                                        <label class="col-md-12 label-required"><?= $this->lang->line("description"); ?></label>
+                                        <div class="col-md-12">
+                                            <textarea rows="3" class="form-control" name="description_en"><?php echo isset($data["row"]["description"]) ? $data["row"]["description"] : "" ?></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
 
-                    <div class="form-group required ">
-                        <label class="col-md-2  control-label"><?= $this->lang->line("description"); ?></label>
-                        <div class="col-md-8">
-                            <textarea rows="5" class="form-control" name="description"><?php echo isset($data["row"]["description"]) ? $data["row"]["description"] : "" ?></textarea>
-                        </div>
-                    </div>
 
                     <div class="form-group ">
                         <label class="col-md-2 control-label"><?= $this->lang->line("form_field_published"); ?></label>
@@ -80,12 +111,16 @@
     function validateForm() {
         validator = $('#form_gallery_entry').validate({
             rules: {
-                name: "required",
-                description: "required"
+                name_th: "required",
+                name_en: "required",
+                description_th: "required",
+                description_en: "required",
             },
             messages: {
-                name: '<?php echo $this->lang->line("message_this_field_is_require");?>',
-                description: '<?php echo $this->lang->line("message_this_field_is_require");?>'
+                name_th: '<?php echo $this->lang->line("message_this_field_is_require");?>',
+                name_en: '<?php echo $this->lang->line("message_this_field_is_require");?>',
+                description_th: '<?php echo $this->lang->line("message_this_field_is_require");?>',
+                description_en: '<?php echo $this->lang->line("message_this_field_is_require");?>',
             },
             highlight: function (element) {
                 $(element).closest('.form-group').addClass('has-error');
@@ -118,7 +153,6 @@
         } else {
             targetUrl = BASE_URL + 'admin/Gallery/update/' + id;
         }
-
 
         showSpinner();
         $.ajax({

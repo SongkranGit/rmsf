@@ -29,14 +29,14 @@ class GalleryImage extends Admin_Controller
         $this->load->view("admin/gallery/list_upload_images", $data);
     }
 
-    public function crate()
+    public function create($gallery_id)
     {
         if ($_SERVER["REQUEST_METHOD"] == "GET") {
             $view_data = array(
                 "data" => array(
                     "action" => ACTION_CREATE,
                     "heading_text" => $this->lang->line("gallery_title_upload"),
-                    "galleries" => $this->Gallery_model->getAll()
+                    "gallery" => $this->Gallery_model->getById($gallery_id),
                 )
             );
             $this->load->view("admin/gallery/upload_images", $view_data);

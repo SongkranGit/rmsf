@@ -37,109 +37,6 @@ class Gallery_Images_Model extends CI_Model
         return $data;
     }
 
-    public function getListImagesOfTopOfOrderSeqInGallery( $limit , $start){
-        $gallery_id = $this->getTopGalleryId();
-        $data = array();
-        $this->db->select('gi.id , gi.file_name , gi.description_th , gi.description_en, g.name as gallery_name , g.description , gi.gallery_id' );
-        $this->db->from('galleries_images gi');
-        $this->db->join('galleries g', 'g.id = gi.gallery_id');
-        $this->db->order_by("gi.order_seq", 'ASC');
-        $this->db->where('gi.gallery_id', $gallery_id );
-        if($limit != null && $limit != 0){
-            $this->db->limit($limit ,$start );
-        }
-        $query = $this->db->get();
-        if ($query->num_rows() > 0) {
-            foreach ($query->result_array() as $row) {
-                $data[] = $row;
-            }
-        }
-        $query->free_result();
-        return $data;
-    }
-
-    public function getListImagesByGalleryId($id , $limit , $start){
-        $data = array();
-        $this->db->select('gi.id , gi.file_name , gi.description_th , gi.description_en, g.name as gallery_name , gi.caption_en , gi.caption_th, gi.gallery_id');
-        $this->db->from('galleries_images gi');
-        $this->db->join('galleries g', 'g.id = gi.gallery_id');
-        $this->db->where('gi.gallery_id', $id);
-        $this->db->order_by("gi.order_seq", 'ASC');
-        if($limit != null && $limit != 0){
-            $this->db->limit($limit ,$start );
-        }
-        $query = $this->db->get();
-       // dump($this->db->last_query()) ;
-        if ($query->num_rows() > 0) {
-            foreach ($query->result_array() as $row) {
-                $data[] = $row;
-            }
-        }
-        $query->free_result();
-        return $data;
-    }
-
-
-    public function getListImagesByTopGalleryOrderSeq($limit , $start){
-        $data = array();
-        $this->db->select('gi.id , gi.file_name , gi.description_th , gi.description_en, g.name as gallery_name , gi.caption_en , gi.caption_th');
-        $this->db->from('galleries_images gi');
-        $this->db->join('galleries g', 'g.id = gi.gallery_id');
-        $this->db->where('gi.gallery_id', $this->getTopGalleryId());
-        $this->db->order_by("gi.order_seq", 'ASC');
-        if($limit != null && $limit != 0){
-            $this->db->limit($limit ,$start );
-        }
-        $query = $this->db->get();
-        //var_dump($this->db->last_query()) ;
-        if ($query->num_rows() > 0) {
-            foreach ($query->result_array() as $row) {
-                $data[] = $row;
-            }
-        }
-        $query->free_result();
-        return $data;
-    }
-
-    public function getGalleryImagesByTopOrderSeq(){
-        $data = array();
-        $this->db->select('gi.id , gi.gallery_id , gi.file_name , gi.description_th , gi.description_en , g.name as gallery_name , gi.caption_en , gi.caption_th');
-        $this->db->from('galleries_images gi');
-        $this->db->join('galleries g', 'g.id = gi.gallery_id');
-        $this->db->order_by("gi.order_seq", 'ASC');
-        $this->db->limit(1);
-        $query = $this->db->get();
-        // dump($this->db->last_query()) ;
-        if ($query->num_rows() > 0) {
-            foreach ($query->result_array() as $row) {
-                $data[] = $row;
-            }
-        }
-        $query->free_result();
-        return $data;
-    }
-
-    public function getListOfImagesByGalleryId($gallery_id , $limit=NULL , $start=NULL){
-        $data = array();
-        $this->db->select('gi.id , gi.gallery_id, gi.file_name , gi.description_th , gi.description_en, g.name as gallery_name , gi.caption_en , gi.caption_th');
-        $this->db->from('galleries_images gi');
-        $this->db->join('galleries g', 'g.id = gi.gallery_id');
-        $this->db->where('gi.gallery_id', $gallery_id);
-        $this->db->order_by("gi.order_seq", 'ASC');
-        if($limit != null && $limit != 0){
-            $this->db->limit($limit ,$start );
-        }
-        $query = $this->db->get();
-        //var_dump($this->db->last_query()) ;
-        if ($query->num_rows() > 0) {
-            foreach ($query->result_array() as $row) {
-                $data[] = $row;
-            }
-        }
-        $query->free_result();
-        return $data;
-    }
-
     public function loadUploadImageDataTable()
     {
         $gallery_id = $this->uri->segment(4);
@@ -165,7 +62,7 @@ class Gallery_Images_Model extends CI_Model
                     "id" => $row->id,
                     "gallery_id" => $row->gallery_id,
                     "file_name" => $row->file_name,
-                    "gallery_name" => $row->name,
+                    "gallery_name" => $row->name_th,
                     "order_seq" => $row->order_seq,
                     "caption_th" => character_limiter($row->caption_th, 30),
                     "caption_en" => character_limiter($row->caption_en, 30),

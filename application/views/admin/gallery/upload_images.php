@@ -44,9 +44,10 @@
                     <div class="form-group  ">
                         <label class="col-md-2  control-label"><?= $this->lang->line("gallery_title"); ?></label>
                         <div class="col-md-8">
-                            <input type="text" value="<?=(isEnglishLang())?$data["gallery"]['name_en']:'name_th'?>" >
+                            <input id="txt_gallery_name" type="text" class="form-control" value="<?=(isEnglishLang())?$data["gallery"]['name_en']:$data["gallery"]['name_th']?>" disabled  >
                         </div>
                     </div>
+
 
                     <div id="div_cbx_allow_image_detail" class="form-group">
                         <label class="col-md-2 control-label"><?= $this->lang->line("caption"); ?></label>
@@ -82,19 +83,19 @@
                                        value="<?= (isset($data["row"]["file_name"]) ? $data["row"]["file_name"] : "") ?>">
                                 <div id="div_image">
                                     <?php if($data["action"]=="update"): ?>
-                                    <div class="jFiler-items jFiler-row">
-                                        <ul class="jFiler-items-list jFiler-items-grid">
-                                            <li class="jFiler-item">
-                                                <div class="jFiler-item-container">
-                                                    <div class="jFiler-item-inner">
-                                                        <div class="jFiler-item-thumb" style="width:100%">
-                                                            <img src="<?=isset($data["row"]["file_name"]) ? base_url("uploads/gallery/".$data["row"]["gallery_id"] ."/". $data["row"]["file_name"]) : ""?>">
+                                        <div class="jFiler-items jFiler-row">
+                                            <ul class="jFiler-items-list jFiler-items-grid">
+                                                <li class="jFiler-item">
+                                                    <div class="jFiler-item-container">
+                                                        <div class="jFiler-item-inner">
+                                                            <div class="jFiler-item-thumb" style="width:100%">
+                                                                <img src="<?=isset($data["row"]["file_name"]) ? base_url("uploads/gallery/".$data["row"]["gallery_id"] ."/". $data["row"]["file_name"]) : ""?>">
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     <?php endif;?>
                                 </div>
                             </div>
@@ -111,12 +112,12 @@
                                     <div class="tab-pane active" id="tab1">
                                         <br>
                                         <textarea name="caption" id="caption" class="form-control"
-                                                  rows="2"><?php echo setFormData($data , $key="caption_th") ?></textarea>
+                                                  rows="3"><?php echo setFormData($data , $key="caption_th") ?></textarea>
                                     </div>
                                     <div class="tab-pane fade" id="tab2">
                                         <br>
                                         <textarea name="caption" id="caption" class="form-control"
-                                                  rows="2"><?php echo setFormData($data , $key="caption_en") ?></textarea>
+                                                  rows="3"><?php echo setFormData($data , $key="caption_en") ?></textarea>
                                     </div>
                                 </div>
 
@@ -341,13 +342,13 @@
             return;
         }
 
+        var gallery_id = '<?=$this->uri->segment(4)?>';
+        var gallery_image_id = '<?=$this->uri->segment(5)?>'
         var targetUrl;
         var action = '<?=$this->uri->segment(3)?>';
         if (action === "upload") {
             targetUrl = BASE_URL + 'admin/GalleryImage/create';
         } else {
-            var gallery_id = '<?=$this->uri->segment(4)?>';
-            var gallery_image_id = '<?=$this->uri->segment(5)?>';
             targetUrl = BASE_URL + 'admin/GalleryImage/update/' + gallery_id + '/' + gallery_image_id;
         }
 
@@ -368,7 +369,7 @@
                         '<?=$this->lang->line("message_save_complete");?>', function () {
                             var action = '<?=$this->uri->segment(3)?>';
                             if (action === "editImage") {
-                                window.location = BASE_URL + 'admin/GalleryImage/index';
+                                window.location = BASE_URL + 'admin/GalleryImage/uploadList/'+gallery_id;
                             } else {
                                 clearForm();
                             }
@@ -528,7 +529,7 @@
         $('div.dz-success').remove();
         $('#hd_list_image_uuid').val('');
     }
-    
+
 
 </script>
 

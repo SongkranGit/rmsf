@@ -10,7 +10,8 @@
         <div class="group-buttons-right">
             <ul class="nav nav-pills">
                 <li><a href="<?= base_url(ADMIN_GALLERY) ?>"> <i class="fa fa-arrow-circle-o-left fa-1x"></i><?= $this->lang->line("menu_galleries"); ?></a></li>
-                <li><a href="<?= base_url(ADMIN_GALLERY.'/create') ?>"> <i class="fa fa-plus-circle fa-1x"></i><?= $this->lang->line("upload_image"); ?></a></li>
+                <li>&nbsp;</li>
+                <li><a href="<?= base_url(ADMIN_GALLERY_UPLOAD.'/create/'.$gallery_id = $this->uri->segment(4)) ?>"> <i class="fa fa-plus-circle fa-1x"></i><?= $this->lang->line("upload_image"); ?></a></li>
             </ul>
         </div>
     </section>

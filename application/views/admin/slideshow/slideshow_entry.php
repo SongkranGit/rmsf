@@ -81,7 +81,12 @@
 
 
 </style>
+<?php
 
+  $form_action = $data['action'];
+  $slide_show_id = $this->uri->segment(4);
+
+?>
 <div class="content-wrapper">
     <section class="content-header">
         <h1>
@@ -91,7 +96,7 @@
             <ul class="nav nav-pills">
                 <li>
                     <a href="<?= base_url(ADMIN_SLIDE_SHOW) ?>"> <i
-                            class="fa fa-list"></i><?= $this->lang->line("slideshow_list"); ?></a>
+                                class="fa fa-list"></i><?= $this->lang->line("slideshow_list"); ?></a>
                 </li>
             </ul>
         </div>
@@ -101,7 +106,7 @@
         <form id="form_slideshow_entry" role="form" class="form-horizontal">
             <div class="panel panel-default">
                 <div
-                    class="panel-heading <?php echo ($data["action"] === "create") ? "heading-create" : "heading-update"; ?>">
+                        class="panel-heading <?php echo ($data["action"] === "create") ? "heading-create" : "heading-update"; ?>">
                     <span>
                         <i class="<?php echo ($data["action"] === "create") ? "fa fa-plus-circle " : "fa fa-edit"; ?>"></i>
                         <?= $data["heading_text"] ?>
@@ -122,7 +127,7 @@
                                            title="Upload image file">
                                         <input type="file" class="sr-only" id="inputImage" name="user_files"
                                                accept="image/*">
-                                       <span class="docs-tooltip" data-toggle="tooltip" title="เลือกรูป">
+                                        <span class="docs-tooltip" data-toggle="tooltip" title="เลือกรูป">
                                        <span class="fa fa-upload"> เลือกรูป</span>
                                    </span>
                                     </label>
@@ -132,7 +137,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="col-md-2  control-label"><?= $this->lang->line("caption"); ?></label>
+                        <label class="col-md-2  control-label"></label>
                         <div class="col-md-8">
                             <div class="img-preview text-center"></div>
                         </div>
@@ -166,10 +171,10 @@
                         <div class="col-md-2">
                             <select class="form-control" id="published" name="published">
                                 <option
-                                    value="1" <?= isset($data["row"]["published"]) && $data["row"]["published"] == 1 ? "selected" : "" ?>>
+                                        value="1" <?= isset($data["row"]["published"]) && $data["row"]["published"] == 1 ? "selected" : "" ?>>
                                     <?= $this->lang->line("form_field_published"); ?></option>
                                 <option
-                                    value="0" <?= isset($data["row"]["published"]) && $data["row"]["published"] == 0 ? "selected" : "" ?>>
+                                        value="0" <?= isset($data["row"]["published"]) && $data["row"]["published"] == 0 ? "selected" : "" ?>>
                                     <?= $this->lang->line("form_field_unpublished"); ?></option>
                             </select>
                         </div>
@@ -194,18 +199,16 @@
 
     $(document).ready(function () {
 
-        'use strict';
-
         initCropper();
 
-        initValidation();
-
         initView();
+
+        validation();
 
     });
 
     function initView() {
-        var id = '<?=$this->uri->segment(4)?>';
+        var id = '<?=$slide_show_id?>';
         if (id != '') {
             var file_name = '<?= isset($data["row"]["file_name"]) ? $data["row"]["file_name"] : ""; ?>';
             var img = document.createElement("IMG");
@@ -220,7 +223,7 @@
     }
 
 
-    function initValidation() {
+    function validation() {
         var validator = $('#form_slideshow_entry').validate({
             rules: {
 //                description_th: "required",
@@ -268,6 +271,7 @@
         var $dataScaleY = $('#dataScaleY');
         var options = {
             viewMode: 1,
+            doubleClickToggle:false,
             aspectRatio: 16 / 6,
             dragMode: 'move',
             autoCropArea: 1,
@@ -354,16 +358,16 @@
                     var file, img;
                     if ((file = this.files[0])) {
                         img = new Image();
-                        img.onload = function () {
-                            if (this.width < 1900) {
-                                alert('ความกว้างของรูปไม่ควรน้อยกว่า 1900 px');
-                                return;
-                            }
-                            if (this.height < 1080) {
-                                alert('ความสูงของรูปไม่ควรน้อยกว่า 1080 px');
-                                return;
-                            }
-                        };
+//                        img.onload = function () {
+//                            if (this.width < 1900) {
+//                                alert('ความกว้างของรูปไม่ควรน้อยกว่า 1900 px');
+//                                return;
+//                            }
+//                            if (this.height < 1080) {
+//                                alert('ความสูงของรูปไม่ควรน้อยกว่า 1080 px');
+//                                return;
+//                            }
+//                        };
                         img.src = URL.createObjectURL(file);
                     }
 
@@ -422,7 +426,7 @@
     }
 
     function submitForm(data) {
-        var id = '<?=$this->uri->segment(4)?>';
+        var id = '<?=$slide_show_id?>';
         var targetUrl;
         if (id === "") {
             targetUrl = BASE_URL + 'admin/Slideshow/create';
@@ -463,22 +467,18 @@
             },
             error: function (request, status, error) {
                 hideSpinner();
-                // clearForm();
                 alert(request.responseText);
             }
         });
     }
 
     function validateForm() {
-        if ($('#image img').attr('src') == '') {
+        if ($('.img-preview').is(':visible')) {
             return false;
         }
         return true;
     }
 
-    function clearForm() {
-        window.location = BASE_URL + 'admin/Slideshow/create';
-    }
 
 </script>
 

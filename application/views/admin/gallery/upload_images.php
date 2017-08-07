@@ -14,6 +14,11 @@
     }
 </style>
 
+<?php
+ $action = $this->uri->segment(3);
+ $gallery_id = $this->uri->segment(4);
+ $gallery_image_id = $this->uri->segment(5);
+?>
 <div class="content-wrapper">
 
     <section class="content-header">
@@ -23,7 +28,7 @@
         <div class="group-buttons-right">
             <ul class="nav nav-pills">
                 <li>
-                    <a href="<?= base_url(ADMIN_GALLERY_UPLOAD.'/uploadList/'.$this->uri->segment(4)) ?>"> <i class="fa fa-list"></i><?= $this->lang->line("gallery_upload_list"); ?></a>
+                    <a href="<?= base_url(ADMIN_GALLERY_UPLOAD.'/uploadList/'.$gallery_id) ?>"> <i class="fa fa-list"></i><?= $this->lang->line("gallery_upload_list"); ?></a>
                 </li>
             </ul>
         </div>
@@ -32,8 +37,12 @@
     <section class="content">
         <form id="form_upload_image" role="form" class="form-horizontal">
             <div class="panel panel-default">
-                <div
-                        class="panel-heading <?php echo ($data["action"] === "create") ? "heading-create" : "heading-update"; ?>">
+                <!--Hidden Fields -->
+                <input type="hidden" name="gallery_id" value="<?=$gallery_id?>">
+                <input type="hidden" name="is_upload_image_only" value="true"/>
+                <input type="hidden" id="hd_list_image_uuid" name="list_image_uuid"/>
+
+                <div class="panel-heading <?php echo ($data["action"] === "create") ? "heading-create" : "heading-update"; ?>">
                     <span>
                         <i class="<?php echo ($data["action"] === "create") ? "fa fa-plus-circle " : "fa fa-edit"; ?>"></i>
                         <?= $data["heading_text"] ?>
@@ -70,15 +79,14 @@
                                 </div>
                             </div>
                         </div>
-                        <input type="hidden" name="is_upload_image_only" value="true"/>
-                        <input type="hidden" id="hd_list_image_uuid" name="list_image_uuid"/>
+
                     </div>
 
-                    <div id="div_upload_image_with_description">
+                    <div id="div_upload_image_with_caption">
                         <div class="form-group required ">
                             <label class="col-md-2  control-label"><?= $this->lang->line("gallery_image"); ?></label>
                             <div class="col-md-8">
-                                <input class="form-control" type="file" name="user_files" id="filer_input"
+                                <input class="form-control" type="file" name="user_files" id="user_files"
                                        multiple="multiple"
                                        value="<?= (isset($data["row"]["file_name"]) ? $data["row"]["file_name"] : "") ?>">
                                 <div id="div_image">
@@ -111,12 +119,12 @@
                                 <div class="tab-content">
                                     <div class="tab-pane active" id="tab1">
                                         <br>
-                                        <textarea name="caption" id="caption" class="form-control"
+                                        <textarea name="caption_th" id="caption" class="form-control"
                                                   rows="3"><?php echo setFormData($data , $key="caption_th") ?></textarea>
                                     </div>
                                     <div class="tab-pane fade" id="tab2">
                                         <br>
-                                        <textarea name="caption" id="caption" class="form-control"
+                                        <textarea name="caption_en" id="caption" class="form-control"
                                                   rows="3"><?php echo setFormData($data , $key="caption_en") ?></textarea>
                                     </div>
                                 </div>
@@ -143,7 +151,7 @@
                 <div class="panel-footer">
                     <div class="pull-right">
                         <?= buttonSubmitCreateOrUpdate($data["action"]); ?>
-                        <?= buttonCancelWithRedirectPage(ADMIN_GALLERY_UPLOAD.'/uploadList/'.$this->uri->segment(4)); ?>
+                        <?= buttonCancelWithRedirectPage(ADMIN_GALLERY_UPLOAD.'/uploadList/'.$gallery_id); ?>
                     </div>
                     <div class="clearfix"></div>
                 </div>
@@ -155,7 +163,8 @@
 </div><!-- /.content-wrapper -->
 
 <script type="text/javascript">
-    var form_action = '<?=$data["action"]?>';
+    var action_form = '<?=$data["action"]?>';
+
     $(document).ready(function () {
 
         initView();
@@ -178,29 +187,50 @@
             clearDropzonePreivewImage();
         });
 
-        var gallery_id = '<?php echo $this->uri->segment(4)?>';
-        if (gallery_id != null && gallery_id != '') {
-            $('#div_cbx_allow_image_detail').hide();
-            $('#div_upload_image_only').hide();
-            $('#div_upload_image_with_description').show();
+        var gallery_image_id = '<?=$gallery_image_id?>';
+        if (gallery_image_id != null && gallery_image_id != '') {
+            showDivUploadPanelWithCaption();
         } else {
-            $('#div_upload_image_only').show();
-            $('#div_upload_image_with_description').hide();
+            showDivUploadWithoutCaption();
         }
 
         $("input:file").change(function () {
             $('#div_image').hide();
         });
+
+        // remove rule required file
+        if(action_form == 'update'|| isUploadImageWithCaption()) {
+            $( '#user_files' ).addClass( "data-val-ignore" );
+        }
+
+    }
+
+    function isUploadImageWithCaption() {
+        if($("#div_upload_image_only").is(':visible')){
+            return true;
+        }
+        return false;
+    }
+
+    function showDivUploadPanelWithCaption() {
+        $('#div_cbx_allow_image_detail').hide();
+        $('#div_upload_image_only').hide();
+        $('#div_upload_image_with_caption').show();
+    }
+
+    function showDivUploadWithoutCaption() {
+        $('#div_upload_image_only').show();
+        $('#div_upload_image_with_caption').hide();
     }
 
     function setupToggleAllowImageDetail() {
         $("#cbx_allow_image_detail").bootstrapSwitch('state', false);
         $('#cbx_allow_image_detail').on('switchChange.bootstrapSwitch', function (event, state) {
             if (state) {
-                $('#div_upload_image_with_description').show();
+                $('#div_upload_image_with_caption').show();
                 $('#div_upload_image_only').hide();
             } else {
-                $('#div_upload_image_with_description').hide();
+                $('#div_upload_image_with_caption').hide();
                 $('#div_upload_image_only').show();
             }
             clearDropzonePreivewImage();
@@ -235,7 +265,7 @@
     }
 
     function setupFileInput() {
-        $('#filer_input').filer({
+        $('#user_files').filer({
             limit: null,
             maxSize: null,
             extensions: null,
@@ -304,15 +334,13 @@
     }
 
     function validateForm() {
-        var validator = $('#form_upload_image').validate({
+       $('#form_upload_image').validate({
+           ignore: ".data-val-ignore",
             rules: {
-//                description_th: "required",
-//                description_en: "required"
+                'user_files[]': "required",
             },
             messages: {
                 'user_files[]': '<?php echo $this->lang->line("message_this_field_is_require");?>',
-                description_en: '<?php echo $this->lang->line("message_this_field_is_require");?>',
-                description_th: '<?php echo $this->lang->line("message_this_field_is_require");?>'
             },
             highlight: function (element) {
                 $(element).closest('.form-group').addClass('has-error');
@@ -338,16 +366,18 @@
 
     function save() {
 
-        if (!validate()) {
-            return;
+        if(isUploadImageWithCaption()){
+            if(!validate()){
+                return;
+            }
         }
 
-        var gallery_id = '<?=$this->uri->segment(4)?>';
-        var gallery_image_id = '<?=$this->uri->segment(5)?>'
+        var gallery_id = '<?=$gallery_id;?>';
+        var gallery_image_id = '<?=$gallery_image_id?>'
         var targetUrl;
-        var action = '<?=$this->uri->segment(3)?>';
-        if (action === "upload") {
-            targetUrl = BASE_URL + 'admin/GalleryImage/create';
+        var action = '<?=$action;?>';
+        if (action === "create") {
+            targetUrl = BASE_URL + 'admin/GalleryImage/create/'+gallery_id;
         } else {
             targetUrl = BASE_URL + 'admin/GalleryImage/update/' + gallery_id + '/' + gallery_image_id;
         }
@@ -396,22 +426,11 @@
 
     function validate() {
 
-        if($('#cbx_allow_image_detail').bootstrapSwitch('state') == true){
-            if ($('#filer_input').val() == '') {
-                alertWarningMessageDialog('คำเตือน', 'กรุณาเลือกไฟล์รูปภาพ', null)
-                return false;
-            }
-
-            if($('#caption').val()==''){
-                alertWarningMessageDialog('คำเตือน', 'กรุณากรอกข้อมูลคำบรรยายภาพ', null)
-                return false;
-            }
-
-            if($('#description').val()==''){
-                alertWarningMessageDialog('คำเตือน', 'กรุณากรอกข้อมูลรายละเอียด', null)
-                return false;
-            }
+        if($('#hd_list_image_uuid').val()==''){
+            alertWarningMessageDialog('คำเตือน', 'กรุณาเลือกไฟล์', null)
+            return false;
         }
+
         return true;
     }
 
@@ -419,18 +438,19 @@
     function clearForm() {
         var gallery_id = '<?=$this->uri->segment(4)?>';
         if (gallery_id != null && gallery_id != '') {
-            window.location = BASE_URL + 'admin/GalleryImage/upload/' + gallery_id;
+            window.location = BASE_URL + 'admin/GalleryImage/uploadList/' + gallery_id;
         } else {
-            window.location = BASE_URL + 'admin/GalleryImage/upload';
+            window.location = BASE_URL + 'admin/GalleryImage/uploadList';
         }
     }
 
     function setupDropzone() {
         Dropzone.autoDiscover = false;
+        var gallery_id = '<?=$gallery_id ?>';
         var fileList = new Array();
         var listSelectedFile = new Array();
         var i = 0;
-        var targetUrl = "<?php echo base_url("admin/GalleryImage/uploadImageWithDropzone")?>";
+        var targetUrl = '<?php echo base_url("admin/GalleryImage/uploadImageWithDropzone")?>'+'/'+gallery_id;
         var myDropzone = $("#dZUpload").dropzone({
             url: targetUrl,
             addRemoveLinks: true,
@@ -439,7 +459,6 @@
                 var thisDropzone = this;
 
                 if($('#cbx_allow_image_detail').is(":visible")){
-                    var gallery_id = '<?= isset($data["gallery_id"]) ? $data["gallery_id"] : "" ?>';
                     if (gallery_id != '') {
                         $.getJSON('<?= base_url("admin/GalleryImage/getImagesByGalleryId")?>' + '/' + gallery_id, function (data) {
                             $.each(data, function (index, val) {
@@ -468,7 +487,7 @@
 
                 $.ajax({
                     type: "post",
-                    url: "<?php echo base_url("admin/GalleryImage/deleteImage")?>" + '/' + $('#gallery_id').val(),
+                    url: "<?php echo base_url("admin/GalleryImage/deleteImage")?>" + '/' + gallery_id,
                     data: {file: rmvFile},
                     dataType: 'html'
                 });

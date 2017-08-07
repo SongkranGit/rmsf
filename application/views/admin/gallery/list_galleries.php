@@ -10,10 +10,8 @@
         <div class="group-buttons-right">
             <ul class="nav nav-pills">
                 <li>
-                    <?php if($this->session->userdata('role_id') == ROLE_SYSTEM_ADMIN): ?>
                     <a href="<?= base_url(ADMIN_GALLERY . "/create") ?>"> <i
-                            class="fa fa-plus-circle fa-1x"></i><?= $this->lang->line("gallery_button_add"); ?></a>
-                   <?php endif;?>
+                                class="fa fa-plus-circle fa-1x"></i><?= $this->lang->line("gallery_button_add"); ?></a>
                 </li>
             </ul>
         </div>
@@ -33,7 +31,6 @@
                                     data-toggle="tooltip" title="Collapse" style="margin-right: 5px;">
                                 <i class="fa fa-plus" style="font-size: large"></i></button>
                         </div><!-- /. tools -->
-                        <i class="fa fa-search"></i>
                         <h3 class="box-title">
                             <?= $this->lang->line("button_search"); ?>
                         </h3>
@@ -41,7 +38,8 @@
                     <div class="box-body">
                         <div class="col-md-4 ">
                             <div class="form-group">
-                                <label class="col-md-4 control-label text-right"><?= $this->lang->line("gallery_name"); ?> (ไทย)</label>
+                                <label class="col-md-4 control-label text-right"><?= $this->lang->line("gallery_name"); ?>
+                                    (ไทย)</label>
                                 <div class="col-md-8">
                                     <input class="form-control" type="text" id="name_th">
                                 </div>
@@ -49,7 +47,8 @@
                         </div>
                         <div class="col-md-4 ">
                             <div class="form-group">
-                                <label class="col-md-4 control-label text-right"><?= $this->lang->line("gallery_name"); ?> (english)</label>
+                                <label class="col-md-4 control-label text-right"><?= $this->lang->line("gallery_name"); ?>
+                                    (english)</label>
                                 <div class="col-md-8">
                                     <input class="form-control" type="text" id="name_en">
                                 </div>
@@ -58,7 +57,7 @@
                         <div class="col-md-4 ">
                             <div class="form-group ">
                                 <label
-                                    class="col-md-3 control-label text-right"><?= $this->lang->line("form_field_published"); ?></label>
+                                        class="col-md-3 control-label text-right"><?= $this->lang->line("form_field_published"); ?></label>
                                 <div class="col-md-7">
                                     <select class="form-control" id="published" name="published">
                                         <option value=""></option>
@@ -75,7 +74,8 @@
                             <button id="btn_search" type="button" onclick="search()" class="btn btn-primary "><i
                                         class="fa fa-search"></i> <?= $this->lang->line("button_search"); ?>
                             </button>
-                            <button id="btn_clear_search" onclick="clearTextSearch()" type="button" class="btn btn-default">
+                            <button id="btn_clear_search" onclick="clearTextSearch()" type="button"
+                                    class="btn btn-default">
                                 <i class="fa fa-refresh"></i>
                                 <?= $this->lang->line("button_clear"); ?>
                             </button>
@@ -93,7 +93,8 @@
                     <!--Body-->
                     <div class="box-body">
                         <div class="dataTable_wrapper">
-                            <table class="table table-striped table-bordered table-hover" width="98%" id="gallerys_datatable">
+                            <table class="table table-striped table-bordered table-hover" width="98%"
+                                   id="gallery_datatable">
                                 <thead>
                                 <tr>
                                     <th><?= $this->lang->line("table_seq"); ?></th>
@@ -124,7 +125,7 @@
 </div>
 <script type="text/javascript">
 
-    var dataTable = $('#gallerys_datatable');
+    var dataTable = $('#gallery_datatable');
 
     $(document).ready(function () {
 
@@ -168,7 +169,7 @@
             {data: "published", "sClass": "text", "visible": false},
         ];
 
-        dataTable = $('#gallerys_datatable').DataTable({
+        dataTable = $('#gallery_datatable').DataTable({
             'ajax': {
                 type: "GET",
                 url: BASE_URL + 'admin/gallery/loadGalleriesDataTable',

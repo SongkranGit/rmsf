@@ -43,6 +43,7 @@ class GalleryImage extends Admin_Controller
 
         } else if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $response = array('success' => false, 'messages' => array());
+            // multi upload without caption
             if (!empty($this->input->post("list_image_uuid"))) {
                 $list_image_uuid = $this->input->post("list_image_uuid");
                 $gallery_id = $this->input->post("gallery_id");
@@ -193,7 +194,7 @@ class GalleryImage extends Admin_Controller
         return $data_uploaded;
     }
 
-    public function uploadImageWithDropzone()
+    public function uploadImageWithDropzone($gallery_id)
     {
         if (!empty($_FILES)) {
             //image info
@@ -202,7 +203,7 @@ class GalleryImage extends Admin_Controller
             $image_old_name = $_FILES["file"]["name"];
 
             //create directory
-            $gallery_id = $this->input->post('gallery_id');
+            //$gallery_id = $this->input->post('gallery_id');
             $directory_path = $this->createDirectoryByGalleryId($gallery_id);
 
             // config upload
@@ -226,9 +227,9 @@ class GalleryImage extends Admin_Controller
                 $img = new SimpleImage();
                 $img->load($data_uploaded["full_path"])->thumbnail(500, 380, 'center')->save($directory_path . "/" . $new_thumb_image);
 
-                // Save to article_images
                 $data = array(
                     "image_uuid" => $uuid,
+                    "gallery_id"=> $gallery_id,
                     "image_old_name" => strtolower($image_old_name),
                     "file_name" => strtolower($data_uploaded["file_name"]),
                     "size" => $data_uploaded["file_size"],

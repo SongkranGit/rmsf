@@ -44,7 +44,7 @@ class Gallery_Images_Model extends CI_Model
 
         $data = array();
         $rows = array();
-        $this->db->select("gi.id , gi.gallery_id , gi.caption_th , gi.caption_en, gi.description_th , gi.description_en");
+        $this->db->select("gi.id , gi.gallery_id , gi.caption_th , gi.caption_en");
         $this->db->select("gi.file_name , gi.published , gi.order_seq , g.name_th , g.name_en ");
         $this->db->from("galleries_images gi");
         $this->db->join("galleries g" , 'g.id= gi.gallery_id', 'left');

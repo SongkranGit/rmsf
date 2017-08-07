@@ -147,7 +147,8 @@ class Gallery_Images_Model extends CI_Model
 
         $data = array();
         $rows = array();
-        $this->db->select("gi.id , gi.gallery_id , gi.caption_th , gi.caption_en, gi.description_th , gi.description_en, gi.file_name , gi.published , gi.order_seq , g.name");
+        $this->db->select("gi.id , gi.gallery_id , gi.caption_th , gi.caption_en, gi.description_th , gi.description_en");
+        $this->db->select("gi.file_name , gi.published , gi.order_seq , g.name_th , g.name_en ");
         $this->db->from("galleries_images gi");
         $this->db->join("galleries g" , 'g.id= gi.gallery_id', 'left');
         $this->db->where("gi.gallery_id" , $gallery_id);
@@ -166,8 +167,8 @@ class Gallery_Images_Model extends CI_Model
                     "file_name" => $row->file_name,
                     "gallery_name" => $row->name,
                     "order_seq" => $row->order_seq,
-                    "caption" => (isEnglishLang())?character_limiter($row->caption_en, 30): character_limiter($row->caption_th , 30),
-                    "description" => isEnglishLang()? $row->description_en :$row->description_th,
+                    "caption_th" => character_limiter($row->caption_th, 30),
+                    "caption_en" => character_limiter($row->caption_en, 30),
                     "published" => $row->published
                 );
             }

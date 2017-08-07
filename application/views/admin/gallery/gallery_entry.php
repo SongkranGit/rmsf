@@ -41,14 +41,15 @@
                                     <div class="form-group required ">
                                         <label class="col-md-12 label-required"><?= $this->lang->line("gallery_name"); ?></label>
                                         <div class="col-md-12">
-                                            <input type="text"  name="name_th" class="form-control"
+                                            <input type="text" name="name_th" class="form-control"
                                                    value="<?php echo setFormData($data, $key = "name_th"); ?>">
                                         </div>
                                     </div>
                                     <div class="form-group required ">
                                         <label class="col-md-12 label-required"><?= $this->lang->line("description"); ?></label>
                                         <div class="col-md-12">
-                                            <textarea rows="3" class="form-control" name="description_th"><?php echo isset($data["row"]["description"]) ? $data["row"]["description"] : "" ?></textarea>
+                                            <textarea rows="3" class="form-control"
+                                                      name="description_th"><?php echo setFormData($data, $key = "description_th"); ?></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -58,13 +59,14 @@
                                         <label class="col-md-12 label-required"><?= $this->lang->line("gallery_name"); ?></label>
                                         <div class="col-md-12">
                                             <input type="text" id="name" name="name_en" class="form-control"
-                                                   value="<?php echo isset($data["row"]["name_th"]) ? $data["row"]["name_en"] : "" ?>">
+                                                   value="<?php echo setFormData($data, $key = "name_en"); ?>">
                                         </div>
                                     </div>
                                     <div class="form-group required ">
                                         <label class="col-md-12 label-required"><?= $this->lang->line("description"); ?></label>
                                         <div class="col-md-12">
-                                            <textarea rows="3" class="form-control" name="description_en"><?php echo isset($data["row"]["description"]) ? $data["row"]["description"] : "" ?></textarea>
+                                            <textarea rows="3" class="form-control"
+                                                      name="description_en"><?php echo setFormData($data, $key = "description_en"); ?></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -143,12 +145,11 @@
         });
     }
 
-
     function save() {
         var targetUrl;
         var id = '<?=$this->uri->segment(4)?>';
 
-        if (id === "") {
+        if (id === '') {
             targetUrl = BASE_URL + 'admin/Gallery/create';
         } else {
             targetUrl = BASE_URL + 'admin/Gallery/update/' + id;
@@ -165,14 +166,9 @@
                 if (response.success == true) {
                     alertSuccessMessageDialog(
                         '<?=$this->lang->line("message_dialog_title_success");?>',
-                        '<?=$this->lang->line("message_save_complete");?>', function(){
-                            var id = '<?=$this->uri->segment(4)?>';
-                            if (id != 0 && id != '') {
-                                window.location = BASE_URL + 'admin/Gallery/index';
-                            } else {
-                                clearForm();
-                            }
-                    } );
+                        '<?=$this->lang->line("message_save_complete");?>', function () {
+                            window.location = BASE_URL + 'admin/Gallery';
+                        });
                 } else {
                     $.each(response.messages, function (key, value) {
                         var element = $('#' + key);
@@ -187,19 +183,15 @@
             },
             error: function (request, status, error) {
                 hideSpinner();
-                clearForm();
                 alert(request.responseText);
             }
         });
     }
 
-
-
     function clearForm() {
         validator.resetForm();
         $('#form_gallery_entry')[0].reset();
     }
-
 
 </script>
 

@@ -18,7 +18,6 @@ class GalleryImage extends Admin_Controller
         $this->upload_path = realpath(APPPATH . '../uploads/gallery');
     }
 
-
     public function index()
     {
         $data["galleries"] = $this->Gallery_model->getAll();

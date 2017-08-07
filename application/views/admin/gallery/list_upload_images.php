@@ -71,8 +71,8 @@
                 }
             },
             {data: "gallery_name", "sClass": "text", "sWidth": "20%"},
-            {data: "caption", "sClass": "text", "sWidth": "20%"},
-            {data: "caption", "sClass": "text", "sWidth": "20%"},
+            {data: "caption_th", "sClass": "text", "sWidth": "20%"},
+            {data: "caption_en", "sClass": "text", "sWidth": "20%"},
             {
                 orderable: false, "sWidth": "10%",
                 mRender: function (data, type, row) {

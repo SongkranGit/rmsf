@@ -19,6 +19,7 @@
         </div>
     </section>
 
+
     <!-- Main content -->
     <section class="content">
         <!--Row Search-->
@@ -38,12 +39,19 @@
                         </h3>
                     </div>
                     <div class="box-body">
-                        <div class="col-md-8 ">
+                        <div class="col-md-4 ">
                             <div class="form-group">
-                                <label
-                                    class="col-md-2 control-label text-right"><?= $this->lang->line("gallery_name"); ?></label>
-                                <div class="col-md-10">
-                                    <input class="form-control" type="text" id="name">
+                                <label class="col-md-4 control-label text-right"><?= $this->lang->line("gallery_name"); ?> (ไทย)</label>
+                                <div class="col-md-8">
+                                    <input class="form-control" type="text" id="name_th">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 ">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label text-right"><?= $this->lang->line("gallery_name"); ?> (english)</label>
+                                <div class="col-md-8">
+                                    <input class="form-control" type="text" id="name_en">
                                 </div>
                             </div>
                         </div>
@@ -140,7 +148,7 @@
                 }
             },
             {
-                orderable: false, "sWidth": "5%",
+                orderable: false, "sWidth": "5%", sClass: "text-center",
                 mRender: function (data, type, row) {
                     var value_order = (row.order_seq != null && row.order_seq != '') ? row.order_seq : 1;
                     return '<div class="text-center"><input type="number" onblur="updateGalleryOrderSeq(this , ' + row.id + ')" value="' + value_order + '" class="form-control" name="order" step="1" min="1" style="width: 60px" ></div>';
@@ -245,19 +253,21 @@
     }
 
     function search() {
-        var name = $('#name').val();
+        var name_th = $('#name_th').val();
+        var name_en = $('#name_en').val();
         var published = $("#published option:selected").val();
 
         dataTable
-            .column(1).search(name)
+            .column(1).search(name_th)
+            .column(2).search(name_en)
             .column(6).search(published)
             .draw();
     }
 
     function clearTextSearch() {
         $('#published').prop('selectedIndex', 0);
-        $('#description').val('');
-        $('#name').val('');
+        $('#name_en').val('');
+        $('#name_th').val('');
     }
 
     function setVisibleSearchPanel() {

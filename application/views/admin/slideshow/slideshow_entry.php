@@ -125,8 +125,7 @@
                                     <span style="font-size: 12px;color: red"><em>รูปควรมีขนาดความกว้างและความสูงมากกว่า 1900 x 1080 และขนาดภาพต้องไม่เกิน 4 MB</em></span>
                                     <label class="btn btn-primary btn-upload pull-right" for="inputImage"
                                            title="Upload image file">
-                                        <input type="file" class="sr-only" id="inputImage" name="user_files"
-                                               accept="image/*">
+                                        <input type="file" class="sr-only" id="inputImage" name="user_files" accept="image/*">
                                         <span class="docs-tooltip" data-toggle="tooltip" title="เลือกรูป">
                                        <span class="fa fa-upload"> เลือกรูป</span>
                                    </span>
@@ -438,10 +437,10 @@
     }
 
     function validateForm() {
-        if($('#inputImage').attr("src") == "") {
-            return false;
+        if ( $('.img-preview').children().length > 0 ) {
+            return true;
         }
-        return true;
+        return false;
     }
 
 

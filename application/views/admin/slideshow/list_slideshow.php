@@ -65,7 +65,7 @@
                 orderable: false, "sWidth": "15%",
                 mRender: function (data, type, row) {
                     if(row.file_name != null && row.file_name != ''){
-                        var img_src = '<?=base_url("uploads")?>'+'/'+row.file_name;
+                        var img_src = '<?=base_url("uploads")?>'+'/slideshow/'+row.file_name;
                         return '<img height="100" src='+img_src+' class=\"img-responsive\" >';
                     }else{
                         return '';

@@ -16,7 +16,8 @@ class Gallery extends Admin_Controller
 
     public function index()
     {
-        $this->load->view("admin/gallery/list_galleries");
+        $data["pages"] = $this->Page_model->getAll();
+        $this->load->view("admin/gallery/list_galleries" , $data);
     }
 
     public function create()

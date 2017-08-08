@@ -127,7 +127,7 @@ class Article_Model extends CI_Model
     {
         $data = array();
         $rows = array();
-        $this->db->select("a.* , p.id as page_id   , p.name_en as page_name ");
+        $this->db->select("a.* , p.id as page_id   , p.name_en as page_name_en , p.name_th as page_name_th ");
         $this->db->from("articles a");
         $this->db->join("pages p", "p.id = a.page_id");
         $this->db->where("a.is_deleted ", 0);
@@ -141,7 +141,7 @@ class Article_Model extends CI_Model
                 $rows[] = array(
                     "id" => $row->id,
                     "page_id" => $row->page_id,
-                    "page_name" => $row->page_name,
+                    "page_name" => (isEnglishLang())?$row->page_name_en: $row->page_name_th,
                     "name_th" =>  $row->name_th,
                     "name_en" =>  $row->name_en,
                     "order_seq" => $row->order_seq,

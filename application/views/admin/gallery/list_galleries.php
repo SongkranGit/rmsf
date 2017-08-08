@@ -35,25 +35,40 @@
                         </h3>
                     </div>
                     <div class="box-body">
-                        <div class="col-md-4 ">
+                        <div class="col-md-3 ">
                             <div class="form-group">
-                                <label class="col-md-4 control-label text-right"><?= $this->lang->line("gallery_name"); ?>
-                                    (ไทย)</label>
+                                <label class="col-md-4 control-label text-right"><?= $this->lang->line("pages_title"); ?></label>
                                 <div class="col-md-8">
+                                    <select class="form-control" id="page_id" name="page_id">
+                                        <option value=""></option>
+                                        <?php if (!empty($pages) && count($pages) > 0): ?>
+                                            <?php foreach ($pages as $item): ?>
+                                                <option value="<?= $item["id"] ?>"><?php echo isEnglishLang() ? $item["name_en"] : $item["name_th"] ?></option>
+                                            <?php endforeach; ?>
+                                        <?php endif; ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 ">
+                            <div class="form-group">
+                                <label class="col-md-5 control-label text-right"><?= $this->lang->line("gallery_name"); ?>
+                                    (ไทย)</label>
+                                <div class="col-md-7">
                                     <input class="form-control" type="text" id="name_th">
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4 ">
+                        <div class="col-md-3 ">
                             <div class="form-group">
-                                <label class="col-md-4 control-label text-right"><?= $this->lang->line("gallery_name"); ?>
+                                <label class="col-md-5 control-label text-right"><?= $this->lang->line("gallery_name"); ?>
                                     (english)</label>
-                                <div class="col-md-8">
+                                <div class="col-md-7">
                                     <input class="form-control" type="text" id="name_en">
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4 ">
+                        <div class="col-md-3 ">
                             <div class="form-group ">
                                 <label
                                         class="col-md-3 control-label text-right"><?= $this->lang->line("form_field_published"); ?></label>
@@ -131,8 +146,18 @@
 
         loadArticlesDataTable();
 
+        setupKeyEnterSearch();
+
         setVisibleSearchPanel();
     });
+
+    function setupKeyEnterSearch() {
+        $("#name_en,#name_th").keyup(function (e) {
+            if (e.keyCode == 13) {
+                $("#btn_search").trigger("click");
+            }
+        });
+    }
 
     function loadArticlesDataTable() {
         var columns = [
@@ -258,16 +283,19 @@
         var name_th = $('#name_th').val();
         var name_en = $('#name_en').val();
         var published = $("#published option:selected").val();
+        var page_name =  $("#page_id option:selected").text();
 
         dataTable
+            .column(1).search(page_name)
             .column(2).search(name_th)
             .column(3).search(name_en)
-            .column(6).search(published)
+            .column(7).search(published)
             .draw();
     }
 
     function clearTextSearch() {
         $('#published').prop('selectedIndex', 0);
+        $('#page_id').prop('selectedIndex', 0);
         $('#name_en').val('');
         $('#name_th').val('');
     }

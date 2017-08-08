@@ -34,7 +34,7 @@
                         </h3>
                     </div>
                     <div class="box-body">
-                        <div class="col-md-4 ">
+                        <div class="col-md-3 ">
                             <div class="form-group">
                                 <label class="col-md-4 control-label text-right"><?= $this->lang->line("pages_title"); ?></label>
                                 <div class="col-md-8">
@@ -42,22 +42,31 @@
                                         <option value=""></option>
                                         <?php if (!empty($pages) && count($pages) > 0): ?>
                                             <?php foreach ($pages as $item): ?>
-                                                <option value="<?= $item["id"] ?>"><?php echo isEnglishLang() ? $item["title_en"] : $item["title_th"] ?></option>
+                                                <option value="<?= $item["id"] ?>"><?php echo isEnglishLang() ? $item["name_en"] : $item["name_th"] ?></option>
                                             <?php endforeach; ?>
                                         <?php endif; ?>
                                     </select>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4 ">
+                        <div class="col-md-3 ">
                             <div class="form-group">
-                                <label class="col-md-4 control-label text-right"><?= $this->lang->line("article_name"); ?></label>
+                                <label class="col-md-4 control-label text-right"><?= $this->lang->line("article_name"); ?> (ไทย)</label>
                                 <div class="col-md-8">
-                                    <input class="form-control" type="text" id="name">
+                                    <input class="form-control" type="text" id="name_th">
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4 ">
+
+                        <div class="col-md-3 ">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label text-right"><?= $this->lang->line("article_name"); ?> (English)</label>
+                                    <div class="col-md-8">
+                                        <input class="form-control" type="text" id="name_en">
+                                    </div>
+                                </div>
+                            </div>
+                        <div class="col-md-3 ">
                             <div class="form-group">
                                 <label class="col-md-3 control-label text-right"><?= $this->lang->line("form_field_published"); ?></label>
                                 <div class="col-md-9">
@@ -150,7 +159,7 @@
     });
 
     function setupKeyEnterSearch() {
-        $("#name").keyup(function (e) {
+        $("#name_en,#name_th").keyup(function (e) {
             if (e.keyCode == 13) {
                 $("#btn_search").trigger("click");
             }
@@ -285,20 +294,23 @@
     }
 
     function search() {
-        var name = $('#name').val();
+        var name_th = $('#name_th').val();
+        var name_en = $('#name_en').val();
         var published = $("#published option:selected").val();
-        var page = $("#page_id option:selected").val();
+        var page_name =  $("#page_id option:selected").text();
 
-        dataTable.column(2).search(name);
+        dataTable.column(1).search(page_name);
+        dataTable.column(2).search(name_th);
+        dataTable.column(3).search(name_en);
         dataTable.column(8).search(published);
-        dataTable.column(9).search(page);
         dataTable.draw();
     }
 
     function clearTextSearch() {
         $('#published').prop('selectedIndex', 0);
         $('#page_id').prop('selectedIndex', 0);
-        $('#name').val('');
+        $('#name_en').val('');
+        $('#name_th').val('');
     }
 
     function setVisibleSearchPanel() {

@@ -117,8 +117,8 @@ class Page extends Admin_Controller
     public function validateForm()
     {
         $this->load->library('form_validation');
-        $this->form_validation->set_rules("name_th", "Name", "trim|required");
-        $this->form_validation->set_rules("name_en", "Name", "trim|required");
+        $this->form_validation->set_rules("name_th", "Page Title Thai", "trim|required");
+        $this->form_validation->set_rules("name_en", "Page Title English", "trim|required");
         $this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
     }
 

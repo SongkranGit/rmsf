@@ -60,11 +60,13 @@ class Gallery_Model extends CI_Model
     {
         $data = array();
         $rows = array();
-        $this->db->select("*");
-        $this->db->from("galleries");
-        $this->db->where("is_deleted", 0);
-        $this->db->order_by("order_seq", 'ASC');
-        $this->db->order_by("created_date", 'ASC');
+        $this->db->select("g.*");
+        $this->db->select("p.name_th as page_name_th, p.name_en as page_name_en");
+        $this->db->from("galleries g");
+        $this->db->join("pages p", "p.id = g.page_id");
+        $this->db->where("g.is_deleted", 0);
+        $this->db->order_by("g.order_seq", 'ASC');
+        $this->db->order_by("g.created_date", 'ASC');
         $query = $this->db->get();
 
         // echo $this->db->last_query();
@@ -72,10 +74,9 @@ class Gallery_Model extends CI_Model
             foreach ($query->result() as $row) {
                 $rows[] = array(
                     "id" => $row->id,
+                    "page_name"=> (isEnglishLang())?$row->page_name_en:$row->page_name_th,
                     "name_th" => $row->name_th,
                     "name_en" => $row->name_en,
-                    "description_th" => $row->description_th,
-                    "description_en" => $row->description_en,
                     "order_seq" => $row->order_seq,
                     "published" => $row->published,
                     "created_date" => Calendar::formatDateTimeToDDMMYYYY($row->updated_date)

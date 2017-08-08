@@ -19,6 +19,7 @@
                 return false;
             }
         });
+
     });
 
     // Show the progress bar
@@ -39,6 +40,8 @@
     jQuery(window).unload(function () {
         NProgress.start();
     });
+
+
 </script>
 </body>
 </html>

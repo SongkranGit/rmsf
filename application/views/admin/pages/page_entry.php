@@ -2,6 +2,7 @@
 <?php $this->load->view("includes/admin/navbar"); ?>
 
 <?php
+$form_action = $data['action'];
 $gallery_selected = (isset($data["row"]["gallery_id"])) ? $data["row"]["gallery_id"] : '';
 $article_selected = (isset($data["row"]["article_id"])) ? $data["row"]["article_id"] : '';
 ?>
@@ -54,7 +55,7 @@ $article_selected = (isset($data["row"]["article_id"])) ? $data["row"]["article_
                                     </div>
 
                                     <div class="form-group required">
-                                        <label class="col-md-12 label-required" for="body"><?= $this->lang->line("detail"); ?></label>
+                                        <label class="col-md-12 label-required" for="detail_th"><?= $this->lang->line("detail"); ?></label>
                                         <div class="col-md-12 ">
                                             <textarea name="detail_th" id="detail_th" class="form-control" rows="5"><?php echo setFormData($data, $key = "detail_th"); ?></textarea>
                                         </div>
@@ -74,7 +75,7 @@ $article_selected = (isset($data["row"]["article_id"])) ? $data["row"]["article_
                                     </div>
 
                                     <div class="form-group required">
-                                        <label class="col-md-12 label-required" for="body_en"><?= $this->lang->line("detail"); ?></label>
+                                        <label class="col-md-12 label-required" for="detail_en"><?= $this->lang->line("detail"); ?></label>
                                         <div class="col-md-12">
                                             <textarea name="detail_en" id="detail_en" class="form-control" rows="5"><?php echo setFormData($data, $key = "detail_en"); ?></textarea>
                                         </div>
@@ -86,6 +87,7 @@ $article_selected = (isset($data["row"]["article_id"])) ? $data["row"]["article_
                         </div>
                     </div>
 
+                    <?php if($form_action != ACTION_CREATE): ?>
 
                     <div id="div_cbx_enable_article" class="form-group">
                         <label class="col-md-2 control-label"><?= $this->lang->line("article_title"); ?></label>
@@ -98,7 +100,6 @@ $article_selected = (isset($data["row"]["article_id"])) ? $data["row"]["article_
                             </div>
                         </div>
                     </div>
-
 
                     <div class="form-group">
                         <label class="col-md-2 control-label"><?= $this->lang->line("gallery_title"); ?></label>
@@ -113,6 +114,8 @@ $article_selected = (isset($data["row"]["article_id"])) ? $data["row"]["article_
                             </div>
                         </div>
                     </div>
+
+                    <?php endif;?>
 
                     <div class="form-group ">
                         <label class="col-md-2 control-label text-right"><?= $this->lang->line("form_field_published"); ?></label>
@@ -230,19 +233,21 @@ $article_selected = (isset($data["row"]["article_id"])) ? $data["row"]["article_
     }
 
     function validateForm() {
+        //Fixed not validate hidden tabs
+        $.validator.setDefaults({
+            ignore: ""
+        });
         validator = $('#form_page_entry').validate({
             rules: {
-                title_en: "required",
-                title_th: "required",
-                name: {
+                name_th: "required",
+                name_en: {
                     required: true,
                     letterEnglishOnly: true
                 }
             },
             messages: {
-                title_en: '<?php echo $this->lang->line("message_this_field_is_require");?>',
-                title_th: '<?php echo $this->lang->line("message_this_field_is_require");?>',
-                name: {
+                name_th: '<?php echo $this->lang->line("message_this_field_is_require");?>',
+                name_en: {
                     required: '<?php echo $this->lang->line("message_this_field_is_require");?>'
                 }
 

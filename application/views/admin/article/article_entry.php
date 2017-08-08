@@ -326,6 +326,10 @@
     }
 
     function validateForm() {
+        //Fixed not validate hidden tabs
+        $.validator.setDefaults({
+            ignore: ""
+        });
         validator = $('#form_article_entry').validate({
             rules: {
                 published_date: "required",

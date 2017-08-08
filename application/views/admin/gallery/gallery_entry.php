@@ -29,6 +29,22 @@
 
                 <div class="panel-body">
                     <div class="form-group ">
+                        <label class="col-sm-2 control-label"><?= $this->lang->line("web_page"); ?></label>
+                        <div class="col-md-7">
+                            <div class="col-md-5 input-group dateinput-group date">
+                                <select class="form-control" id="page_id" name="page_id">
+                                    <?php if (!empty($data["pages"]) && count($data["pages"]) > 0): ?>
+                                        <?php foreach ($data["pages"] as $item): ?>
+                                            <option value="<?= $item["id"] ?>" <?= isset($data["row"]["page_id"]) && $data["row"]["page_id"] == $item["id"] ? "selected" : "" ?> >
+                                                <?php echo isEnglishLang() ? $item["name_en"] : $item["name_th"] ?></option>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group ">
                         <label class="col-md-2  control-label"><?= $this->lang->line("gallery_name"); ?></label>
                         <div class="col-md-8">
                             <ul class="nav nav-tabs">

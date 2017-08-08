@@ -94,8 +94,8 @@ $lang['table_published'] 	  	        = 'เผยแพร่';
 $lang['table_order'] 	  	            = 'ลำดับ';
 
 // messages
-$lang['message_this_field_is_require'] 	  	                    = 'กรุณาระบุกรอกข้อมูล';
-$lang['message_validate_website_short_name_max_length'] 	  	= 'กรุณาระบุไม่เกิน 4 ตัวอักษร';
+$lang['message_this_field_is_require'] 	  	                    = 'กรุณากรอกข้อมูล';
+$lang['message_validate_website_short_name_max_length'] 	  	= 'กรุณากรอกไม่เกิน 4 ตัวอักษร';
 $lang['message_save_complete'] 	  	                            = 'บันทึกข้อมูลเสร็จเรียบร้อย';
 $lang['message_email_not_valid'] 	  	                        = 'รูปแบบของอีเมล์ไม่ถูกต้อง';
 $lang['message_password_is_not_match'] 	                        = 'กรุณากรอกรหัสผ่านให้ตรงกัน';

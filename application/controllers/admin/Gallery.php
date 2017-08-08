@@ -10,6 +10,7 @@ class Gallery extends Admin_Controller
     {
         parent::__construct();
         $this->load->model("Gallery_model");
+        $this->load->model("Page_model");
         $this->load->helper('text');
     }
 
@@ -24,6 +25,7 @@ class Gallery extends Admin_Controller
             $view_data = array(
                 "data" => array(
                     "action" => ACTION_CREATE,
+                    "pages" => $this->Page_model->getAll(),
                     "heading_text" => $this->lang->line("gallery_title_add")
                 )
             );
@@ -36,6 +38,7 @@ class Gallery extends Admin_Controller
 
             if ($this->form_validation->run()) {
                 $data = array(
+                    "page_id" => $this->input->post("page_id"),
                     "name_th" => $this->input->post("name_th"),
                     "name_en" => $this->input->post("name_en"),
                     "description_th" => $this->input->post("description_th"),
@@ -63,6 +66,7 @@ class Gallery extends Admin_Controller
                 "data" => array(
                     "action" => ACTION_UPDATE,
                     "heading_text" => $this->lang->line("gallery_title_edit"),
+                    "pages" => $this->Page_model->getAll(),
                     "row" => $arr_result
                 )
             );
@@ -75,6 +79,7 @@ class Gallery extends Admin_Controller
 
             if ($this->form_validation->run()) {
                 $data = array(
+                    "page_id" => $this->input->post("page_id"),
                     "name_th" => $this->input->post("name_th"),
                     "name_en" => $this->input->post("name_en"),
                     "description_th" => $this->input->post("description_th"),

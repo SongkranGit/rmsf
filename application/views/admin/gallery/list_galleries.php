@@ -10,8 +10,7 @@
         <div class="group-buttons-right">
             <ul class="nav nav-pills">
                 <li>
-                    <a href="<?= base_url(ADMIN_GALLERY . "/create") ?>"> <i
-                                class="fa fa-plus-circle fa-1x"></i><?= $this->lang->line("gallery_button_add"); ?></a>
+                    <a href="<?= base_url(ADMIN_GALLERY . "/create") ?>"> <i class="fa fa-plus-circle fa-1x"></i><?= $this->lang->line("gallery_button_add"); ?></a>
                 </li>
             </ul>
         </div>
@@ -98,6 +97,7 @@
                                 <thead>
                                 <tr>
                                     <th><?= $this->lang->line("table_seq"); ?></th>
+                                    <th><?= $this->lang->line("web_page"); ?></th>
                                     <th><?= $this->lang->line("gallery_name"); ?> (ไทย)</th>
                                     <th><?= $this->lang->line("gallery_name"); ?> (english)</th>
                                     <th class="text-center"><?= $this->lang->line("table_published"); ?></th>
@@ -137,6 +137,7 @@
     function loadArticlesDataTable() {
         var columns = [
             {data: null, "sClass": "right", "bSortable": false, "sWidth": "3%"}, //1st column
+            {data: "page_name", "sClass": "text", "sWidth": "15%"},
             {data: "name_th", "sClass": "text", "sWidth": "25%"},
             {data: "name_en", "sClass": "text", "sWidth": "25%"},
             {
@@ -259,8 +260,8 @@
         var published = $("#published option:selected").val();
 
         dataTable
-            .column(1).search(name_th)
-            .column(2).search(name_en)
+            .column(2).search(name_th)
+            .column(3).search(name_en)
             .column(6).search(published)
             .draw();
     }

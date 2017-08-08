@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-require_once APPPATH.'core/Admin_controller.php';
+require_once APPPATH . 'core/Admin_controller.php';
 
 class Article extends Admin_Controller
 {
@@ -37,7 +37,7 @@ class Article extends Admin_Controller
             );
             $this->load->view("admin/article/article_entry", $view_data);
 
-        } else  if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        } else if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $result = array('success' => false, 'messages' => array());
 
             $this->validateForm();
@@ -60,7 +60,7 @@ class Article extends Admin_Controller
                 if ($isSuccess) {
                     $article_id = $this->db->insert_id();
                     $list_image_uuid = $this->input->post("list_image_uuid");
-                    $this->updateArticleImages($list_image_uuid , $article_id);
+                    $this->updateArticleImages($list_image_uuid, $article_id);
                     $result['success'] = true;
                 }
             } else {
@@ -76,7 +76,21 @@ class Article extends Admin_Controller
 
     public function update($article_id)
     {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if ($_SERVER["REQUEST_METHOD"] == "GET") {
+            $arr_result = $this->Article_model->getById($article_id);
+            $view_data = array(
+                "data" => array(
+                    "action" => ACTION_UPDATE,
+                    "heading_text" => $this->lang->line("article_title_edit"),
+                    "pages" => $this->Page_model->getAll(),
+                    "article_id" => $article_id,
+                    "row" => $arr_result
+                )
+            );
+            $this->load->view("admin/article/article_entry", $view_data);
+
+        } else if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
             $result = array('success' => false, 'messages' => array());
 
             $this->validateForm();
@@ -98,7 +112,7 @@ class Article extends Admin_Controller
                 $isSuccess = $this->Article_model->update($data, $article_id);
                 if ($isSuccess) {
                     $list_image_uuid = $this->input->post("list_image_uuid");
-                    $this->updateArticleImages($list_image_uuid , $article_id);
+                    $this->updateArticleImages($list_image_uuid, $article_id);
                     $result['success'] = true;
                 }
             } else {
@@ -106,33 +120,23 @@ class Article extends Admin_Controller
                     $result['messages'][$key] = form_error($key);
                 }
             }
-            
+
             // response to client
             echo json_encode($result);
-        } else {
-            $arr_result = $this->Article_model->getById($article_id);
-            $view_data = array(
-                "data" => array(
-                    "action" => ACTION_UPDATE,
-                    "heading_text" => $this->lang->line("article_title_edit"),
-                    "pages" => $this->Page_model->getAll(),
-                    "article_id" => $article_id,
-                    "row" => $arr_result
-                )
-            );
-            $this->load->view("admin/article/article_entry", $view_data);
         }
+
     }
 
-    public function show($id){
-        if($id != null){
+    public function show($id)
+    {
+        if ($id != null) {
             $arr_result = $this->Article_model->getById($id);
             $view_data = array(
                 "data" => array(
                     "action" => ACTION_SHOW,
                     "heading_text" => $this->lang->line("show_data_info"),
                     "pages" => $this->Page_model->getAll(),
-                    "is_show_data"=> true,
+                    "is_show_data" => true,
                     "article_id" => $id,
                     "row" => $arr_result
                 )
@@ -221,7 +225,7 @@ class Article extends Admin_Controller
                 // Save to article_images
                 $data = array(
                     "article_id" => null,
-                    "image_uuid"=> $uuid ,
+                    "image_uuid" => $uuid,
                     "image_old_name" => strtolower($image_old_name),
                     "image_name" => strtolower($data_uploaded["file_name"]),
                     "size" => $data_uploaded["file_size"],
@@ -233,9 +237,9 @@ class Article extends Admin_Controller
                 //
                 $success_message = array(
                     'success' => 200,
-                    'image_uuid'=> $uuid,
+                    'image_uuid' => $uuid,
                     'serverFileName' => strtolower($data_uploaded["file_name"]),
-                    'size'=> $data_uploaded["file_size"]
+                    'size' => $data_uploaded["file_size"]
                 );
 
                 echo json_encode($success_message);
@@ -253,7 +257,8 @@ class Article extends Admin_Controller
         }
     }
 
-    private function updateArticleImages($list_image_uuid , $article_id){
+    private function updateArticleImages($list_image_uuid, $article_id)
+    {
         if (!IsNullOrEmptyString($list_image_uuid)) {
             $arr_list_image_uuid = explode(',', $list_image_uuid);
             for ($i = 0; $i < count($arr_list_image_uuid); $i++) {
@@ -263,7 +268,7 @@ class Article extends Admin_Controller
                     "order_seq" => $order + 1
                 );
                 //  echo $arr_list_image_uuid[$i]."::";
-                $this->Article_images_model->updateByImageUUID($data_image , trim($arr_list_image_uuid[$i]));
+                $this->Article_images_model->updateByImageUUID($data_image, trim($arr_list_image_uuid[$i]));
             }
         }
     }

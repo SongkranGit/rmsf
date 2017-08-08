@@ -11,8 +11,7 @@
             <ul class="nav nav-pills">
                 <li>
                     <?php if ($this->session->userdata('role_id') == ROLE_SYSTEM_ADMIN): ?>
-                        <a href="<?= base_url(ADMIN_PAGE . "/create") ?>"> <i
-                                    class="fa fa-plus-circle fa-1x"></i><?= $this->lang->line("pages_button_add"); ?>
+                        <a href="<?= base_url(ADMIN_PAGE . "/create") ?>"> <i class="fa fa-plus-circle fa-1x"></i><?= $this->lang->line("pages_button_add"); ?>
                         </a>
                     <?php endif; ?>
                 </li>
@@ -102,8 +101,8 @@
                                 <thead>
                                 <tr>
                                     <th class="text-center"><?= $this->lang->line("table_seq"); ?></th>
-                                    <th ><?= $this->lang->line("pages_title"); ?> (ไทย)</th>
-                                    <th ><?= $this->lang->line("pages_title"); ?> (Eng)</th>
+                                    <th><?= $this->lang->line("pages_title"); ?> (ไทย)</th>
+                                    <th><?= $this->lang->line("pages_title"); ?> (Eng)</th>
                                     <th class="text-center"><?= $this->lang->line("table_last_update"); ?></th>
                                     <th class="text-center"><?= $this->lang->line("table_record_status"); ?></th>
                                     <th class="text-center">

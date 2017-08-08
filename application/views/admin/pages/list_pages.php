@@ -162,8 +162,8 @@
 
         var columns = [
             {data: null, "sClass": "right", "bSortable": false, "sWidth": "3%"}, //1st column
-            {data: "title_thai", "sClass": "text", "sWidth": "20%"},
-            {data: "title_eng", "sClass": "text", "sWidth": "20%"},
+            {data: "name_th", "sClass": "text", "sWidth": "20%"},
+            {data: "name_en", "sClass": "text", "sWidth": "20%"},
             {data: "updated_date", "sClass": "text-center", "sWidth": "10%"},
             {
                 orderable: false, "sWidth": "7%",

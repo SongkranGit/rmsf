@@ -24,11 +24,11 @@ class Page_Model extends CI_Model
         return $data;
     }
 
-    public function getByName($name){
+    public function getByName($name)
+    {
         $data = array();
-        $this->db->select("p.* , t.name as template");
+        $this->db->select("p.* ");
         $this->db->from('pages p');
-        $this->db->join('templates t' , 't.id=p.template_id' );
         $this->db->where('p.name', strtolower($name));
         $this->db->where('p.is_deleted', 0);
         //$this->db->where('published', 1);
@@ -40,41 +40,33 @@ class Page_Model extends CI_Model
         return $data;
     }
 
-    public function getPageAndGalleryByPageName($name){
-        $data = array();
-        $this->db->select("p.* , g.name as gallery_name , g.description as gallery_desc ");
-        $this->db->from('pages p');
-        $this->db->join('galleries g' , 'g.id=p.gallery_id');
-        //$this->db->join('galleries_images gi' , 'gi.gallery_id=g.id');
-        $this->db->where('p.name', strtolower($name));
-        $this->db->where('p.is_deleted', 0);
-        //$this->db->where('published', 1);
-        $query = $this->db->get();;
-        if ($query->num_rows() > 0) {
-            $data = $query->row_array();
-        }
-        $query->free_result();
-        return $data;
-    }
+//    public function getPageAndGalleryByPageName($name)
+//    {
+//        $data = array();
+//        $this->db->select("p.* , g.name as gallery_name , g.description as gallery_desc ");
+//        $this->db->from('pages p');
+//        $this->db->join('galleries g', 'g.id=p.gallery_id');
+//        //$this->db->join('galleries_images gi' , 'gi.gallery_id=g.id');
+//        $this->db->where('p.name', strtolower($name));
+//        $this->db->where('p.is_deleted', 0);
+//        //$this->db->where('published', 1);
+//        $query = $this->db->get();;
+//        if ($query->num_rows() > 0) {
+//            $data = $query->row_array();
+//        }
+//        $query->free_result();
+//        return $data;
+//    }
 
-    public function getLatestOrderNumber(){
-        $this->db->select_max('order');
-        $query = $this->db->get('pages');
-        $latestOrder = $query->row()->order;
-        return $latestOrder;
-    }
 
     public function getAll()
     {
         $data = array();
-        $this->db->select('p.id , p.name , p.parent_id , p.title_en , p.title_th' );
-        $this->db->select('(select name from pages where id = p.parent_id ) as parent_name' );
+        $this->db->select('p.*');
         $this->db->from('pages p');
         $this->db->where('is_deleted', 0);
         $this->db->where('published', 1);
-
         $query = $this->db->get();
-       // dump($this->db->last_query());
         if ($query->num_rows() > 0) {
             foreach ($query->result_array() as $row) {
                 $data[] = $row;
@@ -84,39 +76,11 @@ class Page_Model extends CI_Model
         return $data;
     }
 
-    public function getPagesWithoutParent($current_id=NULL)
-    {
-        // get without parent
-        $pages = array();
-        $this->db->select("id , title_en, title_th");
-        $this->db->where('parent_id', 0);
-        $this->db->where('is_deleted=', 0);
-        if($current_id != NULL){
-            $this->db->where('id <>', $current_id);
-        }
-        $query = $this->db->get('pages');
-        if ($query->num_rows() > 0) {
-            foreach ($query->result_array() as $row) {
-                $pages[] = $row;
-            }
-        }
-
-        $data = array(0 => $this->lang->line("pages_no_parent"));
-        if (count($pages)) {
-            foreach ($pages as $page) {
-                $data[$page["id"]] = (isEnglishLang())?$page["title_en"]:$page["title_th"];
-            }
-        }
-        $query->free_result();
-        return $data;
-    }
-
-
     public function loadPagesDataTable()
     {
         $data = array();
         $rows = array();
-        $this->db->select("p.*, p.title_th as title_thai , p.title_en as title_eng ,(select title_en from pages where id=p.parent_id) as parent_title ");
+        $this->db->select("p.* ");
         $this->db->from("pages p");
         $this->db->where("p.is_deleted =", 0);
         $this->db->order_by("p.id", 'ASC');
@@ -127,9 +91,10 @@ class Page_Model extends CI_Model
             foreach ($query->result() as $row) {
                 $rows[] = array(
                     "id" => $row->id,
-                    "name" => $row->name,
-                    "title_thai" =>  $row->title_thai ,
-                    "title_eng" =>  $row->title_eng ,
+                    "name_th" => $row->name_th,
+                    "name_en" => $row->name_en,
+                    "detail_th" => $row->detail_th,
+                    "detail_en" => $row->detail_en,
                     "published" => $row->published,
                     "updated_date" => Calendar::formatDateTimeToDDMMYYYY($row->updated_date)
                 );
@@ -152,18 +117,19 @@ class Page_Model extends CI_Model
         }
     }
 
-    public function saveOrderPages($pages){
-        if(count($pages)){
-            foreach($pages as $order => $page){
-                if($page['item_id'] != ''){
-                    $data = array('parent_id'=> (int)$page['parent_id'] , 'order'=>$order);
+    public function saveOrderPages($pages)
+    {
+        if (count($pages)) {
+            foreach ($pages as $order => $page) {
+                if ($page['item_id'] != '') {
+                    $data = array('parent_id' => (int)$page['parent_id'], 'order' => $order);
                     $this->db->set($data);
-                    $this->db->where('id' , $page["item_id"]);
+                    $this->db->where('id', $page["item_id"]);
                     $this->db->update('pages');
                 }
             }
             return true;
-        }else{
+        } else {
             return false;
         }
     }

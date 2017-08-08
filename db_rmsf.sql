@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2017-08-08 06:24:30
+Date: 2017-08-09 02:05:52
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -148,7 +148,7 @@ CREATE TABLE `galleries` (
   `updated_date` datetime DEFAULT NULL,
   `is_deleted` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of galleries
@@ -158,6 +158,7 @@ INSERT INTO `galleries` VALUES ('2', 'เด็กหงษ์ FC', 'The kopppp'
 INSERT INTO `galleries` VALUES ('3', 'เลือกที่นี่เพราะ', null, 'รายละเอียด เลือกที่นี่เพราะ', null, '', '4', '2016-07-09 21:34:12', '2016-08-15 19:00:09', '1');
 INSERT INTO `galleries` VALUES ('4', 'ความเหมือนที่แตกต่าง', 'sfsdf', 'เพราะ SPC ไม่ใช่แค่สถาบันกวดวิชาที่ให้แค่ความรู้  แต่ที่ SPC สังคมของเราอบอุ่น เป็นเหมือนบ้าน  เหมือนครอบครัวที่คอยดูแลกันและกัน  เป็นสังคมที่เกื้อกูลกัน  พ่อแม่ดูแลลูก  พี่ดูแลน้องจากรุ่นสู่รุ่น  เพื่อนช่วยเพื่อน  เพื่อที่ทุกคนจะสำเร็จสู่รั้วมหาวิทยาลัยที่ตั้งใจ', 'asdfasdf', '', '3', '2016-07-09 21:34:36', '2017-08-08 01:01:54', '1');
 INSERT INTO `galleries` VALUES ('5', 'SPC พาชมมหาวิทยาลัย', null, 'SPC พาชมมหาวิทยาลัย', null, '', '5', '2017-01-21 00:47:35', '2017-01-21 00:47:35', '1');
+INSERT INTO `galleries` VALUES ('6', 'เด็กผี', '', 'หกดหกดฟหกดหด', '', '', null, '2017-08-08 19:33:44', '2017-08-08 19:33:44', '0');
 
 -- ----------------------------
 -- Table structure for galleries_images
@@ -177,13 +178,15 @@ CREATE TABLE `galleries_images` (
   `created_date` datetime NOT NULL,
   `updated_date` datetime DEFAULT NULL,
   PRIMARY KEY (`id`,`gallery_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=85 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=91 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of galleries_images
 -- ----------------------------
 INSERT INTO `galleries_images` VALUES ('83', '2', 'liverpool', 'ลิเวอร์พูล', '8231423a-cba2-4169-998b-08226424c281.jpg', '1', '', '', '0', '', '2017-08-08 00:33:21', null);
 INSERT INTO `galleries_images` VALUES ('84', '2', 'Thekop', 'เด็กหงษ์', '01000561-fad2-4562-95ac-d29c701089f7.jpg', '1', '01000561-fad2-4562-95ac-d29c701089f7', '1920x1200-wdf_1804851.jpg', '562', '', '2017-08-08 00:33:56', '2017-08-08 00:34:34');
+INSERT INTO `galleries_images` VALUES ('85', '2', 'sdfasfasdf', 'sfasdfasd', '88d706bc-b34e-4402-ab06-11e76e67c1b3.jpg', '1', '', '', '0', '', '2017-08-08 19:32:34', null);
+INSERT INTO `galleries_images` VALUES ('86', '2', 'sfasdf', 'sdfasdf', '5b83d475-a884-4d6c-b329-5717bdbb4f25.jpg', '1', '', '', '0', '', '2017-08-08 19:32:54', null);
 
 -- ----------------------------
 -- Table structure for members
@@ -246,15 +249,10 @@ INSERT INTO `news` VALUES ('26', 'กระทรวงศึกษาธิก�
 DROP TABLE IF EXISTS `pages`;
 CREATE TABLE `pages` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) NOT NULL,
-  `title_th` varchar(100) NOT NULL,
-  `title_en` varchar(100) NOT NULL,
-  `body_th` text,
-  `body_en` text,
-  `parent_id` int(11) DEFAULT NULL,
-  `gallery_id` int(11) DEFAULT NULL,
-  `article_id` int(11) DEFAULT NULL,
-  `is_show_gallery` bit(1) NOT NULL,
+  `name_th` varchar(100) NOT NULL,
+  `name_en` varchar(100) NOT NULL,
+  `detail_th` text,
+  `detail_en` text,
   `published` bit(1) DEFAULT NULL,
   `created_date` datetime NOT NULL,
   `updated_date` datetime DEFAULT NULL,
@@ -265,25 +263,12 @@ CREATE TABLE `pages` (
 -- ----------------------------
 -- Records of pages
 -- ----------------------------
-INSERT INTO `pages` VALUES ('1', 'home', 'หน้าแรก', 'Home', '', '', '0', null, null, '\0', '', '2016-05-22 13:59:29', '2016-06-17 22:11:14', '0');
-INSERT INTO `pages` VALUES ('2', 'about_us', 'เกี่ยวกับเรา', 'About Us', '', '', '0', null, null, '\0', '', '2016-05-22 14:25:01', '2017-08-05 12:18:17', '0');
-INSERT INTO `pages` VALUES ('3', 'service', 'บริการ', 'Service', '', '', '0', null, null, '\0', '', '2016-05-22 19:20:45', '2017-08-05 12:18:28', '0');
-INSERT INTO `pages` VALUES ('4', 'portfolio', 'รูปผลงาน', 'Picture Portfolio', '', '', '0', null, null, '\0', '', '2016-05-22 14:37:47', '2017-08-05 12:27:49', '0');
-INSERT INTO `pages` VALUES ('6', 'contact_us', 'ติดต่อเรา', 'Contact Us', '', '<p><iframe style=\"border: 0;\" src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3875.1538662523453!2d100.65925881531588!3d13.769593100589628!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x311d61817a47ddbf%3A0xa66443fe01f75fe1!2sStudy+Plus+Center!5e0!3m2!1sth!2sth!4v1464097235273\" width=\"100%\" height=\"450\" frameborder=\"0\" allowfullscreen=\"allowfullscreen\"></iframe></p>', '0', null, null, '\0', '', '2016-05-22 19:21:16', '2017-08-05 12:29:15', '0');
-INSERT INTO `pages` VALUES ('7', 'founder', 'ผู้ก่อตั้ง', 'Founder', '', '<h2><span style=\"color: #42a33c;\">ผู้ก่อตั้งและผู้จัดการหลักสูตรการเรียนการสอน</span></h2>\r\n<div class=\"row\">\r\n<div class=\"col-md-6\"><img class=\"img-thumbnail img-responsive center-block\" src=\"http://modernsofttech.com/spc/assets/uploads-files/founder3.jpg?1466603001672\" alt=\"\" />\r\n<p class=\"text-center\">นายแพทย์สุชาติ วงศ์เกียรติขจร แพทย์ศาสตร์บัณฑิต (เกียรตินิยม) มหาวิทยาลัยเชียงใหม่</p>\r\n</div>\r\n<div class=\"col-md-6\"><img class=\"img-thumbnail img-responsive center-block\" src=\"http://modernsofttech.com/spc/assets/uploads-files/founder1.jpg?1466603046472\" alt=\"\" />\r\n<p class=\"text-center\">นางสาว พนิดา วงศ์เกียรติขจร วิทยาศาสตร์มหาบัณฑิต มหาวิทยาลัยเกษตรศาสตร์</p>\r\n</div>\r\n</div>\r\n<div class=\"row\">\r\n<div class=\"col-md-6\"><img class=\"img-thumbnail img-responsive center-block\" src=\"http://modernsofttech.com/spc/assets/uploads-files/founder4.jpg?1466603081864\" alt=\"\" />\r\n<p class=\"text-center\">นายวิบูลย์ ชัยนันท์ ครุศาสตร์บัณฑิต จุฬาลงกรณ์มหาวิทยาลัย</p>\r\n</div>\r\n<div class=\"col-md-6\"><img class=\"img-thumbnail img-responsive center-block\" src=\"http://modernsofttech.com/spc/assets/uploads-files/founder2.jpg?1466603107064\" alt=\"\" />\r\n<p class=\"text-center\">นายฉัตรบดินทร์ ชัยนันท์ วิทยาศาสตร์บัณฑิต (เกียรตินิยม) หลักสูตรนานาชาติ จุฬาลงกรณ์มหาวิทยาลัย</p>\r\n</div>\r\n</div>', '0', null, null, '\0', '', '2016-05-24 16:54:59', '2017-08-05 12:29:21', '0');
-
--- ----------------------------
--- Table structure for posts
--- ----------------------------
-DROP TABLE IF EXISTS `posts`;
-CREATE TABLE `posts` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of posts
--- ----------------------------
+INSERT INTO `pages` VALUES ('1', 'หน้าแรก', 'Home', '', '', '', '2016-05-22 13:59:29', '2016-06-17 22:11:14', '0');
+INSERT INTO `pages` VALUES ('2', 'เกี่ยวกับเรา', 'About us', '', '', '', '2016-05-22 14:25:01', '2017-08-05 12:18:17', '0');
+INSERT INTO `pages` VALUES ('3', 'บริการ', 'Service', '', '', '', '2016-05-22 19:20:45', '2017-08-05 12:18:28', '0');
+INSERT INTO `pages` VALUES ('4', 'รูปภาพผลงาน', 'Portfolio', '', '', '', '2016-05-22 14:37:47', '2017-08-05 12:27:49', '0');
+INSERT INTO `pages` VALUES ('6', 'ผู้ก่อตั้ง', 'Founder', '', '<h2><span style=\"color: #42a33c;\">ผู้ก่อตั้งและผู้จัดการหลักสูตรการเรียนการสอน</span></h2>\r\n<div class=\"row\">\r\n<div class=\"col-md-6\"><img class=\"img-thumbnail img-responsive center-block\" src=\"http://modernsofttech.com/spc/assets/uploads-files/founder3.jpg?1466603001672\" alt=\"\" />\r\n<p class=\"text-center\">นายแพทย์สุชาติ วงศ์เกียรติขจร แพทย์ศาสตร์บัณฑิต (เกียรตินิยม) มหาวิทยาลัยเชียงใหม่</p>\r\n</div>\r\n<div class=\"col-md-6\"><img class=\"img-thumbnail img-responsive center-block\" src=\"http://modernsofttech.com/spc/assets/uploads-files/founder1.jpg?1466603046472\" alt=\"\" />\r\n<p class=\"text-center\">นางสาว พนิดา วงศ์เกียรติขจร วิทยาศาสตร์มหาบัณฑิต มหาวิทยาลัยเกษตรศาสตร์</p>\r\n</div>\r\n</div>\r\n<div class=\"row\">\r\n<div class=\"col-md-6\"><img class=\"img-thumbnail img-responsive center-block\" src=\"http://modernsofttech.com/spc/assets/uploads-files/founder4.jpg?1466603081864\" alt=\"\" />\r\n<p class=\"text-center\">นายวิบูลย์ ชัยนันท์ ครุศาสตร์บัณฑิต จุฬาลงกรณ์มหาวิทยาลัย</p>\r\n</div>\r\n<div class=\"col-md-6\"><img class=\"img-thumbnail img-responsive center-block\" src=\"http://modernsofttech.com/spc/assets/uploads-files/founder2.jpg?1466603107064\" alt=\"\" />\r\n<p class=\"text-center\">นายฉัตรบดินทร์ ชัยนันท์ วิทยาศาสตร์บัณฑิต (เกียรตินิยม) หลักสูตรนานาชาติ จุฬาลงกรณ์มหาวิทยาลัย</p>\r\n</div>\r\n</div>', '', '2016-05-24 16:54:59', '2017-08-05 12:29:21', '0');
+INSERT INTO `pages` VALUES ('7', 'ติดต่อเรา', 'Contact us', '', '<p><iframe style=\"border: 0;\" src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3875.1538662523453!2d100.65925881531588!3d13.769593100589628!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x311d61817a47ddbf%3A0xa66443fe01f75fe1!2sStudy+Plus+Center!5e0!3m2!1sth!2sth!4v1464097235273\" width=\"100%\" height=\"450\" frameborder=\"0\" allowfullscreen=\"allowfullscreen\"></iframe></p>', '', '2016-05-22 19:21:16', '2017-08-05 12:29:15', '0');
 
 -- ----------------------------
 -- Table structure for roles
@@ -350,18 +335,16 @@ CREATE TABLE `slideshow` (
   `updated_date` datetime DEFAULT NULL,
   `is_deleted` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of slideshow
 -- ----------------------------
-INSERT INTO `slideshow` VALUES ('10', '2124bd4c-72e9-49e3-84b3-d5264ee3d54b.png', 'eng', 'thai', '', '2', '2017-08-06 22:57:37', '2017-08-06 23:03:00', '0');
-INSERT INTO `slideshow` VALUES ('12', '67609cf4-4941-4f14-8dad-79e0e6054565.png', '', '', '', '1', '2017-08-08 00:50:30', '2017-08-08 00:50:30', '0');
-INSERT INTO `slideshow` VALUES ('13', '01c38bc7-1b88-4295-84f2-decb8f981cce.png', '', '', '', '1', '2017-08-08 01:10:16', '2017-08-08 01:10:16', '0');
-INSERT INTO `slideshow` VALUES ('14', '61eb3e2f-50e8-4360-8be3-d9f8e33f555c.png', '', '', '', '1', '2017-08-08 01:10:20', '2017-08-08 01:10:20', '0');
-INSERT INTO `slideshow` VALUES ('15', '774f3b76-e3ac-4c68-9c21-7fc2133841d0.png', '', '', '', '1', '2017-08-08 01:10:24', '2017-08-08 01:10:24', '0');
-INSERT INTO `slideshow` VALUES ('16', '693f917b-8238-435b-9bf9-25310c3a918c.png', '', '', '', '1', '2017-08-08 01:10:39', '2017-08-08 01:10:39', '0');
-INSERT INTO `slideshow` VALUES ('17', '786f312d-2faa-42db-a025-4247f8d86702.png', '', '', '', '1', '2017-08-08 01:12:52', '2017-08-08 01:12:52', '0');
+INSERT INTO `slideshow` VALUES ('10', '2124bd4c-72e9-49e3-84b3-d5264ee3d54b.png', 'eng', 'thai', '\0', '2', '2017-08-06 22:57:37', '2017-08-08 19:31:31', '0');
+INSERT INTO `slideshow` VALUES ('19', 'a6f0d9d0-ebc6-4e25-a493-e9a100f8c469.png', 'asfasdfasdf', 'sdfasdfas', '', '1', '2017-08-08 19:30:20', '2017-08-08 19:30:20', '0');
+INSERT INTO `slideshow` VALUES ('20', '6e71dcab-bc98-40ad-8074-7a4656d35d54.png', 'asfasdfaf', 'sdfasdf', '', '1', '2017-08-08 19:30:56', '2017-08-08 19:31:19', '0');
+INSERT INTO `slideshow` VALUES ('21', '5c74f3ee-2d3e-43b6-ac53-596546c17bdb.png', '', '', '', '1', '2017-08-08 19:31:55', '2017-08-08 19:31:55', '0');
+INSERT INTO `slideshow` VALUES ('22', 'cabaa880-aced-4e98-bb72-01e454f1e97b.png', '', '', '', '1', '2017-08-08 21:04:11', '2017-08-08 21:04:11', '0');
 
 -- ----------------------------
 -- Table structure for users

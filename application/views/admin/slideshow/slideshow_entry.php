@@ -183,8 +183,8 @@
                 </div>
                 <div class="panel-footer">
                     <div class="pull-right">
-                        <?= buttonSubmitCreateOrUpdate($data["action"]); ?>
-                        <?= buttonCancelWithRedirectPage("admin/Slideshow/index"); ?>
+                        <?= buttonSubmitCreateOrUpdate($data["action"] , $is_submit_type = false); ?>
+                        <?= buttonCancelWithRedirectPage("admin/Slideshow"); ?>
                     </div>
                     <div class="clearfix"></div>
                 </div>
@@ -203,8 +203,6 @@
 
         initView();
 
-        validation();
-
     });
 
     function initView() {
@@ -219,39 +217,6 @@
 
         $('form').submit(function () {
             $(this).find(':submit').attr('disabled', 'disabled');
-        });
-    }
-
-
-    function validation() {
-        var validator = $('#form_slideshow_entry').validate({
-            rules: {
-//                description_th: "required",
-//                description_en: "required"
-            },
-            messages: {
-                'user_files[]': '<?php echo $this->lang->line("message_this_field_is_require");?>',
-                description_en: '<?php echo $this->lang->line("message_this_field_is_require");?>',
-                description_th: '<?php echo $this->lang->line("message_this_field_is_require");?>'
-            },
-            highlight: function (element) {
-                $(element).closest('.form-group').addClass('has-error');
-            },
-            unhighlight: function (element) {
-                $(element).closest('.form-group').removeClass('has-error');
-            },
-            errorElement: 'span',
-            errorClass: 'help-block',
-            errorPlacement: function (error, element) {
-                if (element.parent('.input-group').length) {
-                    error.insertAfter(element.parent());
-                } else {
-                    error.insertAfter(element);
-                }
-            },
-            submitHandler: function (form) {
-                save();
-            }
         });
     }
 
@@ -473,7 +438,7 @@
     }
 
     function validateForm() {
-        if ($('.img-preview').is(':visible')) {
+        if($('#inputImage').attr("src") == "") {
             return false;
         }
         return true;

@@ -33,36 +33,56 @@ $article_selected = (isset($data["row"]["article_id"])) ? $data["row"]["article_
 
                 <div class="panel-body">
 
-
-
-                    <div class="form-group required " id="wrap_page_name">
-                        <label class="col-md-2  control-label"><?= $this->lang->line("pages_name"); ?></label>
+                    <div class="form-group ">
+                        <label class="col-md-2  control-label"><?= $this->lang->line("content"); ?></label>
                         <div class="col-md-8">
-                                <input type="text" id="name" name="name" pattern="[A-Za-z0-9]" class="form-control"
-                                       value="<?php echo setFormData($data, $key = "name") ?>">
-                        </div>
-                    </div>
+                            <ul class="nav nav-tabs">
+                                <li role="presentation" class="active"><a href="#tab1" aria-controls="tab1" data-toggle="tab">ไทย</a></li>
+                                <li role="presentation"><a href="#tab2" aria-controls="tab2"  data-toggle="tab">English</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <!--TAB Thai-->
+                                <div class="tab-pane active" id="tab1">
+                                    <br>
+                                    <div class="form-group required ">
+                                        <label class="col-md-12 label-required "><?= $this->lang->line("pages_title"); ?></label>
+                                        <div class="col-md-12">
+                                            <input type="text" id="name_th" name="name_th" placeholder="ชื่อเว็บเพจ"
+                                                   class="form-control"
+                                                   value="<?php echo setFormData($data, $key = "name_th"); ?>">
+                                        </div>
+                                    </div>
 
-                    <div class="form-group required  ">
-                        <label class="col-md-2  control-label"><?= $this->lang->line("pages_title"); ?></label>
-                        <div class="row col-md-8 ">
-                            <div class="col-md-6">
-                                <div class="form-group " >
-                                    <div class="col-md-10">
-                                        <input type="text" id="title" name="title" class="form-control" value="<?php echo setFormData($data, $key = "title") ?>">
+                                    <div class="form-group required">
+                                        <label class="col-md-12 label-required" for="body"><?= $this->lang->line("detail"); ?></label>
+                                        <div class="col-md-12 ">
+                                            <textarea name="detail_th" id="detail_th" class="form-control" rows="5"><?php echo setFormData($data, $key = "detail_th"); ?></textarea>
+                                        </div>
                                     </div>
-                                    <div class="text-left"></div>
-                                    <label class="col-md-2  control-label ">(ไทย)</label>
+                                </div>
+                                <!--TAB Eng-->
+                                <div class="tab-pane fade" id="tab2">
+                                    <br>
+                                    <div class="form-group required ">
+                                        <label class="col-md-12 label-required"><?= $this->lang->line("pages_title"); ?></label>
+                                        <div class="col-md-12">
+                                            <input type="text" id="name_en" name="name_en" placeholder="Page Title"
+                                                   class="form-control"
+                                                   value="<?php echo setFormData($data, $key = "name_en"); ?>">
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group required">
+                                        <label class="col-md-12 label-required" for="body_en"><?= $this->lang->line("detail"); ?></label>
+                                        <div class="col-md-12">
+                                            <textarea name="detail_en" id="detail_en" class="form-control" rows="5"><?php echo setFormData($data, $key = "detail_en"); ?></textarea>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group " >
-                                    <div class="col-md-10">
-                                        <input type="text" id="title_eng" name="title" class="form-control" value="<?php echo setFormData($data, $key = "title") ?>">
-                                    </div>
-                                    <label class="col-md-2 control-label ">(Eng)</label>
-                                </div>
-                            </div>
+
                         </div>
                     </div>
 
@@ -91,14 +111,6 @@ $article_selected = (isset($data["row"]["article_id"])) ? $data["row"]["article_
 
                                 </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <div id="div_page_body" class="form-group">
-                        <label class="control-label col-md-2" for="body"><?= $this->lang->line("pages_body"); ?></label>
-                        <div class="col-md-8">
-                             <textarea name="body" id="body" class="form-control"
-                                       rows="5"><?php echo setFormData($data, $key = "body") ?></textarea>
                         </div>
                     </div>
 
@@ -141,16 +153,11 @@ $article_selected = (isset($data["row"]["article_id"])) ? $data["row"]["article_
 
         initToggleButtons();
 
-
-
     });
 
 
     function initView() {
-        // Permission of System Admin
-        if (!isSystemAdmin) {
-            $('#wrap_page_name , #wrap_parent_id , #wrap_template').hide();
-        }
+
     }
 
 
@@ -193,7 +200,7 @@ $article_selected = (isset($data["row"]["article_id"])) ? $data["row"]["article_
             }
         });
     }
-    
+
 
     function setupTinyFileManager() {
         var external_filemanager_path = '<?=base_url("assets")?>/libraries/filemanager/';

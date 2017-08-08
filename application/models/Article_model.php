@@ -42,7 +42,7 @@ class Article_Model extends CI_Model
 
     public function getArticleByPageId($page_id , $limit= null){
         $data = array();
-        $this->db->select("a.* , p.id as page_id , p.name as page_name ");
+        $this->db->select("a.* , p.id as page_id , p.name_en as page_name ");
         $this->db->from('articles a');
         $this->db->join("pages p", "p.id = a.page_id");
         $this->db->where('a.page_id', strtolower($page_id) );
@@ -127,7 +127,7 @@ class Article_Model extends CI_Model
     {
         $data = array();
         $rows = array();
-        $this->db->select("a.* , p.id as page_id   , p.title_en as page_name ");
+        $this->db->select("a.* , p.id as page_id   , p.name_en as page_name ");
         $this->db->from("articles a");
         $this->db->join("pages p", "p.id = a.page_id");
         $this->db->where("a.is_deleted ", 0);

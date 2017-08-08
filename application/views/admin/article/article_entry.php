@@ -46,7 +46,7 @@
                                     <?php if (!empty($data["pages"]) && count($data["pages"]) > 0): ?>
                                         <?php foreach ($data["pages"] as $item): ?>
                                             <option value="<?= $item["id"] ?>" <?= isset($data["row"]["page_id"]) && $data["row"]["page_id"] == $item["id"] ? "selected" : "" ?> >
-                                                <?php echo isEnglishLang() ? $item["title_en"] : $item["title_th"] ?></option>
+                                                <?php echo isEnglishLang() ? $item["name_en"] : $item["name_th"] ?></option>
                                         <?php endforeach; ?>
                                     <?php endif; ?>
                                 </select>

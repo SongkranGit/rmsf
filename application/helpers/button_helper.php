@@ -16,13 +16,19 @@ if (!function_exists('buttonSubmit')) {
 }
 
 if (!function_exists('buttonSubmitCreateOrUpdate')) {
-    function buttonSubmitCreateOrUpdate($action)
+    function buttonSubmitCreateOrUpdate($action, $is_submit_type = TRUE)
     {
         $CI = &get_instance();
         if ($action === "create") {
-            echo "<button id=\"btn_submit\" type=\"submit\" class=\"btn btn-success btn-custom \"><i class=\"fa fa-save\"></i> " . $CI->lang->line("button_save") . "</button>";
+            if ($is_submit_type)
+                echo "<button  type='submit'  class=\"btn btn-success btn-custom \"><i class=\"fa fa-save\"></i> " . $CI->lang->line("button_save") . "</button>";
+            else
+                echo "<button  type='button' onclick='save()' class=\"btn btn-success btn-custom \"><i class=\"fa fa-save\"></i> " . $CI->lang->line("button_save") . "</button>";
         } else {
-            echo "<button id=\"btn_submit\" type=\"submit\" class='btn btn-warning btn-custom '><i class=\"fa fa-edit \"></i> " . $CI->lang->line("button_edit") . "</button>";
+            if ($is_submit_type)
+                echo "<button  type='submit'  class='btn btn-warning btn-custom '><i class=\"fa fa-edit \"></i> " . $CI->lang->line("button_edit") . "</button>";
+            else
+                echo "<button  type='button' onclick='save()'  class='btn btn-warning btn-custom '><i class=\"fa fa-edit \"></i> " . $CI->lang->line("button_edit") . "</button>";
         }
     }
 }

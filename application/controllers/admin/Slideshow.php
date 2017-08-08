@@ -5,6 +5,7 @@ require_once APPPATH . 'core/Admin_controller.php';
 
 class Slideshow extends Admin_Controller
 {
+    private $upload_path;
 
     function __construct()
     {
@@ -13,6 +14,7 @@ class Slideshow extends Admin_Controller
         $this->load->library("Uuid");
         $this->load->library("ImageBase64");
         $this->load->model("Slideshow_model");
+        $this->upload_path = realpath(APPPATH . '../uploads/slideshow');
     }
 
     public function index()
@@ -169,7 +171,7 @@ class Slideshow extends Admin_Controller
         $uuid = $this->uuid->v4();
         $image_file_type = "png";
         $data = $data = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $base64img));
-        $file = PATH_UPLOADS . "/" . $uuid . "." . $image_file_type;
+        $file = $this->upload_path  . "/" . $uuid . "." . $image_file_type;
         //Save file
         file_put_contents($file, $data);
 

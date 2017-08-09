@@ -5,12 +5,13 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            <span><?=$this->lang->line("user_title_list_user");?></span>
+            <span><?= $this->lang->line("user_title_list_user"); ?></span>
         </h1>
         <div class="group-buttons-right">
             <ul class="nav nav-pills">
                 <li>
-                    <a href="<?= base_url(ADMIN_USER."/create") ?>"> <i class="fa fa-plus-circle fa-1x"></i><?=$this->lang->line("user_button_add_user");?></a>
+                    <a href="<?= base_url(ADMIN_USER . "/create") ?>"> <i class="fa fa-plus-circle fa-1x"></i><?= $this->lang->line("user_button_add_user"); ?>
+                    </a>
                 </li
             </ul>
         </div>
@@ -19,7 +20,7 @@
     <!-- Main content -->
     <section class="content">
         <!--Row Search-->
-        <div class="row">
+        <div class="row" id="div_search_panel">
             <div class="col-xs-12">
                 <div class="box box-info box-solid ">
                     <div class="box-header">
@@ -29,9 +30,8 @@
                                     data-toggle="tooltip" title="Collapse" style="margin-right: 5px;">
                                 <i class="fa fa-plus" style="font-size: large"></i></button>
                         </div><!-- /. tools -->
-                        <i class="fa fa-search"></i>
                         <h3 class="box-title">
-                            <?=$this->lang->line("button_search");?>
+                            <?= $this->lang->line("button_search"); ?>
                         </h3>
                     </div>
                     <div class="box-body">
@@ -39,7 +39,7 @@
 
                             <div class="col-md-4 ">
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label"><?=$this->lang->line("user_full_name");?></label>
+                                    <label class="col-md-3 control-label"><?= $this->lang->line("user_full_name"); ?></label>
                                     <div class="col-md-9">
                                         <input class="form-control" type="text" id="user_fullname">
                                     </div>
@@ -48,7 +48,7 @@
 
                             <div class="col-md-4 ">
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label"><?=$this->lang->line("user_username");?></label>
+                                    <label class="col-md-3 control-label"><?= $this->lang->line("user_username"); ?></label>
                                     <div class="col-md-9">
                                         <input class="form-control" type="text" id="username">
                                     </div>
@@ -57,7 +57,7 @@
 
                             <div class="col-md-4 ">
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label"><?=$this->lang->line("user_role");?></label>
+                                    <label class="col-md-3 control-label"><?= $this->lang->line("user_role"); ?></label>
                                     <div class="col-md-9">
                                         <select class="form-control" id="role">
                                             <option value=""></option>
@@ -72,13 +72,12 @@
                     </div><!-- /.box-body-->
 
                     <div class="box-footer">
-                        <div class="pull-right">
-                            <button type="button" onclick="search()" class="btn btn-primary "><i
-                                    class="fa fa-search"></i> <?=$this->lang->line("button_search");?>
-                            </button>
+                        <div class="text-center">
+                            <button type="button" id="btn_search" onclick="search()" class="btn btn-primary "><i
+                                        class="fa fa-search"></i> <?= $this->lang->line("button_search"); ?></button>
                             <button id="btn_clear_search" onclick="clearTextSearch()" type="button" class="btn btn-default">
                                 <i class="fa fa-refresh"></i>
-                                <?=$this->lang->line("button_clear");?>
+                                <?= $this->lang->line("button_clear"); ?>
                             </button>
                         </div>
                     </div>
@@ -90,20 +89,25 @@
             <div class="col-lg-12">
                 <div class="box box-info">
                     <!--Header-->
-                   <!--  <div class="box-header"></div>-->
+                    <!--  <div class="box-header"></div>-->
                     <!--Body-->
                     <div class="box-body">
                         <div class="dataTable_wrapper">
-                            <table class="table table-striped table-bordered table-hover"  id="users_datatable">
+                            <table class="table table-striped table-bordered table-hover" id="users_datatable">
                                 <thead>
                                 <tr>
-                                    <th><?=$this->lang->line("table_seq");?></th>
-                                    <th><?=$this->lang->line("user_full_name");?></th>
-                                    <th><?=$this->lang->line("user_username");?></th>
-                                    <th><?=$this->lang->line("user_email");?></th>
-                                    <th><?=$this->lang->line("user_last_logged_in");?></th>
-                                    <th><?=$this->lang->line("user_role");?></th>
-                                    <th class="text-center">Actions</th>
+                                    <th><?= $this->lang->line("table_seq"); ?></th>
+                                    <th><?= $this->lang->line("user_full_name"); ?></th>
+                                    <th><?= $this->lang->line("user_username"); ?></th>
+                                    <th><?= $this->lang->line("user_email"); ?></th>
+                                    <th><?= $this->lang->line("user_last_logged_in"); ?></th>
+                                    <th><?= $this->lang->line("user_role"); ?></th>
+                                    <th class="text-center">
+                                        <button type="button" id="btn_search" onclick="setVisibleSearchPanel()"
+                                                class="btn btn-primary ">
+                                            <i class="glyphicon glyphicon-zoom-in"></i>
+                                        </button>
+                                    </th>
                                 </tr>
                                 </thead>
                             </table>
@@ -123,18 +127,39 @@
     var dataTable = $('#users_datatable');
 
     $(document).ready(function () {
+
+        setVisibleSearchPanel();
+
+        setupKeyEnterSearch();
+
         loadUsersDataTable();
     });
 
+    function setVisibleSearchPanel() {
+        if ($('#div_search_panel').is(":visible")) {
+            $('#div_search_panel').hide();
+        } else {
+            $('#div_search_panel').show();
+        }
+    }
+
+    function setupKeyEnterSearch() {
+        $("#user_fullname,#username").keyup(function (e) {
+            if (e.keyCode == 13) {
+                $("#btn_search").trigger("click");
+            }
+        });
+    }
+
     function loadUsersDataTable() {
         var columns = [
-            {data: null, "sClass": "right", "bSortable": false}, //1st column
-            {data: "user_fullname", "sClass": "text"},
-            {data: "username", "sClass": "text"},
-            {data: "email", "sClass": "text" },
-            {data: "logged_in_date", "sClass": "text" },
+            {data: null, "sClass": "right", "bSortable": false, "sWidth": "3%"}, //1st column
+            {data: "user_fullname", "sClass": "text" ,"sWidth": "20%"},
+            {data: "username", "sClass": "text" ,"sWidth": "10%"},
+            {data: "email", "sClass": "text" ,"sWidth": "15%"},
+            {data: "logged_in_date", "sClass": "text","sWidth": "15%"},
             {
-                orderable: false ,
+                orderable: false,"sWidth": "10%",
                 mRender: function (data, type, row) {
                     var label_role = '';
                     switch (parseInt(row.role_id)) {
@@ -152,7 +177,7 @@
                 }
             },
             {
-                orderable: false,
+                orderable: false,"sWidth": "10%",
                 mRender: function (data, type, row) {
                     var buttons = '<div class="text-center"> ';
                     buttons += '<a href=<?=base_url(ADMIN_USER)?>/update/' + row.user_id + '  class="btn btn-warning glyphicon glyphicon-pencil" data-toggle="tooltip" data-placement="top" title="แก้ไขข้อมูล"></a>';

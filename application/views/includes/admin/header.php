@@ -7,7 +7,7 @@
     <title><?php echo isset($this->data["settings"]["website_name"]) ? $this->data["settings"]["website_name"] : "" ?></title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-
+    <link rel='shortcut icon' type='image/x-icon' href="<?=base_url('assets/images/favicon.ico')?>" />
     <!--======================== CSS ==========================-->
     <!-- Bootstrap 3.3.5 -->
     <link rel="stylesheet" href="<?= base_url("assets/adminlte2/bootstrap/css/bootstrap.min.css") ?>">
@@ -105,7 +105,7 @@
 <div class="wrapper">
     <header class="main-header">
         <!-- Logo -->
-        <a href="index2.html" class="logo">
+        <a href="#" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
             <span class="logo-mini"><?= isset($this->data["settings"]["website_short_name"]) ? $this->data["settings"]["website_short_name"] : "" ?></span>
             <!-- logo for regular state and mobile devices -->

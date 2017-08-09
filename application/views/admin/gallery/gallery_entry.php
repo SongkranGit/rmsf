@@ -45,7 +45,7 @@
                     </div>
 
                     <div class="form-group ">
-                        <label class="col-md-2  control-label"><?= $this->lang->line("gallery_name"); ?></label>
+                        <label class="col-md-2  control-label"><?= $this->lang->line("gallery_title"); ?></label>
                         <div class="col-md-8">
                             <ul class="nav nav-tabs">
                                 <li role="presentation" class="active"><a href="#tab1" data-toggle="tab">Thai</a></li>
@@ -61,7 +61,7 @@
                                                    value="<?php echo setFormData($data, $key = "name_th"); ?>">
                                         </div>
                                     </div>
-                                    <div class="form-group required ">
+                                    <div class="form-group ">
                                         <label class="col-md-12 label-required"><?= $this->lang->line("description"); ?></label>
                                         <div class="col-md-12">
                                             <textarea rows="3" class="form-control"
@@ -78,7 +78,7 @@
                                                    value="<?php echo setFormData($data, $key = "name_en"); ?>">
                                         </div>
                                     </div>
-                                    <div class="form-group required ">
+                                    <div class="form-group  ">
                                         <label class="col-md-12 label-required"><?= $this->lang->line("description"); ?></label>
                                         <div class="col-md-12">
                                             <textarea rows="3" class="form-control"
@@ -127,18 +127,18 @@
     });
 
     function validateForm() {
+        //Fixed not validate hidden tabs
+        $.validator.setDefaults({
+            ignore: ""
+        });
         validator = $('#form_gallery_entry').validate({
             rules: {
                 name_th: "required",
                 name_en: "required",
-                description_th: "required",
-                description_en: "required",
             },
             messages: {
                 name_th: '<?php echo $this->lang->line("message_this_field_is_require");?>',
                 name_en: '<?php echo $this->lang->line("message_this_field_is_require");?>',
-                description_th: '<?php echo $this->lang->line("message_this_field_is_require");?>',
-                description_en: '<?php echo $this->lang->line("message_this_field_is_require");?>',
             },
             highlight: function (element) {
                 $(element).closest('.form-group').addClass('has-error');

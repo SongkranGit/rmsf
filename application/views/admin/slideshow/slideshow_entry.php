@@ -1,13 +1,10 @@
 <?php $this->load->view("includes/admin/header"); ?>
 <?php $this->load->view("includes/admin/navbar"); ?>
-
-
+<!--Extra Script-->
 <link href="<?= base_url("assets/libraries/jquery-filer/css/jquery.filer.css") ?>" type="text/css" rel="stylesheet">
-<link href="<?= base_url("assets/libraries/jquery-filer/css/themes/jquery.filer-dragdropbox-theme.css") ?>"
-      type="text/css" rel="stylesheet">
+<link href="<?= base_url("assets/libraries/jquery-filer/css/themes/jquery.filer-dragdropbox-theme.css") ?>" type="text/css" rel="stylesheet">
 
-<script type="text/javascript"
-        src="<?= base_url("assets/libraries/jquery-filer/js/jquery.filer.min.js?v=1.0.5") ?>"></script>
+<script type="text/javascript" src="<?= base_url("assets/libraries/jquery-filer/js/jquery.filer.min.js?v=1.0.5") ?>"></script>
 <link href="<?= base_url("assets/libraries/cropper/cropper.min.css") ?>" type="text/css" rel="stylesheet">
 <script type="text/javascript" src="<?= base_url("assets/libraries/cropper/cropper.min.js") ?>"></script>
 <style>
@@ -83,8 +80,9 @@
 </style>
 <?php
 
-  $form_action = $data['action'];
-  $slide_show_id = $this->uri->segment(4);
+$form_action = $data['action'];
+$slide_show_id = $this->uri->segment(4);
+$upload_slideshow_path = base_url('uploads/slideshow');
 
 ?>
 <div class="content-wrapper">
@@ -95,8 +93,7 @@
         <div class="group-buttons-right">
             <ul class="nav nav-pills">
                 <li>
-                    <a href="<?= base_url(ADMIN_SLIDE_SHOW) ?>"> <i
-                                class="fa fa-list"></i><?= $this->lang->line("slideshow_list"); ?></a>
+                    <a href="<?= base_url(ADMIN_SLIDE_SHOW) ?>"> <i class="fa fa-list"></i><?= $this->lang->line("slideshow_list"); ?></a>
                 </li>
             </ul>
         </div>
@@ -182,7 +179,7 @@
                 </div>
                 <div class="panel-footer">
                     <div class="pull-right">
-                        <?= buttonSubmitCreateOrUpdate($data["action"] , $is_submit_type = false); ?>
+                        <?= buttonSubmitCreateOrUpdate($data["action"], $is_submit_type = false); ?>
                         <?= buttonCancelWithRedirectPage("admin/Slideshow"); ?>
                     </div>
                     <div class="clearfix"></div>
@@ -209,7 +206,7 @@
         if (id != '') {
             var file_name = '<?= isset($data["row"]["file_name"]) ? $data["row"]["file_name"] : ""; ?>';
             var img = document.createElement("IMG");
-            img.src = '<?=base_url("uploads/")?>' + "/" + file_name;
+            img.src = '<?=$upload_slideshow_path?>' + "/" + file_name;
             $('.img-preview').html(img);
 
         }
@@ -235,7 +232,7 @@
         var $dataScaleY = $('#dataScaleY');
         var options = {
             viewMode: 1,
-            doubleClickToggle:false,
+            doubleClickToggle: false,
             aspectRatio: 16 / 6,
             dragMode: 'move',
             autoCropArea: 1,
@@ -437,7 +434,7 @@
     }
 
     function validateForm() {
-        if ( $('.img-preview').children().length > 0 ) {
+        if ($('.img-preview').children().length > 0) {
             return true;
         }
         return false;

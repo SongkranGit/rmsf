@@ -37,16 +37,23 @@
                         </h3>
                     </div>
                     <div class="box-body">
-                        <div class="col-md-4 ">
+                        <div class="col-md-3 ">
                             <div class="form-group">
-                                <label class="col-md-5 control-label text-right"><?= $this->lang->line("pages_title"); ?>
-                                </label>
+                                <label class="col-md-5 control-label text-right"><?= $this->lang->line("pages_title"); ?> (ไทย)</label>
                                 <div class="col-md-7">
-                                    <input class="form-control" type="text" id="title">
+                                    <input class="form-control" type="text" id="name_th">
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4 ">
+                        <div class="col-md-3 ">
+                            <div class="form-group">
+                                <label class="col-md-5 control-label text-right"><?= $this->lang->line("pages_title"); ?> (English)</label>
+                                <div class="col-md-7">
+                                    <input class="form-control" type="text" id="name_en">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 ">
                             <div class="form-group">
                                 <label class="col-md-5 control-label text-right"><?= $this->lang->line("last_update_date"); ?></label>
                                 <div class='col-md-7'>
@@ -58,7 +65,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4 ">
+                        <div class="col-md-3 ">
                             <div class="form-group ">
                                 <label
                                         class="col-md-5 control-label text-right"><?= $this->lang->line("form_field_published"); ?></label>
@@ -150,7 +157,7 @@
     }
 
     function setupKeyEnterSearch() {
-        $("#title").keyup(function (e) {
+        $("#name_th,#name_en").keyup(function (e) {
             if (e.keyCode == 13) {
                 $("#btn_search").trigger("click");
             }
@@ -250,12 +257,14 @@
 
     function search() {
         var datetimepicker = $('#datetimepicker input').val();
-        var title = $('#title').val();
+        var name_th = $('#name_th').val();
+        var name_en = $('#name_en').val();
         var published = $("#published option:selected").val();
         var columnCont = $('#pages_datatable thead th').length;
 
         dataTable
-            .column(1).search(title)
+            .column(1).search(name_th)
+            .column(2).search(name_en)
             .column(columnCont - 3).search(datetimepicker)
             .column(columnCont).search(published)
             .draw();
@@ -264,7 +273,8 @@
     function clearTextSearch() {
         $('#published').prop('selectedIndex', 0);
         $('#datetimepicker input').val('');
-        $('#title').val('');
+        $('#name_th').val('');
+        $('#name_en').val('');
     }
 
     function setVisibleSearchPanel() {

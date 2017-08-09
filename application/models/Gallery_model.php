@@ -1,11 +1,6 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: BERM-PC
- * Date: 21/12/2558
- * Time: 7:14
- */
+
 class Gallery_Model extends CI_Model
 {
 

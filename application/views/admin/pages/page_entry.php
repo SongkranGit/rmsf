@@ -39,7 +39,7 @@ $article_selected = (isset($data["row"]["article_id"])) ? $data["row"]["article_
                         <div class="col-md-8">
                             <ul class="nav nav-tabs">
                                 <li role="presentation" class="active"><a href="#tab1" aria-controls="tab1" data-toggle="tab">ไทย</a></li>
-                                <li role="presentation"><a href="#tab2" aria-controls="tab2"  data-toggle="tab">English</a></li>
+                                <li role="presentation"><a href="#tab2" aria-controls="tab2" data-toggle="tab">English</a></li>
                             </ul>
                             <div class="tab-content">
                                 <!--TAB Thai-->
@@ -57,7 +57,8 @@ $article_selected = (isset($data["row"]["article_id"])) ? $data["row"]["article_
                                     <div class="form-group required">
                                         <label class="col-md-12 label-required" for="detail_th"><?= $this->lang->line("detail"); ?></label>
                                         <div class="col-md-12 ">
-                                            <textarea name="detail_th" id="detail_th" class="form-control" rows="5"><?php echo setFormData($data, $key = "detail_th"); ?></textarea>
+                                            <textarea name="detail_th" id="detail_th" class="form-control"
+                                                      rows="5"><?php echo setFormData($data, $key = "detail_th"); ?></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -77,7 +78,8 @@ $article_selected = (isset($data["row"]["article_id"])) ? $data["row"]["article_
                                     <div class="form-group required">
                                         <label class="col-md-12 label-required" for="detail_en"><?= $this->lang->line("detail"); ?></label>
                                         <div class="col-md-12">
-                                            <textarea name="detail_en" id="detail_en" class="form-control" rows="5"><?php echo setFormData($data, $key = "detail_en"); ?></textarea>
+                                            <textarea name="detail_en" id="detail_en" class="form-control"
+                                                      rows="5"><?php echo setFormData($data, $key = "detail_en"); ?></textarea>
                                         </div>
                                     </div>
 
@@ -87,35 +89,35 @@ $article_selected = (isset($data["row"]["article_id"])) ? $data["row"]["article_
                         </div>
                     </div>
 
-                    <?php if($form_action != ACTION_CREATE): ?>
+                    <?php if ($form_action != ACTION_CREATE): ?>
 
-                    <div id="div_cbx_enable_article" class="form-group">
-                        <label class="col-md-2 control-label"><?= $this->lang->line("article_title"); ?></label>
-                        <div class="col-md-8">
-                            <div class="row">
-                                <div class="col-md-2 col-sm-6">
-                                    <input type="checkbox" id="cbx_enable_article" name="enable_article">
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-md-2 control-label"><?= $this->lang->line("gallery_title"); ?></label>
-                        <div class="col-md-8">
-                            <div class="row">
-                                <div class="col-md-2 col-sm-6">
-                                    <input type="checkbox" id="cbx_enable_gallery" name="cbx_enable_gallery">
-                                </div>
-                                <div class="col-md-10">
+                        <div id="div_cbx_enable_article" class="form-group">
+                            <label class="col-md-2 control-label"><?= $this->lang->line("article_title"); ?></label>
+                            <div class="col-md-8">
+                                <div class="row">
+                                    <div class="col-md-2 col-sm-6">
+                                        <input type="checkbox" id="cbx_enable_article" name="enable_article">
+                                    </div>
 
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <?php endif;?>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label"><?= $this->lang->line("gallery_title"); ?></label>
+                            <div class="col-md-8">
+                                <div class="row">
+                                    <div class="col-md-2 col-sm-6">
+                                        <input type="checkbox" id="cbx_enable_gallery" name="cbx_enable_gallery">
+                                    </div>
+                                    <div class="col-md-10">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    <?php endif; ?>
 
                     <div class="form-group ">
                         <label class="col-md-2 control-label text-right"><?= $this->lang->line("form_field_published"); ?></label>
@@ -167,7 +169,7 @@ $article_selected = (isset($data["row"]["article_id"])) ? $data["row"]["article_
     function enableGallery() {
         // Gallery
         var gallery_id = '<?=(isset($data["row"]["gallery_id"])) ? $data["row"]["gallery_id"] : ''?>';
-        if (gallery_id != null && gallery_id != "" ) showGallery(); else hideGallery();
+        if (gallery_id != null && gallery_id != "") showGallery(); else hideGallery();
 
         $('#cbx_enable_gallery').on('switchChange.bootstrapSwitch', function (event, state) {
             if (state) {
@@ -181,7 +183,7 @@ $article_selected = (isset($data["row"]["article_id"])) ? $data["row"]["article_
 
     function enableArticle() {
         // Article
-        var hasArticle = '<?= (!empty($data["articles"])) ?true : false;?>';
+        var hasArticle = '<?= (!empty($data["articles"])) ? true : false;?>';
         if (hasArticle) {
             showArticle();
             hidePageBody();
@@ -297,13 +299,7 @@ $article_selected = (isset($data["row"]["article_id"])) ? $data["row"]["article_
                     alertSuccessMessageDialog(
                         '<?=$this->lang->line("message_dialog_title_success");?>',
                         '<?=$this->lang->line("message_save_complete");?>', function () {
-                            var id = '<?=$this->uri->segment(4)?>';
-                            if (id != 0 && id != '') {
-                                window.location = BASE_URL + 'admin/Page/index';
-                            } else {
-                                window.location.reload();
-                                //  clearForm();
-                            }
+                            window.location = BASE_URL + 'admin/Page';
                         });
                 } else {
                     $.each(response.messages, function (key, value) {
@@ -327,14 +323,14 @@ $article_selected = (isset($data["row"]["article_id"])) ? $data["row"]["article_
     }
 
 
-    function initToggleButtons(){
+    function initToggleButtons() {
         $("#cbx_enable_article").bootstrapSwitch('state', false);
         $("#cbx_enable_gallery").bootstrapSwitch('state', false);
     }
 
     function showArticle() {
         $("#cbx_enable_article").bootstrapSwitch('state', true);
-      //  $("#article_id").removeAttr('disabled');
+        //  $("#article_id").removeAttr('disabled');
         $("#div_list_articles").show();
     }
 
@@ -346,7 +342,7 @@ $article_selected = (isset($data["row"]["article_id"])) ? $data["row"]["article_
 
     function showGallery() {
         $("#cbx_enable_gallery").bootstrapSwitch('state', true);
-       // $("#gallery_id").removeAttr('disabled');
+        // $("#gallery_id").removeAttr('disabled');
         $("#div_list_galleries").show();
     }
 

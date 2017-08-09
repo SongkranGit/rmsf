@@ -131,8 +131,8 @@ class Gallery extends Admin_Controller
     public function validateForm()
     {
         $this->load->library('form_validation');
-        $this->form_validation->set_rules("name_th", "Name", "trim|required");
-        $this->form_validation->set_rules("description_th", "Description", "trim|required");
+        $this->form_validation->set_rules("name_th", "Gallery Name (T)", "trim|required");
+        $this->form_validation->set_rules("name_en", "Gallery Name (English)", "trim|required");
         $this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
     }
 

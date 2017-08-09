@@ -146,17 +146,6 @@ class Page_Model extends CI_Model
         }
     }
 
-    public function updateChildWhenDeleteParent($data, $id)
-    {
-        $this->db->where('parent_id', $id);
-        $this->db->update('pages', $data);
-        if ($this->db->affected_rows() > 0) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     public function delete($id)
     {
         $data = array('is_deleted' => 1);

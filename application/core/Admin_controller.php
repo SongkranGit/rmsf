@@ -28,7 +28,7 @@ class Admin_Controller extends MY_Controller {
         $role_id = $CI->session->userdata('role_id');
         if (IsNullOrEmptyString($user_id) || IsNullOrEmptyString($role_id)) {
             $CI->session->sess_destroy();
-            redirect("admin/Login/index", "refresh");
+            redirect("admin/Login", "refresh");
         }
     }
 

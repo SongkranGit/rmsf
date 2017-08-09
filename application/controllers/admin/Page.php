@@ -44,7 +44,6 @@ class Page extends Admin_Controller
                     "name_en" => trim($this->input->post("name_en")),
                     "detail_th" => $this->input->post("detail_th"),
                     "detail_en" => $this->input->post("detail_en"),
-                    "order" => $this->Page_model->getLatestOrderNumber() + 1,
                     "published" => intval($this->input->post("published")),
                     "created_date" => Calendar::currentDateTime(),
                     "updated_date" => Calendar::currentDateTime()
@@ -100,8 +99,6 @@ class Page extends Admin_Controller
         $result = array('success' => false);
         if ($id != "") {
             if ($this->Page_model->delete($id)) {
-                $data = array("parent_id" => 0);
-                $this->Page_model->updateChildWhenDeleteParent($data, $id);
                 $result["success"] = true;
             }
         }

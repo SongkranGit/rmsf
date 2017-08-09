@@ -84,11 +84,13 @@ $role = $this->session->userdata('role_id');
                         </a>
                     </li>
 
-                    <li class="<?= (strcasecmp($controller, USER) == 0) ? "active" : "" ?>">
-                        <a href="<?= base_url(ADMIN_USER) ?>">
-                            <i class="<?= (strcasecmp($controller, USER) == 0) ? "fa fa-circle-o text-green" : "fa fa-circle-o" ?>"></i>
-                            <?= $this->lang->line("menu_users"); ?></a>
-                    </li>
+                    <?php if (strtolower($this->session->userdata('user_role')) != 'user'): ?>
+                        <li class="<?= (strcasecmp($controller, USER) == 0) ? "active" : "" ?>">
+                            <a href="<?= base_url(ADMIN_USER) ?>">
+                                <i class="<?= (strcasecmp($controller, USER) == 0) ? "fa fa-circle-o text-green" : "fa fa-circle-o" ?>"></i>
+                                <?= $this->lang->line("menu_users"); ?></a>
+                        </li>
+                    <?php endif; ?>
                 </ul>
             </li>
 

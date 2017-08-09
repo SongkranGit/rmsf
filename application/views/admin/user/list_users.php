@@ -1,6 +1,12 @@
 <?php $this->load->view("includes/admin/header"); ?>
 <?php $this->load->view("includes/admin/navbar"); ?>
 
+<?php
+
+$user_role = $this->session->userdata('user_role');
+
+?>
+
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -9,10 +15,12 @@
         </h1>
         <div class="group-buttons-right">
             <ul class="nav nav-pills">
+                <?php if (strtolower($this->session->userdata('user_role')) == 'super admin' ||  strtolower($this->session->userdata('user_role')) == 'system admin'): ?>
                 <li>
                     <a href="<?= base_url(ADMIN_USER . "/create") ?>"> <i class="fa fa-plus-circle fa-1x"></i><?= $this->lang->line("user_button_add_user"); ?>
                     </a>
-                </li
+                </li>
+                <?php endif;?>
             </ul>
         </div>
     </section>
@@ -117,8 +125,7 @@
                 </div>
             </div>
         </div>
-
-
+        <?php echo $this->session->userdata('user_role');?>
     </section>
     <!-- /.content -->
 </div>
@@ -154,12 +161,12 @@
     function loadUsersDataTable() {
         var columns = [
             {data: null, "sClass": "right", "bSortable": false, "sWidth": "3%"}, //1st column
-            {data: "user_fullname", "sClass": "text" ,"sWidth": "20%"},
-            {data: "username", "sClass": "text" ,"sWidth": "10%"},
-            {data: "email", "sClass": "text" ,"sWidth": "15%"},
-            {data: "logged_in_date", "sClass": "text","sWidth": "15%"},
+            {data: "user_fullname", "sClass": "text", "sWidth": "20%"},
+            {data: "username", "sClass": "text", "sWidth": "10%"},
+            {data: "email", "sClass": "text", "sWidth": "15%"},
+            {data: "logged_in_date", "sClass": "text", "sWidth": "15%"},
             {
-                orderable: false,"sWidth": "10%",
+                orderable: false, "sWidth": "10%",
                 mRender: function (data, type, row) {
                     var label_role = '';
                     switch (parseInt(row.role_id)) {
@@ -177,12 +184,23 @@
                 }
             },
             {
-                orderable: false,"sWidth": "10%",
+                orderable: false, "sWidth": "10%",
                 mRender: function (data, type, row) {
+                    var user_role = '<?=$this->session->userdata('user_role')?>';
                     var buttons = '<div class="text-center"> ';
-                    buttons += '<a href=<?=base_url(ADMIN_USER)?>/update/' + row.user_id + '  class="btn btn-warning glyphicon glyphicon-pencil" data-toggle="tooltip" data-placement="top" title="แก้ไขข้อมูล"></a>';
-                    buttons += ' <a href="javascript:void(0)" onclick=deleteData(' + row.user_id + ') class="button_delete btn btn-danger glyphicon glyphicon-trash" data-toggle="tooltip" data-placement="top" title="ลบข้อมูล"></a>';
-                    buttons += '</div>'
+                    // Case can not edit role super admin
+                    if ((user_role.toLocaleLowerCase() == 'admin') && row.role_name.toLocaleLowerCase() == 'super admin') {
+                        buttons += '<a href=<?=base_url(ADMIN_USER)?>///update/' + row.user_id + ' disabled="disabled" onclick="return false;" class="btn btn-warning glyphicon glyphicon-pencil" data-toggle="tooltip" data-placement="top" title="แก้ไขข้อมูล"></a>';
+                    } else {
+                        buttons += '<a href=<?=base_url(ADMIN_USER)?>/update/' + row.user_id + '  class="btn btn-warning glyphicon glyphicon-pencil" data-toggle="tooltip" data-placement="top" title="แก้ไขข้อมูล"></a>';
+                    }
+
+                    if (user_role.toLocaleLowerCase() == 'super admin' || user_role.toLocaleLowerCase() == 'system admin') {
+                        buttons += ' <a href="javascript:void(0)" onclick=deleteData(' + row.user_id + ') class="button_delete btn btn-danger glyphicon glyphicon-trash" data-toggle="tooltip" data-placement="top" title="ลบข้อมูล"></a>';
+                    } else {
+                        buttons += ' <a href="javascript:void(0)"  disabled="disabled" onclick="return false;" class="button_delete btn btn-danger glyphicon glyphicon-trash" data-toggle="tooltip" data-placement="top" title="ลบข้อมูล"></a>';
+                    }
+                    buttons += '</div>';
                     return buttons;
                 }
             }

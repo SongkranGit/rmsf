@@ -48,8 +48,7 @@ $article_selected = (isset($data["row"]["article_id"])) ? $data["row"]["article_
                                     <div class="form-group required ">
                                         <label class="col-md-12 label-required "><?= $this->lang->line("pages_title"); ?></label>
                                         <div class="col-md-12">
-                                            <input type="text" id="name_th" name="name_th" placeholder="ชื่อเว็บเพจ"
-                                                   class="form-control"
+                                            <input type="text" id="name_th" name="name_th" placeholder="ชื่อเว็บเพจ" class="form-control"
                                                    value="<?php echo setFormData($data, $key = "name_th"); ?>">
                                         </div>
                                     </div>
@@ -68,8 +67,7 @@ $article_selected = (isset($data["row"]["article_id"])) ? $data["row"]["article_
                                     <div class="form-group required ">
                                         <label class="col-md-12 label-required"><?= $this->lang->line("pages_title"); ?></label>
                                         <div class="col-md-12">
-                                            <input type="text" id="name_en" name="name_en" placeholder="Page Title"
-                                                   class="form-control"
+                                            <input type="text" id="name_en" name="name_en" placeholder="Page Title" class="form-control"
                                                    value="<?php echo setFormData($data, $key = "name_en"); ?>">
                                         </div>
 
@@ -103,6 +101,28 @@ $article_selected = (isset($data["row"]["article_id"])) ? $data["row"]["article_
                             </div>
                         </div>
 
+                        <div id="div_article_list" class="form-group">
+                            <label class="col-md-2 control-label">&nbsp;</label>
+                            <div class="col-md-8">
+                                <table class=" table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-center" width="60"><?= $this->lang->line("table_seq"); ?></th>
+                                        <th><?= $this->lang->line("article_name");?> </th>
+                                        <th>Email</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>John</td>
+                                        <td>Doe</td>
+                                        <td>john@example.com</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <label class="col-md-2 control-label"><?= $this->lang->line("gallery_title"); ?></label>
                             <div class="col-md-8">
@@ -110,10 +130,29 @@ $article_selected = (isset($data["row"]["article_id"])) ? $data["row"]["article_
                                     <div class="col-md-2 col-sm-6">
                                         <input type="checkbox" id="cbx_enable_gallery" name="cbx_enable_gallery">
                                     </div>
-                                    <div class="col-md-10">
-
-                                    </div>
                                 </div>
+                            </div>
+                        </div>
+
+                        <div id="div_gallery_list" class="form-group">
+                            <label class="col-md-2 control-label">&nbsp;</label>
+                            <div class="col-md-8">
+                                <table class=" table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-center" width="60"><?= $this->lang->line("table_seq"); ?></th>
+                                        <th><?= $this->lang->line("gallery_name"); ?></th>
+                                        <th>Email</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>John</td>
+                                        <td>Doe</td>
+                                        <td>john@example.com</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
 
@@ -146,7 +185,6 @@ $article_selected = (isset($data["row"]["article_id"])) ? $data["row"]["article_
 
 <script type="text/javascript">
     var validator;
-    var isSystemAdmin = (parseInt('<?php echo $this->session->userdata('role_id');?>') == 0) ? true : false;
 
     $(document).ready(function () {
 
@@ -156,56 +194,25 @@ $article_selected = (isset($data["row"]["article_id"])) ? $data["row"]["article_
 
         validateForm();
 
-        initToggleButtons();
-
     });
 
 
     function initView() {
-
-    }
-
-
-    function enableGallery() {
-        // Gallery
-        var gallery_id = '<?=(isset($data["row"]["gallery_id"])) ? $data["row"]["gallery_id"] : ''?>';
-        if (gallery_id != null && gallery_id != "") showGallery(); else hideGallery();
-
-        $('#cbx_enable_gallery').on('switchChange.bootstrapSwitch', function (event, state) {
-            if (state) {
-                showGallery();
-                hideArticle();
-            } else {
-                hideGallery();
-            }
-        });
-    }
-
-    function enableArticle() {
-        // Article
-        var hasArticle = '<?= (!empty($data["articles"])) ? true : false;?>';
-        if (hasArticle) {
-            showArticle();
-            hidePageBody();
-        } else {
-            hideArticle();
-            showPageBody();
-            $('#div_cbx_enable_article').hide();
-        }
-
+        /** Toggle Buttons*/
+        $("#cbx_enable_article").bootstrapSwitch('state', false);
+        $("#cbx_enable_gallery").bootstrapSwitch('state', false);
         $('#cbx_enable_article').on('switchChange.bootstrapSwitch', function (event, state) {
-            if (state) {
-                showArticle();
-                hideGallery();
-                hidePageBody();
-            } else {
-                hideArticle();
-                showGallery();
-                showPageBody();
-            }
+            if (state) showArticle(); else hideArticle();
         });
-    }
+        $('#cbx_enable_gallery').on('switchChange.bootstrapSwitch', function (event, state) {
+            if (state) showGallery(); else hideGallery();
+        });
 
+        /** Hide article and gallery*/
+        $("#div_article_list").hide();
+        $('#div_gallery_list').hide();
+
+    }
 
     function setupTinyFileManager() {
         var external_filemanager_path = '<?=base_url("assets")?>/libraries/filemanager/';
@@ -324,44 +331,27 @@ $article_selected = (isset($data["row"]["article_id"])) ? $data["row"]["article_
 
 
     function initToggleButtons() {
-        $("#cbx_enable_article").bootstrapSwitch('state', false);
-        $("#cbx_enable_gallery").bootstrapSwitch('state', false);
+
     }
 
     function showArticle() {
         $("#cbx_enable_article").bootstrapSwitch('state', true);
-        //  $("#article_id").removeAttr('disabled');
-        $("#div_list_articles").show();
+        $("#div_article_list").show();
     }
 
     function hideArticle() {
         $("#cbx_enable_article").bootstrapSwitch('state', false);
-        $("#article_id").attr('disabled', 'disabled');
-        $("#div_list_articles").hide();
+        $("#div_article_list").hide();
     }
 
     function showGallery() {
         $("#cbx_enable_gallery").bootstrapSwitch('state', true);
-        // $("#gallery_id").removeAttr('disabled');
-        $("#div_list_galleries").show();
+        $("#div_gallery_list").show();
     }
 
     function hideGallery() {
         $("#cbx_enable_gallery").bootstrapSwitch('state', false);
-        $("#gallery_id").attr('disabled', 'disabled');
-        $("#div_list_galleries").hide();
-    }
-
-    function showPageBody() {
-        $('#div_page_body').show();
-    }
-
-    function hidePageBody() {
-        $('#div_page_body').hide();
-    }
-
-    function hidePageBody() {
-        $("#div_page_body").hide();
+        $("#div_gallery_list").hide();
     }
 
     function clearForm() {

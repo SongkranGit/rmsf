@@ -19,38 +19,26 @@ class Contactus extends Frontend_Controller
 
             $response = array('success' => false, 'notes' => array());
 
-            dump("sfsd");
 
             $this->validateForm();
 
-//            if ($this->form_validation->run()) {
-//                $data = array(
-//                    "full_name" => trim($this->input->post("full_name")),
-//                    "phone" => trim($this->input->post("phone")),
-//                    "email" => trim($this->input->post("email")),
-//                    "age" => intval($this->input->post("age")),
-//                    "education" => intval($this->input->post("education")),
-//                    "line_id" => $this->input->post("line_id"),
-//                    "note" => $this->input->post("note"),
-//                    "created_date" => Calendar::currentDateTime()
-//                );
-//
-//                if ($this->Contact_model->save($data)) {
-//                    $response['success'] = true;
-//                }
-//
-//                echo json_encode($response);
-//
-//                if ($response["success"] == true) {
-//                    $this->sendEmail($data);
-//                    $this->sendEmailToInterestedPerson($data);
-//                }
-//
-//            } else {
-//                foreach ($_POST as $key => $value) {
-//                    $result['notes'][$key] = form_error($key);
-//                }
-//            }
+            if ($this->form_validation->run()) {
+                $data = array(
+                    "name" => trim($this->input->post("name")),
+                    "phone" => trim($this->input->post("phone")),
+                    "email" => trim($this->input->post("email")),
+                    "subject" => $this->input->post("subject"),
+                    "message" => $this->input->post("message"),
+                    "created_date" => Calendar::currentDateTime()
+                );
+
+                if ($this->Contact_model->save($data)) {
+                    $this->load->view('frontend/contact_us');
+                }
+
+            } else {
+              $this->load->view('frontend/contact_us');
+            }
         }
     }
 
@@ -83,6 +71,19 @@ class Contactus extends Frontend_Controller
 
     }
 
+    public function validateForm()
+    {
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules("name", "Name", "trim|required");
+        $this->form_validation->set_rules("email", "Email", "trim|required");
+        $this->form_validation->set_rules("subject", "Subject", "trim|required");
+        $this->form_validation->set_rules("message", "Message", "trim|required");
+        $this->form_validation->set_rules("phone", "Phone", "trim|required");
+        $this->form_validation->set_error_delimiters(
+        '<div class="alert alert-danger" role="alert" style="margin-top: 10px;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> <span class="sr-only"></span>',
+
+         '</div>');
+    }
 
 
 }

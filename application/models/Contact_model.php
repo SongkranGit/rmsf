@@ -19,21 +19,6 @@ class Contact_Model extends CI_Model
         return $data;
     }
 
-    public function findByQrCode($code)
-    {
-        $data = array();
-        $this->db->select("con.* , ed.education_th , ed.education_en , ed.id");
-        $this->db->from('contacts con');
-        $this->db->join('educations ed' , 'ed.id=con.education');
-        $this->db->where('con.qr_code_id', $code);
-        $this->db->where('con.is_deleted', 0);
-        $query = $this->db->get();
-        if ($query->num_rows() > 0) {
-            $data = $query->row_array();
-        }
-        $query->free_result();
-        return $data;
-    }
 
     public function getAll()
     {
@@ -51,20 +36,6 @@ class Contact_Model extends CI_Model
         return $data;
     }
 
-    public function getListOfEducations()
-    {
-        $data = array();
-        $this->db->select('*');
-        $this->db->from('educations');
-        $query = $this->db->get();
-        if ($query->num_rows() > 0) {
-            foreach ($query->result_array() as $row) {
-                $data[] = $row;
-            }
-        }
-        $query->free_result();
-        return $data;
-    }
 
     public function loadContactsDataTable()
     {
@@ -120,15 +91,6 @@ class Contact_Model extends CI_Model
         }
     }
 
-    public function approveCoupon($qr_code_id , $data){
-        $this->db->where('qr_code_id', $qr_code_id);
-        $this->db->update('contacts', $data);
-        if ($this->db->affected_rows() > 0) {
-            return true;
-        } else {
-            return false;
-        }
-    }
 
 
     public function delete($id)

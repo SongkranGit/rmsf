@@ -8,7 +8,7 @@
     <title><?php echo isset($this->data["settings"]["website_name"]) ? $this->data["settings"]["website_name"] : "" ?></title>
     <!-- Bootstrap -->
 
-    <link href="<?= base_url("assets/css/bootstrap.min.css") ?>" rel="stylesheet">
+    <link href="<?= base_url("assets/adminlte2/bootstrap/css/bootstrap.min.css") ?>" rel="stylesheet">
     <script src="<?= base_url("assets/js/jquery-2.1.4.min.js") ?>"></script>
 
 </head>

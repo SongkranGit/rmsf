@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2017-08-09 02:05:52
+Date: 2017-08-11 06:30:17
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -55,7 +55,7 @@ CREATE TABLE `articles` (
 -- Records of articles
 -- ----------------------------
 INSERT INTO `articles` VALUES ('1', '1', 'sdfasdf', 'asdfasdf', 'asdfasdf', 'asdfasdf', '<p>asdfasdfasdf</p>', 'asdfasdfasdf', '2017-08-06 00:00:00', null, null, '', '2017-08-06 14:36:10', null, '1');
-INSERT INTO `articles` VALUES ('2', '6', 'ฟหกดฟห', 'sdfasdfa', 'ฟหกดฟหกด', 'sdfasdfa', '<p>ดฟหกดsfasdfasdfasdfasdfasdfasdfassf</p>', '<p>asdfasdfasdfasdfasdf</p>', '2017-08-07 00:00:00', null, null, '', '2017-08-06 22:40:37', '2017-08-06 23:20:33', '0');
+INSERT INTO `articles` VALUES ('2', '6', 'ฟหกดฟห', 'sdfasdfa', 'ฟหกดฟหกด', 'sdfasdfa', '<p>ดฟหกดsfasdfasdfasdfasdfasdfasdfassf</p>', '<p>asdfasdfasdfasdfasdf</p>', '2017-08-07 00:00:00', null, null, '', '2017-08-06 22:40:37', '2017-08-09 21:07:38', '0');
 INSERT INTO `articles` VALUES ('3', '2', 'ชื่อบทความ', 'sdfas', 'คำอธิบาย', 'sdfasdfasdfasdf', '<p>ฟหกดฟหกดฟหกด</p>\r\n<p> </p>\r\n<p> </p>', '<p>asdfasdfasdfasdfasdfasfasdfasdf</p>\r\n<p><img src=\"http://rmsf.dev/uploads/022a4423-c626-4851-8880-5e0faf368c5b.png?1502052343264\" width=\"533\" height=\"200\" /></p>', '2017-08-07 00:00:00', null, null, '', '2017-08-06 22:43:51', '2017-08-06 23:19:01', '0');
 
 -- ----------------------------
@@ -73,7 +73,7 @@ CREATE TABLE `article_images` (
   `created_date` datetime NOT NULL,
   `updated_date` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=91 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=94 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of article_images
@@ -84,9 +84,11 @@ INSERT INTO `article_images` VALUES ('83', null, 'b35fc93e-5a4f-42f0-b279-d9ef3e
 INSERT INTO `article_images` VALUES ('84', null, '5b853f8a-a55f-4b7b-8de2-feead81f7b3e', 'switzerland_alps_mountains_night_beautiful_landsca', '5b853f8a-a55f-4b7b-8de2-feead81f7b3e.jpg', null, '820', '2017-08-05 23:34:02', null);
 INSERT INTO `article_images` VALUES ('85', null, '70733488-f380-4a1a-836f-7496bf9936fe', 'switzerland_alps_mountains_night_beautiful_landsca', '70733488-f380-4a1a-836f-7496bf9936fe.jpg', null, '820', '2017-08-06 00:09:53', null);
 INSERT INTO `article_images` VALUES ('86', null, 'c3f4f87e-9ae9-4ac4-98a0-6bc6d8c509eb', 'switzerland_alps_mountains_night_beautiful_landsca', 'c3f4f87e-9ae9-4ac4-98a0-6bc6d8c509eb.jpg', null, '820', '2017-08-06 05:51:48', null);
-INSERT INTO `article_images` VALUES ('88', '2', 'feeb30f9-622a-4e16-889a-2676ce44cebe', 'river_trees_fog_reflection_100440_1920x1080.jpg', 'feeb30f9-622a-4e16-889a-2676ce44cebe.jpg', '1', '778', '2017-08-06 23:03:30', null);
+INSERT INTO `article_images` VALUES ('88', '2', 'feeb30f9-622a-4e16-889a-2676ce44cebe', 'river_trees_fog_reflection_100440_1920x1080.jpg', 'feeb30f9-622a-4e16-889a-2676ce44cebe.jpg', '2', '778', '2017-08-06 23:03:30', null);
 INSERT INTO `article_images` VALUES ('89', '2', 'a314c053-e0ed-421a-a1a4-5bbff0ef1d4f', 'switzerland_alps_mountains_night_beautiful_landsca', 'a314c053-e0ed-421a-a1a4-5bbff0ef1d4f.jpg', '1', '820', '2017-08-06 23:04:11', null);
 INSERT INTO `article_images` VALUES ('90', '3', '17dacdfe-c541-4310-88f6-99d714d4ec62', 'switzerland_alps_mountains_night_beautiful_landsca', '17dacdfe-c541-4310-88f6-99d714d4ec62.jpg', '1', '820', '2017-08-06 23:17:55', null);
+INSERT INTO `article_images` VALUES ('92', null, 'd2268cc8-45d0-4cea-b7a0-e4a668266116', '1920x1200-wdf_1804851.jpg', 'd2268cc8-45d0-4cea-b7a0-e4a668266116.jpg', null, '562', '2017-08-09 21:14:07', null);
+INSERT INTO `article_images` VALUES ('93', null, '87b00071-0388-4117-bf7c-cae1d0840753', 'hd-liverpool-wallpapers.jpg', '87b00071-0388-4117-bf7c-cae1d0840753.jpg', null, '1222', '2017-08-09 21:18:27', null);
 
 -- ----------------------------
 -- Table structure for contacts
@@ -94,43 +96,19 @@ INSERT INTO `article_images` VALUES ('90', '3', '17dacdfe-c541-4310-88f6-99d714d
 DROP TABLE IF EXISTS `contacts`;
 CREATE TABLE `contacts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `full_name` varchar(50) DEFAULT NULL,
-  `email` varchar(50) DEFAULT NULL,
-  `education` varchar(50) DEFAULT NULL,
-  `age` int(2) DEFAULT NULL,
+  `name` varchar(50) NOT NULL,
+  `email` varchar(50) NOT NULL,
   `phone` varchar(20) DEFAULT NULL,
-  `note` text NOT NULL,
-  `courses` varchar(100) NOT NULL,
+  `subject` varchar(250) DEFAULT NULL,
+  `message` text,
   `created_date` datetime NOT NULL,
   `updated_date` datetime DEFAULT NULL,
-  `is_deleted` bit(1) NOT NULL,
-  `line_id` varchar(50) NOT NULL,
-  `qr_code_id` varchar(50) NOT NULL,
-  `is_approve` bit(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=105 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of contacts
 -- ----------------------------
-INSERT INTO `contacts` VALUES ('87', 'Test', 'bsongkran_167@hotmail.com', '2', '0', '', 'sss', 'a:4:{i:0;s:1:\"1\";i:1;s:1:\"0\";i:2;s:1:\"0\";i:3;s:1:\"4\";}', '2016-07-10 15:37:41', null, '', '', '', '\0');
-INSERT INTO `contacts` VALUES ('88', 'test', 'bsongkran167@gmail.com', '10', '5', 'sss', 'sfasfsdf', 'a:4:{i:0;s:1:\"0\";i:1;s:1:\"2\";i:2;s:1:\"0\";i:3;s:1:\"0\";}', '2016-08-14 08:39:12', null, '', 'ssss', '', '\0');
-INSERT INTO `contacts` VALUES ('89', 'sdrfas', 'bsongkran167@gmail.com', '2', '1', '', 'sdrfsdr', 'a:4:{i:0;s:1:\"0\";i:1;s:1:\"0\";i:2;s:1:\"0\";i:3;s:1:\"4\";}', '2016-08-14 08:40:22', null, '', '', '', '\0');
-INSERT INTO `contacts` VALUES ('90', 'หดห', 'bsongkran167@gmail.com', '2', '0', 'หกด', 'sdfsfs', 'a:4:{i:0;s:1:\"0\";i:1;s:1:\"0\";i:2;s:1:\"0\";i:3;s:1:\"4\";}', '2016-08-14 08:45:26', null, '', '', '', '\0');
-INSERT INTO `contacts` VALUES ('91', 'sdfasdf', 'bsongkran167@gmail.com', '2', '0', '', 'sfsdf', 'a:4:{i:0;s:1:\"0\";i:1;s:1:\"0\";i:2;s:1:\"3\";i:3;s:1:\"0\";}', '2016-08-14 08:48:11', null, '', '', '', '\0');
-INSERT INTO `contacts` VALUES ('92', 'sdfasf', 'bsongkran167@gmail.com', '2', '0', '', 'sdf', 'a:4:{i:0;s:1:\"1\";i:1;s:1:\"0\";i:2;s:1:\"0\";i:3;s:1:\"0\";}', '2016-08-14 08:49:13', null, '', '', '', '\0');
-INSERT INTO `contacts` VALUES ('93', 'asdasd', 'bsongkran167@gmail.com', '2', '0', '', 'sdfsd', 'a:4:{i:0;s:1:\"0\";i:1;s:1:\"2\";i:2;s:1:\"0\";i:3;s:1:\"0\";}', '2016-08-14 08:50:05', null, '', '', '', '\0');
-INSERT INTO `contacts` VALUES ('94', 'asfsf', 'bsongkran167@gmail.com', '2', '0', '', 'sdf', 'a:4:{i:0;s:1:\"0\";i:1;s:1:\"2\";i:2;s:1:\"0\";i:3;s:1:\"0\";}', '2016-08-14 08:52:07', null, '', '', '', '\0');
-INSERT INTO `contacts` VALUES ('95', 'sdfsdf', 'bsongkran167@gmail.com', '2', '0', '', 'sdfasdf', 'a:4:{i:0;s:1:\"0\";i:1;s:1:\"2\";i:2;s:1:\"0\";i:3;s:1:\"0\";}', '2016-08-14 08:53:39', null, '', '', '', '\0');
-INSERT INTO `contacts` VALUES ('96', 'sdfsdfds', 'bsongkran167@gmail.com', '2', '0', '', 'sdfsdfdsffs', 'a:4:{i:0;s:1:\"0\";i:1;s:1:\"2\";i:2;s:1:\"0\";i:3;s:1:\"0\";}', '2016-08-14 09:03:46', null, '', '', '', '\0');
-INSERT INTO `contacts` VALUES ('97', 'สุชาดา คำวงษ์', 'suchada.k9@gmail.com', '9', '41', '0899495963', '-', 'a:4:{i:0;s:1:\"1\";i:1;s:1:\"2\";i:2;s:1:\"3\";i:3;s:1:\"4\";}', '2016-08-14 10:13:35', null, '', 'wan_jiab', '', '\0');
-INSERT INTO `contacts` VALUES ('98', 'สุชาดา คำวงษ์', 'suchada.k9@gmail.com', '2', '20', '0899495963', 'ทดสอบ', 'a:4:{i:0;s:1:\"1\";i:1;s:1:\"2\";i:2;s:1:\"0\";i:3;s:1:\"0\";}', '2016-08-14 10:14:40', null, '', 'wan_jiab', '', '\0');
-INSERT INTO `contacts` VALUES ('99', 'สุชาดา คำวงษ์', 'suchada.k9@gmail.com', '10', '21', '0899495963', 'sss', 'a:4:{i:0;s:1:\"1\";i:1;s:1:\"2\";i:2;s:1:\"3\";i:3;s:1:\"4\";}', '2016-08-14 10:18:31', null, '', 'wan_jiab', '', '\0');
-INSERT INTO `contacts` VALUES ('100', 'สุชาดา คำวงษ์', 'suchada.k9@gmail.com', '19', '20', '0899495963', 'test', 'a:4:{i:0;s:1:\"1\";i:1;s:1:\"2\";i:2;s:1:\"3\";i:3;s:1:\"4\";}', '2016-08-15 18:38:59', null, '', 'wan_jiab', '', '\0');
-INSERT INTO `contacts` VALUES ('101', 'TestQR', 'bsongkran167@gmail.com', '2', '0', '', 'sdfsfdsf', 'a:4:{i:0;s:1:\"0\";i:1;s:1:\"2\";i:2;s:1:\"0\";i:3;s:1:\"0\";}', '2016-08-17 22:26:21', null, '', '', '82ba07e0-7154-46c3-856e-d0a98176fb51', '\0');
-INSERT INTO `contacts` VALUES ('102', 'Test Approve', 'bsongkran167@gmail.com', '10', '20', '125555', 'sfsdfdsfdsf', 'a:4:{i:0;s:1:\"0\";i:1;s:1:\"2\";i:2;s:1:\"3\";i:3;s:1:\"4\";}', '2016-08-17 23:32:42', '2016-08-20 08:56:58', '\0', 'ssssss', '7eeb9b24-b3b6-44cc-a9ad-4163cf3d5bae', '');
-INSERT INTO `contacts` VALUES ('103', 'TestApprove', 'bsongkran167@gmail.com', '7', '22', 'xxx', 'sfsfdsfdsfdsfdsf', 'a:4:{i:0;s:1:\"1\";i:1;s:1:\"0\";i:2;s:1:\"0\";i:3;s:1:\"4\";}', '2016-08-17 23:50:11', '2016-08-17 23:53:46', '', '222', '2297641f-e29e-4ba1-bd23-86c6af498b1e', '');
-INSERT INTO `contacts` VALUES ('104', 'TestApprove3', 'bsongkran167@gmail.com', '11', '22', '', 'TestApprove3', 'a:4:{i:0;s:1:\"0\";i:1;s:1:\"2\";i:2;s:1:\"3\";i:3;s:1:\"0\";}', '2016-08-17 23:52:57', '2016-08-17 23:54:36', '\0', '', 'b0265c63-b549-4bcf-8d21-df2814a86ea1', '');
 
 -- ----------------------------
 -- Table structure for galleries
@@ -138,6 +116,7 @@ INSERT INTO `contacts` VALUES ('104', 'TestApprove3', 'bsongkran167@gmail.com', 
 DROP TABLE IF EXISTS `galleries`;
 CREATE TABLE `galleries` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `page_id` int(11) NOT NULL,
   `name_th` varchar(500) NOT NULL,
   `name_en` varchar(500) DEFAULT NULL,
   `description_th` varchar(2000) DEFAULT NULL,
@@ -148,17 +127,18 @@ CREATE TABLE `galleries` (
   `updated_date` datetime DEFAULT NULL,
   `is_deleted` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of galleries
 -- ----------------------------
-INSERT INTO `galleries` VALUES ('1', 'นักเรียนที่มาเรียน สอบเข้าจุฬาฯได้ ในปี 2013', null, 'เข้าศึกษาได้ทั้งสิ้น 43 คน  คิดเป็น 92% \r\nสำเร็จในทุกคณะโดยเฉพาะคณะพาณิชยศาสตร์และการบัญชี รุ่น Early Admission เข้าได้ 2 คน\r\nอายุเฉลี่ยของนักเรียน SPC ที่เข้าจุฬาฯได้ ในปีนี้ อายุ 15 ปี 7 เดือน\r\nและมีนักเรียนที่จบเพียงเกรด 8  เข้าจุฬาฯได้ถึง 9 คน', null, '', '1', '2016-06-12 17:01:57', '2016-08-15 18:54:14', '1');
-INSERT INTO `galleries` VALUES ('2', 'เด็กหงษ์ FC', 'The kopppp', 'เด็กหงษ์ FC เด็กหงษ์ FC เด็กหงษ์ FC', 'sdfasdfasdf', '', '2', '2016-06-22 20:28:59', '2017-08-08 00:35:51', '0');
-INSERT INTO `galleries` VALUES ('3', 'เลือกที่นี่เพราะ', null, 'รายละเอียด เลือกที่นี่เพราะ', null, '', '4', '2016-07-09 21:34:12', '2016-08-15 19:00:09', '1');
-INSERT INTO `galleries` VALUES ('4', 'ความเหมือนที่แตกต่าง', 'sfsdf', 'เพราะ SPC ไม่ใช่แค่สถาบันกวดวิชาที่ให้แค่ความรู้  แต่ที่ SPC สังคมของเราอบอุ่น เป็นเหมือนบ้าน  เหมือนครอบครัวที่คอยดูแลกันและกัน  เป็นสังคมที่เกื้อกูลกัน  พ่อแม่ดูแลลูก  พี่ดูแลน้องจากรุ่นสู่รุ่น  เพื่อนช่วยเพื่อน  เพื่อที่ทุกคนจะสำเร็จสู่รั้วมหาวิทยาลัยที่ตั้งใจ', 'asdfasdf', '', '3', '2016-07-09 21:34:36', '2017-08-08 01:01:54', '1');
-INSERT INTO `galleries` VALUES ('5', 'SPC พาชมมหาวิทยาลัย', null, 'SPC พาชมมหาวิทยาลัย', null, '', '5', '2017-01-21 00:47:35', '2017-01-21 00:47:35', '1');
-INSERT INTO `galleries` VALUES ('6', 'เด็กผี', '', 'หกดหกดฟหกดหด', '', '', null, '2017-08-08 19:33:44', '2017-08-08 19:33:44', '0');
+INSERT INTO `galleries` VALUES ('1', '0', 'นักเรียนที่มาเรียน สอบเข้าจุฬาฯได้ ในปี 2013', null, 'เข้าศึกษาได้ทั้งสิ้น 43 คน  คิดเป็น 92% \r\nสำเร็จในทุกคณะโดยเฉพาะคณะพาณิชยศาสตร์และการบัญชี รุ่น Early Admission เข้าได้ 2 คน\r\nอายุเฉลี่ยของนักเรียน SPC ที่เข้าจุฬาฯได้ ในปีนี้ อายุ 15 ปี 7 เดือน\r\nและมีนักเรียนที่จบเพียงเกรด 8  เข้าจุฬาฯได้ถึง 9 คน', null, '', '1', '2016-06-12 17:01:57', '2016-08-15 18:54:14', '1');
+INSERT INTO `galleries` VALUES ('2', '0', 'เด็กหงษ์ FC', 'The kopppp', 'เด็กหงษ์ FC เด็กหงษ์ FC เด็กหงษ์ FC', 'sdfasdfasdf', '', '2', '2016-06-22 20:28:59', '2017-08-08 00:35:51', '0');
+INSERT INTO `galleries` VALUES ('3', '0', 'เลือกที่นี่เพราะ', null, 'รายละเอียด เลือกที่นี่เพราะ', null, '', '4', '2016-07-09 21:34:12', '2016-08-15 19:00:09', '1');
+INSERT INTO `galleries` VALUES ('4', '0', 'ความเหมือนที่แตกต่าง', 'sfsdf', 'เพราะ SPC ไม่ใช่แค่สถาบันกวดวิชาที่ให้แค่ความรู้  แต่ที่ SPC สังคมของเราอบอุ่น เป็นเหมือนบ้าน  เหมือนครอบครัวที่คอยดูแลกันและกัน  เป็นสังคมที่เกื้อกูลกัน  พ่อแม่ดูแลลูก  พี่ดูแลน้องจากรุ่นสู่รุ่น  เพื่อนช่วยเพื่อน  เพื่อที่ทุกคนจะสำเร็จสู่รั้วมหาวิทยาลัยที่ตั้งใจ', 'asdfasdf', '', '3', '2016-07-09 21:34:36', '2017-08-08 01:01:54', '1');
+INSERT INTO `galleries` VALUES ('5', '0', 'SPC พาชมมหาวิทยาลัย', null, 'SPC พาชมมหาวิทยาลัย', null, '', '5', '2017-01-21 00:47:35', '2017-01-21 00:47:35', '1');
+INSERT INTO `galleries` VALUES ('6', '0', 'เด็กผี', '', 'หกดหกดฟหกดหด', '', '', null, '2017-08-08 19:33:44', '2017-08-08 19:33:44', '0');
+INSERT INTO `galleries` VALUES ('7', '3', 'แกลเลอรี่', 'asdf', 'คำอธิบาย', 'sdfasdfsdf', '', null, '2017-08-08 21:30:36', '2017-08-08 22:47:29', '0');
 
 -- ----------------------------
 -- Table structure for galleries_images
@@ -178,7 +158,7 @@ CREATE TABLE `galleries_images` (
   `created_date` datetime NOT NULL,
   `updated_date` datetime DEFAULT NULL,
   PRIMARY KEY (`id`,`gallery_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=91 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of galleries_images
@@ -187,6 +167,8 @@ INSERT INTO `galleries_images` VALUES ('83', '2', 'liverpool', 'ลิเวอ�
 INSERT INTO `galleries_images` VALUES ('84', '2', 'Thekop', 'เด็กหงษ์', '01000561-fad2-4562-95ac-d29c701089f7.jpg', '1', '01000561-fad2-4562-95ac-d29c701089f7', '1920x1200-wdf_1804851.jpg', '562', '', '2017-08-08 00:33:56', '2017-08-08 00:34:34');
 INSERT INTO `galleries_images` VALUES ('85', '2', 'sdfasfasdf', 'sfasdfasd', '88d706bc-b34e-4402-ab06-11e76e67c1b3.jpg', '1', '', '', '0', '', '2017-08-08 19:32:34', null);
 INSERT INTO `galleries_images` VALUES ('86', '2', 'sfasdf', 'sdfasdf', '5b83d475-a884-4d6c-b329-5717bdbb4f25.jpg', '1', '', '', '0', '', '2017-08-08 19:32:54', null);
+INSERT INTO `galleries_images` VALUES ('91', '6', 'etewtetwert', 'dtert', '1eac9122-a574-490c-8b1e-9b9279322aaf.jpg', '3', '05b42ca9-9afb-439c-beb8-36eeeff26d3e', '0003_1024.jpg', '69', '', '2017-08-08 21:10:48', '2017-08-08 21:10:59');
+INSERT INTO `galleries_images` VALUES ('92', '7', '', '', 'fd72995e-f664-4b45-825a-b68145a8bab9.jpg', '1', 'fd72995e-f664-4b45-825a-b68145a8bab9', '0003_1024.jpg', '69', '', '2017-08-08 22:49:20', null);
 
 -- ----------------------------
 -- Table structure for members
@@ -263,12 +245,12 @@ CREATE TABLE `pages` (
 -- ----------------------------
 -- Records of pages
 -- ----------------------------
-INSERT INTO `pages` VALUES ('1', 'หน้าแรก', 'Home', '', '', '', '2016-05-22 13:59:29', '2016-06-17 22:11:14', '0');
+INSERT INTO `pages` VALUES ('1', 'หน้าแรก', 'Home', '', '', '', '2016-05-22 13:59:29', '2017-08-09 16:01:04', '0');
 INSERT INTO `pages` VALUES ('2', 'เกี่ยวกับเรา', 'About us', '', '', '', '2016-05-22 14:25:01', '2017-08-05 12:18:17', '0');
 INSERT INTO `pages` VALUES ('3', 'บริการ', 'Service', '', '', '', '2016-05-22 19:20:45', '2017-08-05 12:18:28', '0');
 INSERT INTO `pages` VALUES ('4', 'รูปภาพผลงาน', 'Portfolio', '', '', '', '2016-05-22 14:37:47', '2017-08-05 12:27:49', '0');
 INSERT INTO `pages` VALUES ('6', 'ผู้ก่อตั้ง', 'Founder', '', '<h2><span style=\"color: #42a33c;\">ผู้ก่อตั้งและผู้จัดการหลักสูตรการเรียนการสอน</span></h2>\r\n<div class=\"row\">\r\n<div class=\"col-md-6\"><img class=\"img-thumbnail img-responsive center-block\" src=\"http://modernsofttech.com/spc/assets/uploads-files/founder3.jpg?1466603001672\" alt=\"\" />\r\n<p class=\"text-center\">นายแพทย์สุชาติ วงศ์เกียรติขจร แพทย์ศาสตร์บัณฑิต (เกียรตินิยม) มหาวิทยาลัยเชียงใหม่</p>\r\n</div>\r\n<div class=\"col-md-6\"><img class=\"img-thumbnail img-responsive center-block\" src=\"http://modernsofttech.com/spc/assets/uploads-files/founder1.jpg?1466603046472\" alt=\"\" />\r\n<p class=\"text-center\">นางสาว พนิดา วงศ์เกียรติขจร วิทยาศาสตร์มหาบัณฑิต มหาวิทยาลัยเกษตรศาสตร์</p>\r\n</div>\r\n</div>\r\n<div class=\"row\">\r\n<div class=\"col-md-6\"><img class=\"img-thumbnail img-responsive center-block\" src=\"http://modernsofttech.com/spc/assets/uploads-files/founder4.jpg?1466603081864\" alt=\"\" />\r\n<p class=\"text-center\">นายวิบูลย์ ชัยนันท์ ครุศาสตร์บัณฑิต จุฬาลงกรณ์มหาวิทยาลัย</p>\r\n</div>\r\n<div class=\"col-md-6\"><img class=\"img-thumbnail img-responsive center-block\" src=\"http://modernsofttech.com/spc/assets/uploads-files/founder2.jpg?1466603107064\" alt=\"\" />\r\n<p class=\"text-center\">นายฉัตรบดินทร์ ชัยนันท์ วิทยาศาสตร์บัณฑิต (เกียรตินิยม) หลักสูตรนานาชาติ จุฬาลงกรณ์มหาวิทยาลัย</p>\r\n</div>\r\n</div>', '', '2016-05-24 16:54:59', '2017-08-05 12:29:21', '0');
-INSERT INTO `pages` VALUES ('7', 'ติดต่อเรา', 'Contact us', '', '<p><iframe style=\"border: 0;\" src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3875.1538662523453!2d100.65925881531588!3d13.769593100589628!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x311d61817a47ddbf%3A0xa66443fe01f75fe1!2sStudy+Plus+Center!5e0!3m2!1sth!2sth!4v1464097235273\" width=\"100%\" height=\"450\" frameborder=\"0\" allowfullscreen=\"allowfullscreen\"></iframe></p>', '', '2016-05-22 19:21:16', '2017-08-05 12:29:15', '0');
+INSERT INTO `pages` VALUES ('7', 'ติดต่อเรา', 'Contact us', '', '<p><iframe style=\"border: 0;\" src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3875.1538662523453!2d100.65925881531588!3d13.769593100589628!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x311d61817a47ddbf%3A0xa66443fe01f75fe1!2sStudy+Plus+Center!5e0!3m2!1sth!2sth!4v1464097235273\" width=\"100%\" height=\"450\" frameborder=\"0\" allowfullscreen=\"allowfullscreen\"></iframe></p>', '', '2016-05-22 19:21:16', '2017-08-08 21:51:23', '0');
 
 -- ----------------------------
 -- Table structure for roles
@@ -335,16 +317,11 @@ CREATE TABLE `slideshow` (
   `updated_date` datetime DEFAULT NULL,
   `is_deleted` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of slideshow
 -- ----------------------------
-INSERT INTO `slideshow` VALUES ('10', '2124bd4c-72e9-49e3-84b3-d5264ee3d54b.png', 'eng', 'thai', '\0', '2', '2017-08-06 22:57:37', '2017-08-08 19:31:31', '0');
-INSERT INTO `slideshow` VALUES ('19', 'a6f0d9d0-ebc6-4e25-a493-e9a100f8c469.png', 'asfasdfasdf', 'sdfasdfas', '', '1', '2017-08-08 19:30:20', '2017-08-08 19:30:20', '0');
-INSERT INTO `slideshow` VALUES ('20', '6e71dcab-bc98-40ad-8074-7a4656d35d54.png', 'asfasdfaf', 'sdfasdf', '', '1', '2017-08-08 19:30:56', '2017-08-08 19:31:19', '0');
-INSERT INTO `slideshow` VALUES ('21', '5c74f3ee-2d3e-43b6-ac53-596546c17bdb.png', '', '', '', '1', '2017-08-08 19:31:55', '2017-08-08 19:31:55', '0');
-INSERT INTO `slideshow` VALUES ('22', 'cabaa880-aced-4e98-bb72-01e454f1e97b.png', '', '', '', '1', '2017-08-08 21:04:11', '2017-08-08 21:04:11', '0');
 
 -- ----------------------------
 -- Table structure for users
@@ -369,6 +346,6 @@ CREATE TABLE `users` (
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES ('1', 'Super', 'Admin', 'superadmin', '81dc9bdb52d04dc20036dbd8313ed055', 'bsongkran@hotmail.com', '55555', '1', null, '2017-08-07 22:35:25', '2016-05-20 19:04:09', '2016-06-25 11:47:52');
-INSERT INTO `users` VALUES ('2', 'Operation', 'User', 'user', '81dc9bdb52d04dc20036dbd8313ed055', 'pv58@yahoo.com', '0866039101', '3', null, '2016-12-27 15:25:01', '2016-06-02 13:57:50', '2016-08-15 18:19:42');
-INSERT INTO `users` VALUES ('3', 'General', 'Admin', 'admin1', '8a76ac6736781bf729cac1e1339e1a98', 'pv58@yahoo.com', '0866039101', '1', null, '2017-01-18 13:20:11', '2016-06-26 04:09:23', '2017-01-18 13:25:35');
+INSERT INTO `users` VALUES ('1', 'Super', 'Admin', 'superadmin', '81dc9bdb52d04dc20036dbd8313ed055', 'bsongkran@hotmail.com', '55555', '1', null, '2017-08-10 17:41:39', '2016-05-20 19:04:09', '2016-06-25 11:47:52');
+INSERT INTO `users` VALUES ('2', 'Operation', 'User', 'user', '81dc9bdb52d04dc20036dbd8313ed055', 'pv58@yahoo.com', '0866039101', '3', null, '2017-08-10 17:37:47', '2016-06-02 13:57:50', '2017-08-09 22:27:13');
+INSERT INTO `users` VALUES ('3', 'General', 'Admin', 'admin', '81dc9bdb52d04dc20036dbd8313ed055', 'pv58@yahoo.com', '0866039101', '2', null, '2017-08-10 17:42:27', '2016-06-26 04:09:23', '2017-08-09 22:45:50');

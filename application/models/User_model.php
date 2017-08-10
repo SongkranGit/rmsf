@@ -74,7 +74,7 @@ class User_Model extends CI_Model
         $this->db->select(" CONCAT( u.firstname, '.', u.lastname) as user_fullname ", FALSE);
         $this->db->from("users u");
         $this->db->join("roles r", 'r.role_id = u.role_id');
-        $this->db->order_by("u.updated_date", 'DESC');
+        $this->db->order_by("u.logged_in_date", 'DESC');
         $query = $this->db->get();
 
         //  echo $this->db->last_query();

@@ -11,5 +11,8 @@ class Portfolio extends Frontend_Controller
     }
 
 
+    function index(){
+        return $this->load->view('frontend/portfolio');
+    }
 
 }

@@ -10,6 +10,9 @@ class Founder extends Frontend_Controller
         parent::__construct();
     }
 
+    function index(){
+        return $this->load->view('frontend/founder');
+    }
 
 
 }

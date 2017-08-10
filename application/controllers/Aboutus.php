@@ -11,5 +11,8 @@ class Aboutus extends Frontend_Controller
     }
 
 
+    function index(){
+        return $this->load->view('frontend/about_us');
+    }
 
 }

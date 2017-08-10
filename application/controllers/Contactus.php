@@ -10,6 +10,8 @@ class Contactus extends Frontend_Controller
         parent::__construct();
     }
 
-
+    function index(){
+        return $this->load->view('frontend/contact_us');
+    }
 
 }

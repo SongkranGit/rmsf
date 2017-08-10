@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Home</title>
+    <title>Service</title>
 </head>
 <body>
 
-<h1>Home </h1>
+<h1>Service </h1>
 
 
 </body>

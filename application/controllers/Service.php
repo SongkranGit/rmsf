@@ -11,5 +11,7 @@ class Service extends Frontend_Controller
     }
 
 
-
+    function index(){
+        return $this->load->view('frontend/service');
+    }
 }

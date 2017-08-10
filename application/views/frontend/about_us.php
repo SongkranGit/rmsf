@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Home</title>
+    <title>About Us</title>
 </head>
 <body>
 
-<h1>Home </h1>
+<h1>About us </h1>
 
 
 </body>

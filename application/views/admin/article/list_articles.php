@@ -140,14 +140,14 @@
 
     var dataTable;
 
-    $.fn.dataTable.render.ellipsis = function () {
-        return function ( data, type, row ) {
-            if(data != null && data != ''){
-                return type === 'display' && data.length > 10 ? data.substr( 0, 100 ) +'…' : data;
-            }
-            return '';
-        }
-    };
+//    $.fn.dataTable.render.ellipsis = function () {
+//        return function ( data, type, row ) {
+//            if(data != null && data != ''){
+//                return type === 'display' && data.length > 10 ? data.substr( 0, 100 ) +'…' : data;
+//            }
+//            return '';
+//        }
+//    };
 
     $(document).ready(function () {
 
@@ -181,8 +181,8 @@
         ];
 
         var columnDefs = [
-            {targets: 3, render: $.fn.dataTable.render.ellipsis()},
-            {targets: 4, render: $.fn.dataTable.render.ellipsis()},
+            {targets: 3, },
+            {targets: 4, },
             {targets: 5, render: function (data, type, row) {
                 var value_order = (row.order_seq != null && row.order_seq != '') ? row.order_seq : 1;
                 return '<input type="number" onblur="updateOrderSeq(this , ' + row.id + ')" value="' + value_order + '" class="form-control" name="order" step="1" min="1" style="width: 60px" >';

@@ -125,7 +125,6 @@ $user_role = $this->session->userdata('user_role');
                 </div>
             </div>
         </div>
-        <?php echo $this->session->userdata('user_role');?>
     </section>
     <!-- /.content -->
 </div>

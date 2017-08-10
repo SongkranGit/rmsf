@@ -1,11 +1,6 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: BERM-PC
- * Date: 21/12/2558
- * Time: 7:14
- */
+
 class Article_Model extends CI_Model
 {
 
@@ -40,7 +35,7 @@ class Article_Model extends CI_Model
     }
 
 
-    public function getArticleByPageId($page_id , $limit= null){
+    public function getArticlesByPageId($page_id , $limit= null){
         $data = array();
         $this->db->select("a.* , p.id as page_id , p.name_en as page_name ");
         $this->db->from('articles a');

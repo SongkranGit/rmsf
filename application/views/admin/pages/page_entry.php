@@ -1,12 +1,6 @@
 <?php $this->load->view("includes/admin/header"); ?>
 <?php $this->load->view("includes/admin/navbar"); ?>
 
-<?php
-$form_action = $data['action'];
-$gallery_selected = (isset($data["row"]["gallery_id"])) ? $data["row"]["gallery_id"] : '';
-$article_selected = (isset($data["row"]["article_id"])) ? $data["row"]["article_id"] : '';
-?>
-
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -33,7 +27,6 @@ $article_selected = (isset($data["row"]["article_id"])) ? $data["row"]["article_
                 </div>
 
                 <div class="panel-body">
-
                     <div class="form-group ">
                         <label class="col-md-2  control-label"><?= $this->lang->line("content"); ?></label>
                         <div class="col-md-8">
@@ -87,7 +80,7 @@ $article_selected = (isset($data["row"]["article_id"])) ? $data["row"]["article_
                         </div>
                     </div>
 
-                    <?php if ($form_action != ACTION_CREATE): ?>
+                    <?php if (isset($data['action']) && $data['action'] != ACTION_CREATE): ?>
 
                         <div id="div_cbx_enable_article" class="form-group">
                             <label class="col-md-2 control-label"><?= $this->lang->line("article_title"); ?></label>
@@ -100,28 +93,36 @@ $article_selected = (isset($data["row"]["article_id"])) ? $data["row"]["article_
                                 </div>
                             </div>
                         </div>
-
-                        <div id="div_article_list" class="form-group">
-                            <label class="col-md-2 control-label">&nbsp;</label>
-                            <div class="col-md-8">
-                                <table class=" table table-bordered">
-                                    <thead>
-                                    <tr>
-                                        <th class="text-center" width="60"><?= $this->lang->line("table_seq"); ?></th>
-                                        <th><?= $this->lang->line("article_name");?> </th>
-                                        <th>Email</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>John</td>
-                                        <td>Doe</td>
-                                        <td>john@example.com</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
+                        <!--Articles-->
+                        <?php if (isset($data['galleries'])): ?>
+                            <div id="div_article_list" class="form-group">
+                                <label class="col-md-2 control-label">&nbsp;</label>
+                                <div class="col-md-8">
+                                    <table class=" table table-bordered" >
+                                        <thead>
+                                        <tr style="background-color: #30bbbb; color: white">
+                                            <th class="text-center" width="60"><?= $this->lang->line("table_seq"); ?></th>
+                                            <th><?= $this->lang->line("article_name"); ?> (ไทย)</th>
+                                            <th><?= $this->lang->line("article_name"); ?> (English)</th>
+                                            <th><?= $this->lang->line("table_created_date"); ?></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <?php
+                                        $articles = $data['articles'];
+                                        foreach ($articles as $key => $value): ?>
+                                            <tr>
+                                                <td><?= $key + 1; ?></td>
+                                                <td><?= $value['name_th'] ?></td>
+                                                <td><?= $value['name_en'] ?></td>
+                                                <td><?= $value['created_date'] ?></td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
-                        </div>
+                        <?php endif; ?>
 
                         <div class="form-group">
                             <label class="col-md-2 control-label"><?= $this->lang->line("gallery_title"); ?></label>
@@ -133,28 +134,36 @@ $article_selected = (isset($data["row"]["article_id"])) ? $data["row"]["article_
                                 </div>
                             </div>
                         </div>
-
-                        <div id="div_gallery_list" class="form-group">
-                            <label class="col-md-2 control-label">&nbsp;</label>
-                            <div class="col-md-8">
-                                <table class=" table table-bordered">
-                                    <thead>
-                                    <tr>
-                                        <th class="text-center" width="60"><?= $this->lang->line("table_seq"); ?></th>
-                                        <th><?= $this->lang->line("gallery_name"); ?></th>
-                                        <th>Email</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>John</td>
-                                        <td>Doe</td>
-                                        <td>john@example.com</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
+                        <!--Galleries-->
+                        <?php if (isset($data['galleries'])): ?>
+                            <div id="div_gallery_list" class="form-group">
+                                <label class="col-md-2 control-label">&nbsp;</label>
+                                <div class="col-md-8">
+                                    <table class=" table table-bordered" >
+                                        <thead>
+                                        <tr style="background-color: #9ad717; color: white">
+                                            <th class="text-center" width="60"><?= $this->lang->line("table_seq"); ?></th>
+                                            <th><?= $this->lang->line("gallery_name"); ?> (ไทย)</th>
+                                            <th><?= $this->lang->line("gallery_name"); ?> (English)</th>
+                                            <th><?= $this->lang->line("table_created_date"); ?></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <?php
+                                        $galleries = $data['galleries'];
+                                        foreach ($galleries as $key => $value): ?>
+                                            <tr>
+                                                <td><?= $key + 1; ?></td>
+                                                <td><?= $value['name_th'] ?></td>
+                                                <td><?= $value['name_en'] ?></td>
+                                                <td><?= $value['created_date'] ?></td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
-                        </div>
+                        <?php endif; ?>
 
                     <?php endif; ?>
 
@@ -178,6 +187,10 @@ $article_selected = (isset($data["row"]["article_id"])) ? $data["row"]["article_
                     <div class="clearfix"></div>
                 </div>
             </div>
+
+            <!--Hidden Fields-->
+            <input type="hidden" id="hd_is_show_article" name="is_show_article" value="0">
+            <input type="hidden" id="hd_is_show_gallery" name="is_show_gallery" value="0">
         </form>
     </section>
 
@@ -196,8 +209,12 @@ $article_selected = (isset($data["row"]["article_id"])) ? $data["row"]["article_
 
     });
 
-
     function initView() {
+
+        /** Hide article and gallery*/
+        $("#div_article_list").hide();
+        $('#div_gallery_list').hide();
+
         /** Toggle Buttons*/
         $("#cbx_enable_article").bootstrapSwitch('state', false);
         $("#cbx_enable_gallery").bootstrapSwitch('state', false);
@@ -207,10 +224,6 @@ $article_selected = (isset($data["row"]["article_id"])) ? $data["row"]["article_
         $('#cbx_enable_gallery').on('switchChange.bootstrapSwitch', function (event, state) {
             if (state) showGallery(); else hideGallery();
         });
-
-        /** Hide article and gallery*/
-        $("#div_article_list").hide();
-        $('#div_gallery_list').hide();
 
     }
 
@@ -282,7 +295,6 @@ $article_selected = (isset($data["row"]["article_id"])) ? $data["row"]["article_
         });
     }
 
-
     function save() {
         var targetUrl;
         var id = '<?=$this->uri->segment(4)?>';
@@ -329,36 +341,34 @@ $article_selected = (isset($data["row"]["article_id"])) ? $data["row"]["article_
         });
     }
 
-
-    function initToggleButtons() {
-
-    }
-
     function showArticle() {
         $("#cbx_enable_article").bootstrapSwitch('state', true);
         $("#div_article_list").show();
+        $('#hd_is_show_article').val(1);
     }
 
     function hideArticle() {
         $("#cbx_enable_article").bootstrapSwitch('state', false);
         $("#div_article_list").hide();
+        $('#hd_is_show_article').val(0);
     }
 
     function showGallery() {
         $("#cbx_enable_gallery").bootstrapSwitch('state', true);
         $("#div_gallery_list").show();
+        $('#hd_is_show_gallery').val(1);
     }
 
     function hideGallery() {
         $("#cbx_enable_gallery").bootstrapSwitch('state', false);
         $("#div_gallery_list").hide();
+        $('#hd_is_show_gallery').val(0);
     }
 
     function clearForm() {
         validator.resetForm();
         $('#form_page_entry')[0].reset();
     }
-
 
 </script>
 

@@ -70,8 +70,8 @@ class Page extends Admin_Controller
                 "data" => array(
                     "action" => ACTION_UPDATE,
                     "heading_text" => $this->lang->line("pages_button_edit"),
-                    "galleries" => $this->Gallery_model->getAll(),
-                    "articles" => $this->Article_model->getArticleByPageId($page_id),
+                    "galleries" => $this->Gallery_model->getGalleriesByPageId($page_id),
+                    "articles" => $this->Article_model->getArticlesByPageId($page_id),
                     "row" => $this->Page_model->getById($page_id)
                 )
             );
@@ -84,6 +84,8 @@ class Page extends Admin_Controller
                 "name_en" => trim($this->input->post("name_en")),
                 "detail_th" => $this->input->post("detail_th"),
                 "detail_en" => $this->input->post("detail_en"),
+                "is_show_article" => $this->input->post("is_show_article"),
+                "is_show_gallery" => $this->input->post("is_show_gallery"),
                 "published" => intval($this->input->post("published")),
                 "updated_date" => Calendar::currentDateTime()
             );

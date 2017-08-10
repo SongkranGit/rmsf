@@ -51,6 +51,22 @@ class Gallery_Model extends CI_Model
         return $data;
     }
 
+    public function getGalleriesByPageId($page_id){
+        $data = array();
+        $this->db->select('name_th , name_en , created_date');
+        $this->db->from('galleries');
+        $this->db->where('page_id' , $page_id);
+        $this->db->where('published' , 1);
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            foreach ($query->result_array() as $row) {
+                $data[] = $row;
+            }
+        }
+        $query->free_result();
+        return $data;
+    }
+
     public function loadGalleriesDataTable()
     {
         $data = array();

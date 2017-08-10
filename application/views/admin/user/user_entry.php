@@ -78,23 +78,28 @@
                         </div>
                         <div class="col-md-6 form-group">
                             <label class="control-label"><?= $this->lang->line("user_role"); ?></label><br>
-                            <div class="col-md-6">
+                            <div class="col-md-6 row">
                                 <?php
                                 if (isset($data["roles"])) {
+                                    $current_role = (int)$this->session->userdata('role_id');
                                     foreach ($data["roles"] as $row) {
                                         $radio = "<label class=\"radio-inline\" >";
-                                        $radio .= "<input type=\"radio\" name=\"role_id\" value=" . $row["role_id"] . " ";
-                                        //bind data
-                                        if (isset($data["result"]["role_id"]) && $data["result"]["role_id"] != 0) {
-                                            if ($row["role_id"] == $data["result"]["role_id"]) {
-                                                $radio .= "checked";
+                                        /** Checking Role */
+                                        if($current_role <= (int)$row["role_id"]){
+                                            $radio .= "<input type=\"radio\" name=\"role_id\" value=" . $row["role_id"] . " ";
+                                            //bind data
+                                            if (isset($data["result"]["role_id"]) && $data["result"]["role_id"] != 0) {
+                                                if ($row["role_id"] == $data["result"]["role_id"]) {
+                                                    $radio .= "checked";
+                                                }
+                                            } else {
+                                                if ($row["role_id"] == 1) {
+                                                    $radio .= "checked";
+                                                }
                                             }
-                                        } else {
-                                            if ($row["role_id"] == 1) {
-                                                $radio .= "checked";
-                                            }
+                                            $radio .= " >" . $row["role_name"];
                                         }
-                                        $radio .= " >" . $row["role_name"];
+
                                         $radio .= "</label>";
 
                                         echo $radio;
@@ -102,7 +107,7 @@
                                 }
                                 ?>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6 row pull-right">
                                 <?php if (($data["action"] === "update")) { ?>
                                     <button onclick="editPassword()" class="btn btn-primary pull-right" type="button">
                                         <i class="fa fa-edit"></i> <?= $this->lang->line("user_button_edit_password"); ?>
@@ -113,21 +118,6 @@
                             </div>
                         </div>
                     </div>
-<!--                    <?php /*if (($data["action"] === "update")) { */?>
-                        <div class="row-fluid">
-                            <span class="divider"></span>
-                            <div class="col-md-4  form-group">
-                                <label class="control-label"><?/*= $this->lang->line("user_external_login"); */?></label>
-                                    <?php /*if ($data["result"]["facebook_id"] != NULL && $data["result"]["facebook_id"] != '') : */?>
-                                        <a id="btn_facebook_connect" href="#"
-                                           class="btn btn-block btn-social btn-facebook text-right" disabled="disable">  <span class="fa fa-facebook"></span>  Connected  </a>
-                                    <?php /*else: */?>
-                                        <a id="btn_facebook_connect" href="<?/*= base_url("admin/User/connectToFacebook/" . $this->uri->segment(4)) */?>"
-                                           class="btn btn-block btn-social btn-facebook text-right">  <span class="fa fa-facebook"></span>  Not Connect to facebook  </a>
-                                    <?php /*endif */?>
-                            </div>
-                        </div>
-                    --><?php /*} */?>
                     <span class="clearfix">
                 </div>
                 <div class="panel-footer">

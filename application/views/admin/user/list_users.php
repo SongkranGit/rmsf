@@ -15,7 +15,7 @@ $user_role = $this->session->userdata('user_role');
         </h1>
         <div class="group-buttons-right">
             <ul class="nav nav-pills">
-                <?php if (strtolower($this->session->userdata('user_role')) == 'super admin' ||  strtolower($this->session->userdata('user_role')) == 'system admin'): ?>
+                <?php if (strtolower($this->session->userdata('role_id')) == ROLE_SUPER_ADMIN ||  strtolower($this->session->userdata('role_id')) == ROLE_SYSTEM_ADMIN): ?>
                 <li>
                     <a href="<?= base_url(ADMIN_USER . "/create") ?>"> <i class="fa fa-plus-circle fa-1x"></i><?= $this->lang->line("user_button_add_user"); ?>
                     </a>
@@ -120,7 +120,6 @@ $user_role = $this->session->userdata('user_role');
                                 </thead>
                             </table>
                         </div>
-
                     </div><!-- /.box-body-->
                 </div>
             </div>
@@ -185,16 +184,16 @@ $user_role = $this->session->userdata('user_role');
             {
                 orderable: false, "sWidth": "10%",
                 mRender: function (data, type, row) {
-                    var user_role = '<?=$this->session->userdata('user_role')?>';
+                    var current_role = '<?=$this->session->userdata('role_id')?>';
                     var buttons = '<div class="text-center"> ';
                     // Case can not edit role super admin
-                    if ((user_role.toLocaleLowerCase() == 'admin') && row.role_name.toLocaleLowerCase() == 'super admin') {
-                        buttons += '<a href=<?=base_url(ADMIN_USER)?>///update/' + row.user_id + ' disabled="disabled" onclick="return false;" class="btn btn-warning glyphicon glyphicon-pencil" data-toggle="tooltip" data-placement="top" title="แก้ไขข้อมูล"></a>';
-                    } else {
+                    if (parseInt(current_role) <= parseInt(row.role_id) ) {
                         buttons += '<a href=<?=base_url(ADMIN_USER)?>/update/' + row.user_id + '  class="btn btn-warning glyphicon glyphicon-pencil" data-toggle="tooltip" data-placement="top" title="แก้ไขข้อมูล"></a>';
+                    } else {
+                        buttons += '<a href=<?=base_url(ADMIN_USER)?>/update/' + row.user_id + ' disabled="disabled" onclick="return false;" class="btn btn-warning glyphicon glyphicon-pencil" data-toggle="tooltip" data-placement="top" title="แก้ไขข้อมูล"></a>';
                     }
 
-                    if (user_role.toLocaleLowerCase() == 'super admin' || user_role.toLocaleLowerCase() == 'system admin') {
+                    if (parseInt(current_role) < parseInt(row.role_id) ) {
                         buttons += ' <a href="javascript:void(0)" onclick=deleteData(' + row.user_id + ') class="button_delete btn btn-danger glyphicon glyphicon-trash" data-toggle="tooltip" data-placement="top" title="ลบข้อมูล"></a>';
                     } else {
                         buttons += ' <a href="javascript:void(0)"  disabled="disabled" onclick="return false;" class="button_delete btn btn-danger glyphicon glyphicon-trash" data-toggle="tooltip" data-placement="top" title="ลบข้อมูล"></a>';

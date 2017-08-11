@@ -7,13 +7,12 @@
         <h1>
             <span><?= $this->lang->line("contact_title_list_of_contact"); ?></span>
         </h1>
-
     </section>
 
     <!-- Main content -->
     <section class="content">
         <!--Row Search-->
-        <div class="row">
+        <div class="row" id="div_search_panel">
             <div class="col-xs-12">
                 <div class="box box-info box-solid">
                     <div class="box-header">
@@ -29,42 +28,39 @@
                         </h3>
                     </div>
                     <div class="box-body">
-                        <div class="col-md-5 ">
+                        <div class="col-md-4 ">
                             <div class="form-group">
                                 <label
-                                    class="col-md-5 control-label"><?= $this->lang->line("contact_full_name"); ?></label>
-                                <div class="col-md-7">
-                                    <input class="form-control" type="text" id="full_name">
+                                        class="col-md-4 control-label"><?= $this->lang->line("contact_full_name"); ?></label>
+                                <div class="col-md-8">
+                                    <input class="form-control" type="text" id="name">
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-4 ">
                             <div class="form-group">
-                                <label class="col-md-3 control-label text-right"><?= $this->lang->line("contact_email"); ?></label>
-                                <div class="col-md-9">
+                                <label class="col-md-4 control-label text-right"><?= $this->lang->line("contact_email"); ?></label>
+                                <div class="col-md-8">
                                     <input class="form-control" type="text" id="email">
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3 ">
-                            <label class="col-md-4 control-label text-right"><?= $this->lang->line("contact_approve"); ?></label>
-                            <div class="col-md-8">
-                                <select class="form-control" id="status" name="status">
-                                    <option value=""></option>
-                                    <option value="0">ยังไม่ได้รับ</option>
-                                    <option value="1">รับแล้ว</option>
-                                </select>
+                        <div class="col-md-4 ">
+                            <label class="col-md-4 control-label text-right"><?= $this->lang->line("phone"); ?></label>
+                            <div class="form-group">
+                                <div class="col-md-8">
+                                    <input class="form-control" type="text" id="phone">
+                                </div>
                             </div>
                         </div>
                     </div><!-- /.box-body-->
 
                     <div class="box-footer">
-                        <div class="pull-right">
+                        <div class="text-center">
                             <button type="button" onclick="search()" class="btn btn-primary "><i
-                                    class="fa fa-search"></i> <?= $this->lang->line("button_search"); ?>
+                                        class="fa fa-search"></i> <?= $this->lang->line("button_search"); ?>
                             </button>
-                            <button id="btn_clear_search" onclick="clearTextSearch()" type="button"
-                                    class="btn btn-default">
+                            <button id="btn_clear_search" onclick="clearTextSearch()" type="button" class="btn btn-default">
                                 <i class="fa fa-refresh"></i>
                                 <?= $this->lang->line("button_clear"); ?>
                             </button>
@@ -89,9 +85,13 @@
                                     <th><?= $this->lang->line("contact_full_name"); ?></th>
                                     <th><?= $this->lang->line("contact_email"); ?></th>
                                     <th><?= $this->lang->line("contact_phone"); ?></th>
-                                    <th><?= $this->lang->line("table_created_date"); ?></th>
-                                    <th><?= $this->lang->line("contact_approve"); ?></th>
-                                    <th></th>
+                                    <th><?= $this->lang->line("message"); ?></th>
+                                    <th class="text-center"><?= $this->lang->line("table_created_date"); ?></th>
+                                    <th class="text-center">
+                                        <button type="button" id="btn_search" onclick="setVisibleSearchPanel()" class="btn btn-primary ">
+                                            <i class="glyphicon glyphicon-zoom-in"></i>
+                                        </button>
+                                    </th>
                                 </tr>
                                 </thead>
                             </table>
@@ -111,43 +111,41 @@
     var dataTable = $('#contacts_datatable');
 
     $(document).ready(function () {
+
+        setVisibleSearchPanel();
+
+        setupKeyEnterSearch();
+
         loadContactsDataTable();
+
     });
+
+
+    function setupKeyEnterSearch() {
+        $("#name,#email,#phone").keyup(function (e) {
+            if (e.keyCode == 13) {
+                $("#btn_search").trigger("click");
+            }
+        });
+    }
 
     function loadContactsDataTable() {
         var columns = [
             {data: null, "sClass": "right", "bSortable": false, "sWidth": "3%"}, //1st column
-            {data: "full_name", "sClass": "text", "sWidth": "20%"},
+            {data: "name", "sClass": "text", "sWidth": "15%"},
             {data: "email", "sClass": "text", "sWidth": "10%"},
-            {data: "phone", "sClass": "text", "sWidth": "15%"},
-            {data: "created_date", "sClass": "text", "sWidth": "25%"},
+            {data: "phone", "sClass": "text", "sWidth": "10%"},
+            {data: "subject", "sClass": "text", "sWidth": "30%"},
+            {data: "created_date", "sClass": "text-center", "sWidth": "10%"},
             {
-                orderable: false,
+                orderable: false, "sWidth": "10%",
                 mRender: function (data, type, row) {
-                    var label_role = '';
-                    var label_text = '';
-                    switch (parseInt(row.is_approve)) {
-                        case 0 :
-                            label_role = 'class="label label-danger"';
-                            label_text = 'ยังไม่ได้อนุมัติ';
-                            break;
-                        case 1  :
-                            label_role = 'class="label label-success"';
-                            label_text = 'อนุมัติแล้ว';
-                            break;
-                    }
-                    return '<h4><span ' + label_role + ' >' + label_text + '</span></h4>';
+                    var buttons = '<div class=text-center><a href=<?=base_url(ADMIN_CONTACT)?>/detail/' + row.id + '  class="btn btn-info glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="รายละเอียดข้อมูล"></a>';
+                    buttons += ' <a href="javascript:void(0)" onclick=deleteData(' + row.id + ') class="button_delete btn btn-danger glyphicon glyphicon-trash" data-toggle="tooltip" data-placement="top" title="ลบข้อมูล"></a>';
+                    buttons + '</div>';
+                    return buttons;
                 }
-            },
-            {
-                orderable: false, "sWidth": "15%",
-                mRender: function (data, type, row) {
-                    var btnEdit = '<a href=<?=base_url(ADMIN_CONTACT)?>/detail/' + row.id + '  class="btn btn-info fa fa-info" data-toggle="tooltip" data-placement="top" title="รายละเอียดข้อมูล"></a>';
-                    var btnDelete = ' <a href="javascript:void(0)" onclick=deleteData(' + row.id + ') class="button_delete btn btn-danger fa fa-trash-o" data-toggle="tooltip" data-placement="top" title="ลบข้อมูล"></a>';
-                    return btnEdit + '&nbsp;' + btnDelete;
-                }
-            },
-            {data: "is_approve", "sClass": "text", "visible": false},
+            }
         ];
 
         dataTable = $('#contacts_datatable').DataTable({
@@ -215,20 +213,28 @@
 
     function search() {
         var email = $('#email').val();
-        var full_name = $('#full_name').val();
-        var status = $("#status option:selected").val();
+        var name = $('#name').val();
+        var phone = $('#phone').val();
 
         dataTable
-            .column(1).search(full_name)
+            .column(1).search(name)
             .column(2).search(email)
-            .column(8).search(status)
+            .column(3).search(phone)
             .draw();
     }
 
     function clearTextSearch() {
-        $('#status').prop('selectedIndex', 0);
+        $('#name').val('');
         $('#email').val('');
-        $('#full_name').val('');
+        $('#phone').val('');
+    }
+
+    function setVisibleSearchPanel() {
+        if ($('#div_search_panel').is(":visible")) {
+            $('#div_search_panel').hide();
+        } else {
+            $('#div_search_panel').show();
+        }
     }
 
 </script>

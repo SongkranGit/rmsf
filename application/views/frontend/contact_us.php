@@ -1,11 +1,19 @@
 <?php $this->load->view("includes/frontend/header"); ?>
 
+
     <div class="container">
         <div class="col-md-5 col-md-offset-3">
             <div class="form-area">
                 <?php echo form_open('contactus/create'); ?>
                 <br style="clear:both">
                 <h1 style="margin-bottom: 25px; text-align: center;">Contact Form</h1>
+                <!--Message-->
+<!--                <div class="form-group">-->
+<!--                    <div class="alert alert-success">-->
+<!--                        <strong>Success!</strong> Indicates a successful or positive action.-->
+<!--                    </div>-->
+<!--                </div>-->
+
                 <div class="form-group">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
@@ -44,6 +52,8 @@
                 </div>
 
                 <button type="submit" id="submit" name="submit" class="btn btn-primary pull-right">Submit Form</button>
+
+
                 <?php echo form_close(); ?>
             </div>
         </div>

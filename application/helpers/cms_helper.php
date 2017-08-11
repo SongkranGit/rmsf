@@ -163,13 +163,17 @@ if (!function_exists('setFormData')) {
             }
 
         } else if (isset($arr_data[$key])) {
-            if (currentLanguage() == LANGUAGE_ENGLISH) {
+            if (currentLanguage() == LANGUAGE_THAI) {
                 if (array_key_exists($index_th, $arr_data)) {
                     $ret_data = $arr_data[$index_th];
+                }else{
+                    $ret_data = $arr_data[$key];
                 }
-            } else if (currentLanguage() == LANGUAGE_THAI) {
+            } else if (currentLanguage() == LANGUAGE_ENGLISH) {
                 if (array_key_exists($index_en, $arr_data)) {
                     $ret_data = $arr_data[$index_en];
+                }else{
+                    $ret_data = $arr_data[$key];
                 }
             }
         }

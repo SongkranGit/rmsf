@@ -6,11 +6,9 @@ class Contact_Model extends CI_Model
     public function getById($id)
     {
         $data = array();
-        $this->db->select("con.* , ed.education_th , ed.education_en , ed.id");
+        $this->db->select("con.*");
         $this->db->from('contacts con');
-        $this->db->join('educations ed' , 'ed.id=con.education');
         $this->db->where('con.id', $id);
-        $this->db->where('con.is_deleted=', 0);
         $query = $this->db->get();
         if ($query->num_rows() > 0) {
             $data = $query->row_array();
@@ -25,7 +23,6 @@ class Contact_Model extends CI_Model
         $data = array();
         $this->db->select('*');
         $this->db->from('contacts');
-        $this->db->where('is_deleted=', 0);
         $query = $this->db->get();
         if ($query->num_rows() > 0) {
             foreach ($query->result_array() as $row) {
@@ -43,7 +40,6 @@ class Contact_Model extends CI_Model
         $rows = array();
         $this->db->select("*");
         $this->db->from("contacts");
-        $this->db->where("is_deleted =", 0);
         $this->db->order_by("created_date", 'ASC');
         $query = $this->db->get();
 
@@ -52,13 +48,11 @@ class Contact_Model extends CI_Model
             foreach ($query->result() as $row) {
                 $rows[] = array(
                     "id" => $row->id,
-                    "full_name" => $row->full_name,
+                    "name" => $row->name,
                     "phone" => $row->phone,
-                    "note" => $row->note,
+                    "message" => $row->message,
                     "email" => $row->email,
-                    "age" => $row->age,
-                    "line_id" => $row->line_id,
-                    "is_approve" => $row->is_approve,
+                    "subject" => $row->subject,
                     "created_date" => Calendar::formatDateTimeToDDMMYYYY($row->created_date)
                 );
             }
@@ -95,9 +89,8 @@ class Contact_Model extends CI_Model
 
     public function delete($id)
     {
-        $data = array('is_deleted' => 1);
         $this->db->where('id', $id);
-        $this->db->update('contacts', $data);
+        $this->db->delete('contacts');
         if ($this->db->affected_rows() > 0) {
             return true;
         } else {

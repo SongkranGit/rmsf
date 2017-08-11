@@ -33,6 +33,9 @@ $lang['web_page'] 	  	                = 'Web Page';
 $lang['detail'] 	  	                = 'Detail';
 $lang['show_data_info'] 	  	        = 'Data information';
 $lang['caption']                        = 'Caption';
+$lang['message']                        = 'Message';
+$lang['subject']                        = 'Subject';
+
 
 //Menu
 $lang['menu_main'] 	  	                = 'Main Menu';

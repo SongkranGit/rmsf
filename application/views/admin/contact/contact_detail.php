@@ -33,10 +33,10 @@
                 <div class="panel-body">
 
                     <div class="form-group  ">
-                        <label class="col-md-2  control-label"><?= $this->lang->line("contact_full_name"); ?></label>
+                        <label class="col-md-2  control-label"><?= $this->lang->line("full_name"); ?></label>
                         <div class="col-md-8">
                             <input type="text" id="full_name" name="full_name" class="form-control"
-                                   value="<?php echo isset($data["full_name"]) ? $data["full_name"] : "" ?>">
+                                   value="<?php echo setFormData($data, $key = "name"); ?>">
                         </div>
                     </div>
 
@@ -44,7 +44,7 @@
                         <label class="col-md-2  control-label"><?= $this->lang->line("contact_email"); ?></label>
                         <div class="col-md-8">
                             <input type="text" id="title" name="title" class="form-control"
-                                   value="<?php echo isset($data["email"]) ? $data["email"] : "" ?>">
+                                   value="<?php echo setFormData($data, $key = "email"); ?>">
                         </div>
                     </div>
 
@@ -52,79 +52,29 @@
                         <label class="col-md-2  control-label"><?= $this->lang->line("contact_phone"); ?></label>
                         <div class="col-md-8">
                             <input type="text" id="title" name="phone" class="form-control"
-                                   value="<?php echo isset($data["phone"]) ? $data["phone"] : "" ?>">
-                        </div>
-                    </div>
-                    <div class="form-group ">
-                        <label class="col-md-2  control-label"><?= $this->lang->line("contact_age"); ?></label>
-                        <div class="col-md-8">
-                            <input type="text" id="title" name="phone" class="form-control"
-                                   value="<?php echo isset($data["age"]) ? $data["age"] : "" ?>">
+                                   value="<?php echo setFormData($data, $key = "phone"); ?>">
                         </div>
                     </div>
 
                     <div class="form-group ">
-                        <label class="col-md-2  control-label"><?= $this->lang->line("contact_line_id"); ?></label>
+                        <label class="col-md-2  control-label"><?= $this->lang->line("phone"); ?></label>
                         <div class="col-md-8">
-                            <input type="text" id="title" name="phone" class="form-control"
-                                   value="<?php echo isset($data["line_id"]) ? $data["line_id"] : "" ?>">
+                            <input type="text" id="title" name="phone" class="form-control" value="<?php echo setFormData($data, $key = "phone"); ?>">
                         </div>
                     </div>
-
                     <div class="form-group ">
-                        <label class="col-md-2  control-label"><?= $this->lang->line("contact_education"); ?></label>
+                        <label class="col-md-2  control-label"><?= $this->lang->line("subject"); ?></label>
                         <div class="col-md-8">
-                            <input type="text" id="title" name="address" class="form-control"
-                                   value="<?php echo  (isEnglishLang() && isset($data["education_en"]) )?$data["education_en"]: $data["education_th"]?>">
+                            <input type="text" id="title" name="phone" class="form-control" value="<?php echo setFormData($data, $key = "subject"); ?>">
                         </div>
                     </div>
-
                     <div class="form-group ">
-                        <label class="col-md-2  control-label"><?= $this->lang->line("contact_interest_in_course"); ?></label>
+                        <label class="col-md-2  control-label"><?= $this->lang->line("message"); ?></label>
                         <div class="col-md-8">
-                            <div class="col-md-12">
-                                <div class="col-md-6">
-                                    <div class="form-group checkboxContainer">
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" name="courses[]" value="1" <?=($arr_courses != null && $arr_courses[0]== 1 )?"checked":""?> >GED หรือ IGCSE (เทียบวุฒิ ม.6)
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="form-group checkboxContainer">
-                                        <div class="checkbox" >
-                                            <label>
-                                                <input type="checkbox" name="courses[]" value="2" <?=($arr_courses != null && $arr_courses[1]== 2 )?"checked":""?>>TOEFL หรือ IELTS
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group checkboxContainer">
-                                        <div class="checkbox" >
-                                            <label>
-                                                <input type="checkbox" name="courses[]" value="3" <?=($arr_courses != null && $arr_courses[2]== 3 )?"checked":""?>>CU-TEP หรือ TU-GET
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="form-group checkboxContainer">
-                                        <div class="checkbox" >
-                                            <label>
-                                                <input type="checkbox" name="courses[]" value="4" <?=($arr_courses != null && $arr_courses[3]== 4 )?"checked":""?>>SAT, PHYSICS, MATH, CHEM
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                          <textarea rows="3" class="form-control"
+                                    name="description_en"><?php echo setFormData($data, $key = "message"); ?></textarea>
                         </div>
                     </div>
-
-                    <?php if($qr_code_id != null && $qr_code_id != ''):?>
-                        <div class="row  ">
-                            <div class="col-md-2"></div>
-                            <div class="col-md-8"> <a href="<?=base_url("admin/Contact/approveGetCoupon/".$qr_code_id."/1")?>" class="btn btn-success pull-right">อนุมัติรับของ</a></div>
-                        </div>
-                    <?php endif;?>
 
                 </div>
                 <div class="panel-footer">

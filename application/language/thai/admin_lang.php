@@ -33,7 +33,8 @@ $lang['web_page'] 	  	                = 'เว็บเพจ';
 $lang['detail'] 	  	                = 'รายละเอียด';
 $lang['show_data_info'] 	  	        = 'แสดงข้อมูลรายละเอียด';
 $lang['caption']                        = 'คำบรรยายภาพ';
-
+$lang['message']                        = 'ข้อความ';
+$lang['subject']                        = 'หัวข้อ';
 //Menu Admin
 $lang['menu_main'] 	  	                = 'เมนูหลัก';
 $lang['menu_dashboard'] 	  	        = 'หน้าแรก';

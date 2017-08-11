@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-require_once APPPATH.'core/Frontend_controller.php';
+require_once APPPATH . 'core/Frontend_controller.php';
 
 class Contactus extends Frontend_Controller
 {
@@ -8,17 +8,17 @@ class Contactus extends Frontend_Controller
     function __construct()
     {
         parent::__construct();
+        $this->load->model('Contact_model');
     }
 
-    function index(){
+    function index()
+    {
         return $this->load->view('frontend/contact_us');
     }
 
-    function create(){
+    function create()
+    {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-            $response = array('success' => false, 'notes' => array());
-
 
             $this->validateForm();
 
@@ -33,18 +33,21 @@ class Contactus extends Frontend_Controller
                 );
 
                 if ($this->Contact_model->save($data)) {
-                    $this->load->view('frontend/contact_us');
+                    $result['success'] = true;
+                    $this->session->set_flashdata('success',true);
+                    redirect('contactus');
                 }
 
+                $this->load->view('frontend/contact_us');
             } else {
-              $this->load->view('frontend/contact_us');
+                $this->load->view('frontend/contact_us');
             }
         }
     }
 
     public function sendEmail($data)
     {
-        require_once(APPPATH.'libraries/Phpmailer.php');
+        require_once(APPPATH . 'libraries/Phpmailer.php');
         $mailer = new PHPMailer();
 
         $mailer->CharSet = "utf-8";
@@ -63,7 +66,7 @@ class Contactus extends Frontend_Controller
         $mailer->Subject = "ระบบส่งเมล์อัตโนมัต Study Plus Center ";
         $mailer->Body = $this->getResponseEmailMessage($data);
 
-        if(!$mailer->Send()) {
+        if (!$mailer->Send()) {
             echo "Mailer Error: " . $mailer->ErrorInfo;
         } else {
             // echo "Message sent!  ".dirname(__FILE__)."/uploads/". $this->qr_code_name.".png";
@@ -80,9 +83,9 @@ class Contactus extends Frontend_Controller
         $this->form_validation->set_rules("message", "Message", "trim|required");
         $this->form_validation->set_rules("phone", "Phone", "trim|required");
         $this->form_validation->set_error_delimiters(
-        '<div class="alert alert-danger" role="alert" style="margin-top: 10px;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> <span class="sr-only"></span>',
+            '<div class="alert alert-danger" role="alert" style="margin-top: 10px;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> <span class="sr-only"></span>',
 
-         '</div>');
+            '</div>');
     }
 
 

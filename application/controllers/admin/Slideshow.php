@@ -37,8 +37,8 @@ class Slideshow extends Admin_Controller
             $result = array('success' => false, 'messages' => array());
 
             $data = array(
-                "description_th" => $this->input->post("description_th"),
-                "description_en" => $this->input->post("description_en"),
+                "caption_th" => $this->input->post("caption_th"),
+                "caption_en" => $this->input->post("caption_en"),
                 "published" => intval($this->input->post("published")),
                 "order_seq" => 1,
                 "created_date" => Calendar::currentDateTime(),
@@ -78,8 +78,8 @@ class Slideshow extends Admin_Controller
         } else if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $result = array('success' => false, 'messages' => array());
             $data = array(
-                "description_th" => $this->input->post("description_th"),
-                "description_en" => $this->input->post("description_en"),
+                "caption_th" => $this->input->post("caption_th"),
+                "caption_en" => $this->input->post("caption_en"),
                 "published" => intval($this->input->post("published")),
                 "updated_date" => Calendar::currentDateTime()
             );

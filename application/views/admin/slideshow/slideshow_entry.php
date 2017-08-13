@@ -148,14 +148,10 @@ $upload_slideshow_path = base_url('uploads/slideshow');
                             </ul>
                             <div class="tab-content">
                                 <div class="tab-pane active" id="tab1">
-                                    <br>
-                                    <textarea name="description_th" id="description_th" class="form-control"
-                                              rows="3"><?= (isset($data["row"]["description_th"]) ? $data["row"]["description_th"] : "") ?></textarea>
+                                    <textarea name="caption_th" id="caption_th" class="form-control" rows="3"><?php echo setFormData($data, $key = "caption_th") ?></textarea>
                                 </div>
                                 <div class="tab-pane fade" id="tab2">
-                                    <br>
-                                    <textarea name="description_en" id="description_en" class="form-control"
-                                              rows="3"><?= (isset($data["row"]["description_en"]) ? $data["row"]["description_en"] : "") ?></textarea>
+                                    <textarea name="caption_en" id="caption_en" class="form-control" rows="3"><?php echo setFormData($data, $key = "caption_en") ?></textarea>
                                 </div>
                             </div>
 
@@ -199,6 +195,8 @@ $upload_slideshow_path = base_url('uploads/slideshow');
 
         initView();
 
+        setupTinyMCE();
+
     });
 
     function initView() {
@@ -213,6 +211,31 @@ $upload_slideshow_path = base_url('uploads/slideshow');
 
         $('form').submit(function () {
             $(this).find(':submit').attr('disabled', 'disabled');
+        });
+    }
+
+    function setupTinyMCE() {
+        tinymce.init({
+            selector: 'textarea',
+            height: 100,
+            menubar: false,
+            relative_urls: false,
+            remove_script_host: false,
+            convert_urls: true,
+            setup: function (editor) {
+                editor.on('change', function () {
+                    editor.save();
+                });
+                if ($('#' + editor.id).attr('readonly'))
+                    editor.settings.readonly = true;
+            },
+            plugins: [
+                'advlist autolink lists link image charmap print preview anchor',
+                'searchreplace visualblocks code fullscreen',
+                'insertdatetime media table contextmenu paste code textcolor colorpicker'
+            ],
+            toolbar: 'undo redo | insert | styleselect | bold italic | forecolor backcolor fontsizeselect | alignleft aligncenter alignright alignjustify | outdent indent | preview code',
+            fontsize_formats: '8pt 10pt 12pt 14pt 18pt 24pt 36pt',
         });
     }
 
@@ -367,8 +390,8 @@ $upload_slideshow_path = base_url('uploads/slideshow');
             var canvas = $('#image').cropper('getCroppedCanvas');
             var dataURL = canvas.toDataURL('image/jpeg');
             var data = {
-                description_th: $('#description_th').val(),
-                description_en: $('#description_en').val(),
+                caption_th: $('#caption_th').val(),
+                caption_en: $('#caption_en').val(),
                 published: $("#published option:selected").val(),
                 imageBase64: dataURL
             }
@@ -377,8 +400,8 @@ $upload_slideshow_path = base_url('uploads/slideshow');
         } else {
             $('#isBrowseFileImage').val(false);
             var data = {
-                description_th: $('#description_th').val(),
-                description_en: $('#description_en').val(),
+                caption_th: $('#caption_th').val(),
+                caption_en: $('#caption_en').val(),
                 published: $("#published option:selected").val()
             }
             submitForm(data);

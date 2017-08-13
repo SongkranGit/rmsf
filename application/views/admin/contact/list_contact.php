@@ -134,7 +134,7 @@
             {data: "name", "sClass": "text", "sWidth": "15%"},
             {data: "email", "sClass": "text", "sWidth": "10%"},
             {data: "phone", "sClass": "text", "sWidth": "10%"},
-            {data: "subject", "sClass": "text", "sWidth": "30%"},
+            {data: "subject", "sClass": "text", "sWidth": "20%"},
             {data: "created_date", "sClass": "text-center", "sWidth": "10%"},
             {
                 orderable: false, "sWidth": "10%",

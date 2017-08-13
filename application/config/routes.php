@@ -32,4 +32,4 @@ $route['api/query/service'] = 'api/query/service';
 
 //POST Method
 $route['api/command/login'] = 'api/command/login';
-$route['api/command/save_contact'] = 'api/command/save_contact';
+$route['api/command/contact'] = 'api/command/contact';

@@ -84,8 +84,6 @@ class Page extends Admin_Controller
                 "name_en" => trim($this->input->post("name_en")),
                 "detail_th" => $this->input->post("detail_th"),
                 "detail_en" => $this->input->post("detail_en"),
-                "is_show_article" => $this->input->post("is_show_article"),
-                "is_show_gallery" => $this->input->post("is_show_gallery"),
                 "published" => intval($this->input->post("published")),
                 "updated_date" => Calendar::currentDateTime()
             );

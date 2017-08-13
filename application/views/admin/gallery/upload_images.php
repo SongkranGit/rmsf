@@ -118,13 +118,11 @@
                                 </ul>
                                 <div class="tab-content">
                                     <div class="tab-pane active" id="tab1">
-                                        <br>
-                                        <textarea name="caption_th" id="caption" class="form-control"
+                                        <textarea name="caption_th" id="caption_th" class="form-control"
                                                   rows="3"><?php echo setFormData($data , $key="caption_th") ?></textarea>
                                     </div>
                                     <div class="tab-pane fade" id="tab2">
-                                        <br>
-                                        <textarea name="caption_en" id="caption" class="form-control"
+                                        <textarea name="caption_en" id="caption_en" class="form-control"
                                                   rows="3"><?php echo setFormData($data , $key="caption_en") ?></textarea>
                                     </div>
                                 </div>
@@ -173,7 +171,7 @@
 
         setupFileInput();
 
-        setupTinyFileManager();
+        setupTinyMCE();
 
         setupToggleAllowImageDetail();
 
@@ -237,11 +235,11 @@
         });
     }
 
-    function setupTinyFileManager() {
-        var external_filemanager_path = '<?=base_url("assets")?>/libraries/filemanager/';
-        var filemanager = '<?=base_url("assets/libraries/filemanager/plugin.min.js")?>';
+    function setupTinyMCE() {
         tinymce.init({
-            selector: "#description", theme: "modern", height: 300,
+            selector: 'textarea',
+            height: 100,
+            menubar: false,
             relative_urls: false,
             remove_script_host: false,
             convert_urls: true,
@@ -249,18 +247,16 @@
                 editor.on('change', function () {
                     editor.save();
                 });
+                if ($('#' + editor.id).attr('readonly'))
+                    editor.settings.readonly = true;
             },
             plugins: [
-                "advlist autolink link image lists charmap print preview hr anchor pagebreak",
-                "searchreplace wordcount visualblocks visualchars insertdatetime media nonbreaking",
-                "table contextmenu directionality emoticons paste textcolor responsivefilemanager code"
+                'advlist autolink lists link image charmap print preview anchor',
+                'searchreplace visualblocks code fullscreen',
+                'insertdatetime media table contextmenu paste code textcolor colorpicker'
             ],
-            toolbar1: "undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | styleselect",
-            toolbar2: "| responsivefilemanager | link unlink anchor | image media | forecolor backcolor  | print preview code ",
-            image_advtab: true,
-            external_filemanager_path: external_filemanager_path,
-            filemanager_title: "Responsive Filemanager",
-            external_plugins: {"filemanager": filemanager}
+            toolbar: 'undo redo | insert | styleselect | bold italic | forecolor backcolor fontsizeselect | alignleft aligncenter alignright alignjustify | outdent indent | preview code',
+            fontsize_formats: '8pt 10pt 12pt 14pt 18pt 24pt 36pt',
         });
     }
 

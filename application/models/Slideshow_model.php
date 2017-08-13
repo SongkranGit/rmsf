@@ -59,8 +59,8 @@ class Slideshow_Model extends CI_Model
                 $rows[] = array(
                     "id" => $row->id,
                     "file_name" => $row->file_name,
-                    "description_th" => $row->description_th,
-                    "description_en" => $row->description_en,
+                    "caption_th" => $row->caption_th,
+                    "caption_en" => $row->caption_en,
                     "order_seq" => $row->order_seq,
                     "published" => $row->published,
                     "created_date" => Calendar::formatDateTimeToDDMMYYYY($row->updated_date)

@@ -229,10 +229,7 @@
         validator = $('#form_page_entry').validate({
             rules: {
                 name_th: "required",
-                name_en: {
-                    required: true,
-                    letterEnglishOnly: true
-                }
+                name_en: "required",
             },
             messages: {
                 name_th: '<?php echo $this->lang->line("message_this_field_is_require");?>',

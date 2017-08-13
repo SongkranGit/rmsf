@@ -19,10 +19,11 @@ class Gallery_Model extends CI_Model
         return $data;
     }
 
-    public function apiQueryGalleriesData($lang = 'th',$page_id)
+    public function apiQueryGalleriesData($lang = 'th' , $page_id)
     {
         $data = array();
-        $this->db->select("g.*, gi.id as gallery_image_id, gi.file_name" );
+        $this->db->select("g.id , g.name_th , g.name_en , g.description_th , g.description_en" );
+        $this->db->select("gi.id as gallery_image_id, gi.file_name, gi.caption_th, gi.caption_en" );
         $this->db->from('galleries g');
         $this->db->join("galleries_images gi", "gi.gallery_id = g.id" , 'left');
         $this->db->where('g.page_id', $page_id);
@@ -32,11 +33,12 @@ class Gallery_Model extends CI_Model
             foreach ($query->result_array() as $row) {
                 $item = array();
                 $item['id'] = $row['id'];
-                $item['name'] = ($lang='th')? $row['name_th']:$row['name_en'];
+                $item['name'] = ($lang=='th')? $row['name_th']:$row['name_en'];
                 $item['description'] = ($lang=='th')?$row['description_th']:$row['description_en'];
                 $item['images'] = array(
                     'id'=> $row['gallery_image_id'],
-                    'image_name'=> $row['file_name']
+                    'image_name'=> $row['file_name'],
+                    'caption'=> ($lang=='th')?$row['caption_th']:$row['caption_en']
                 );
                 array_push($data , $item);
             }

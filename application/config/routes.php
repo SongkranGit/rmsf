@@ -25,11 +25,11 @@ $route['api/example/users/(:num)'] = 'api/example/users/id/$1'; // Example 4
 $route['api/example/users/(:num)(\.)([a-zA-Z0-9_-]+)(.*)'] = 'api/example/users/id/$1/format/$3$4'; // Example 8
 
 //GET Method
-$route['api/rmsf/query/home'] = 'api/rmsf/home';
-$route['api/rmsf/query/about_us'] = 'api/rmsf/about_us';
-$route['api/rmsf/query/service'] = 'api/rmsf/service';
+$route['api/query/home'] = 'api/query/home';
+$route['api/query/about_us'] = 'api/query/about_us';
+$route['api/query/service'] = 'api/query/service';
 
 
 //POST Method
-$route['api/rmsf/command/login'] = 'api/rmsf/login';
-$route['api/rmsf/command/save_contact'] = 'api/rmsf/save_contact';
+$route['api/command/login'] = 'api/command/login';
+$route['api/command/save_contact'] = 'api/command/save_contact';

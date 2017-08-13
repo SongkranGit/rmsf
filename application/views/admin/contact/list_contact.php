@@ -22,7 +22,6 @@
                                     data-toggle="tooltip" title="Collapse" style="margin-right: 5px;">
                                 <i class="fa fa-plus" style="font-size: large"></i></button>
                         </div><!-- /. tools -->
-                        <i class="fa fa-search"></i>
                         <h3 class="box-title">
                             <?= $this->lang->line("button_search"); ?>
                         </h3>

@@ -35,10 +35,11 @@ class Contactus extends Frontend_Controller
                 if ($this->Contact_model->save($data)) {
                     $result['success'] = true;
                     $this->session->set_flashdata('success',true);
-                    redirect('contactus');
+                    $this->form_validation->clear_field_data();
+                    $this->load->view('frontend/contact_us' , $result);
+                }else{
+                    $this->load->view('frontend/contact_us');
                 }
-
-                $this->load->view('frontend/contact_us');
             } else {
                 $this->load->view('frontend/contact_us');
             }

@@ -7,13 +7,39 @@ class Gallery_Model extends CI_Model
     public function getById($id)
     {
         $data = array();
-        $this->db->select("*");
+        $this->db->select("name_th,name_en");
         $this->db->from('galleries');
         $this->db->where('id', $id);
         $this->db->where('is_deleted=', 0);
         $query = $this->db->get();
         if ($query->num_rows() > 0) {
             $data = $query->row_array();
+        }
+        $query->free_result();
+        return $data;
+    }
+
+    public function apiQueryGalleriesData($lang = 'th',$page_id)
+    {
+        $data = array();
+        $this->db->select("g.*, gi.id as gallery_image_id, gi.file_name" );
+        $this->db->from('galleries g');
+        $this->db->join("galleries_images gi", "gi.gallery_id = g.id" , 'left');
+        $this->db->where('g.page_id', $page_id);
+        $this->db->where('g.is_deleted=', 0);
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            foreach ($query->result_array() as $row) {
+                $item = array();
+                $item['id'] = $row['id'];
+                $item['name'] = ($lang='th')? $row['name_th']:$row['name_en'];
+                $item['description'] = ($lang=='th')?$row['description_th']:$row['description_en'];
+                $item['images'] = array(
+                    'id'=> $row['gallery_image_id'],
+                    'image_name'=> $row['file_name']
+                );
+                array_push($data , $item);
+            }
         }
         $query->free_result();
         return $data;

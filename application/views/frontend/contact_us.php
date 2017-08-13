@@ -1,18 +1,19 @@
 <?php $this->load->view("includes/frontend/header"); ?>
 
-
     <div class="container">
         <div class="col-md-5 col-md-offset-3">
             <div class="form-area">
                 <?php echo form_open('contactus/create'); ?>
                 <br style="clear:both">
                 <h1 style="margin-bottom: 25px; text-align: center;">Contact Form</h1>
-                <!--Message-->
-<!--                <div class="form-group">-->
-<!--                    <div class="alert alert-success">-->
-<!--                        <strong>Success!</strong> Indicates a successful or positive action.-->
-<!--                    </div>-->
-<!--                </div>-->
+
+                <?php if (isset($success) && boolval($success) == TRUE): ?>
+                    <div class="form-group">
+                        <div class="alert alert-success">
+                            <strong>Success!</strong> Indicates a successful or positive action.
+                        </div>
+                    </div>
+                <?php endif; ?>
 
                 <div class="form-group">
                     <div class="input-group">
@@ -45,9 +46,8 @@
                     <?php echo form_error('subject'); ?>
                 </div>
                 <div class="form-group">
-                    <textarea class="form-control" type="textarea" id="message" name="message" placeholder="Message" maxlength="140" rows="7">
-                        <?php echo set_value('message'); ?>
-                    </textarea>
+                    <textarea class="form-control" type="textarea" id="message" name="message" placeholder="Message" maxlength="140"
+                              rows="7"><?php echo set_value('message'); ?></textarea>
                     <?php echo form_error('message'); ?>
                 </div>
 
@@ -62,9 +62,14 @@
     <script type="text/javascript">
 
         $(document).ready(function () {
-
+            hideSuccessMessage();
         });
 
+        function hideSuccessMessage() {
+            setTimeout(function () {
+                $('.alert-success').hide();
+            }, 2000);
+        }
 
     </script>
 

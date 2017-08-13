@@ -40,24 +40,24 @@ class Page_Model extends CI_Model
         return $data;
     }
 
-//    public function getPageAndGalleryByPageName($name)
-//    {
-//        $data = array();
-//        $this->db->select("p.* , g.name as gallery_name , g.description as gallery_desc ");
-//        $this->db->from('pages p');
-//        $this->db->join('galleries g', 'g.id=p.gallery_id');
-//        //$this->db->join('galleries_images gi' , 'gi.gallery_id=g.id');
-//        $this->db->where('p.name', strtolower($name));
-//        $this->db->where('p.is_deleted', 0);
-//        //$this->db->where('published', 1);
-//        $query = $this->db->get();;
-//        if ($query->num_rows() > 0) {
-//            $data = $query->row_array();
-//        }
-//        $query->free_result();
-//        return $data;
-//    }
-
+    public function apiQueryPageData( $lang='th', $page_name){
+        $data = array();
+        $this->db->select("p.*");
+        $this->db->from('pages p');
+        $this->db->where('p.page_name', strtolower($page_name));
+        $this->db->where('p.is_deleted', 0);
+        //$this->db->where('published', 1);
+        $query = $this->db->get();;
+        if ($query->num_rows() > 0) {
+            $row = $query->row_array();
+            $data['id'] = $row['id'];
+            $data['name'] = ($lang=='th')?$row['name_th']:$row['name_en'];
+            $data['detail'] = ($lang=='th')?$row['detail_th']:$row['detail_en'];
+            $data['language'] = ($lang=='th')?'thai':'english';
+        }
+        $query->free_result();
+        return $data;
+    }
 
     public function getAll()
     {

@@ -62,7 +62,7 @@ class Gallery_Images_Model extends CI_Model
                     "id" => $row->id,
                     "gallery_id" => $row->gallery_id,
                     "file_name" => $row->file_name,
-                    "gallery_name" => $row->name_th,
+                    "gallery_name" => isEnglishLang()?$row->name_en : $row->name_th,
                     "order_seq" => $row->order_seq,
                     "caption_th" => character_limiter($row->caption_th, 30),
                     "caption_en" => character_limiter($row->caption_en, 30),

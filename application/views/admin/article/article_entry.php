@@ -95,8 +95,8 @@
                                                        rows="3"><?php echo setFormData($data, $key = "description_th"); ?></textarea>
                                         </div>
                                     </div>
-                                    <div class="form-group required">
-                                        <label class="col-md-12 label-required" for="body"><?= $this->lang->line("detail"); ?></label>
+                                    <div class="form-group">
+                                        <label class="col-md-12 " for="body"><?= $this->lang->line("detail"); ?></label>
                                         <div class="col-md-12 ">
                                             <textarea name="detail_th" id="detail_th" class="form-control" rows="5"><?php echo setFormData($data, $key = "detail_th"); ?></textarea>
                                         </div>
@@ -114,7 +114,7 @@
                                         </div>
 
                                     </div>
-                                    <div class="form-group required ">
+                                    <div class="form-group required">
                                         <label class="col-sm-12 label-required" for="TextArea"><?= $this->lang->line("description"); ?></label>
                                         <div class="col-md-12">
                                              <textarea id="description_en" name="description_en"
@@ -124,8 +124,8 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group required">
-                                        <label class="col-md-12 label-required" for="body_en"><?= $this->lang->line("detail"); ?></label>
+                                    <div class="form-group">
+                                        <label class="col-md-12" for="body_en"><?= $this->lang->line("detail"); ?></label>
                                         <div class="col-md-12">
                                         <textarea name="detail_en" id="detail_en" class="form-control" rows="5"><?php echo setFormData($data, $key = "detail_en"); ?></textarea>
                                         </div>
@@ -207,7 +207,7 @@
         var external_filemanager_path = '<?=base_url("assets")?>/libraries/filemanager/';
         var filemanager = '<?=base_url("assets/libraries/filemanager/plugin.min.js")?>';
         tinymce.init({
-            selector: "#detail_th,#detail_en", theme: "modern", height: 300,
+            selector: "#detail_th,#detail_en", theme: "modern", height: 200,
             relative_urls: false,
             remove_script_host: false,
             convert_urls: true,
@@ -221,10 +221,10 @@
             plugins: [
                 "advlist autolink link image lists charmap print preview hr anchor pagebreak",
                 "searchreplace wordcount visualblocks visualchars insertdatetime media nonbreaking",
-                "table contextmenu directionality emoticons paste textcolor responsivefilemanager code"
+                "table contextmenu directionality emoticons paste textcolor responsivefilemanager code fullscreen"
             ],
             toolbar1: "undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | styleselect",
-            toolbar2: "| responsivefilemanager | link unlink anchor | image media | forecolor backcolor  | print preview code ",
+            toolbar2: "| responsivefilemanager | link unlink anchor | image media | forecolor backcolor  | print preview code | fullscreen ",
             image_advtab: true,
             external_filemanager_path: external_filemanager_path,
             filemanager_title: "Responsive Filemanager",

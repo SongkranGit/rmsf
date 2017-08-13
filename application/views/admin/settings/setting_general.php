@@ -27,7 +27,7 @@
                             <label for="website_name" class="col-md-2  control-label"><?= $this->lang->line("settings_website_name"); ?></label>
                             <div class="col-md-8">
                                 <input type="text" id="website_name" name="website_name" class="form-control" placeholder="<?= $this->lang->line("settings_website_name"); ?>"
-                                       value="<?php echo isset($row["website_name"]) ? $row["website_name"] : "" ?>">
+                                       value="<?php echo isset($data["website_name"]) ? $data["website_name"] : "" ?>">
                             </div>
                         </div>
                         <div class="form-group required">
@@ -35,7 +35,7 @@
                             <div class="col-md-8">
                                 <input type="text" id="website_short_name" name="website_short_name" class="form-control"
                                        placeholder="<?= $this->lang->line("settings_place_holder_website_short_name"); ?>"
-                                       value="<?php echo isset($row["website_short_name"]) ? $row["website_short_name"] : "" ?>">
+                                       value="<?php echo isset($data["website_short_name"]) ? $data["website_short_name"] : "" ?>">
                             </div>
                         </div>
                         <div class="form-group required">
@@ -43,7 +43,7 @@
                             <div class="col-md-8">
                                 <input type="text" id="email" name="email" class="form-control"
                                        placeholder="<?= $this->lang->line("settings_placeholder_email"); ?>"
-                                       value="<?php echo isset($row["email"]) ? $row["email"] : "" ?>">
+                                       value="<?php echo isset($data["email"]) ? $data["email"] : "" ?>">
                             </div>
                         </div>
                         <div class="form-group">
@@ -51,7 +51,15 @@
                             <div class="col-md-8">
                                 <input type="text" id="phone" name="phone" class="form-control"
                                        placeholder="<?= $this->lang->line("settings_placeholder_phone"); ?>"
-                                       value="<?php echo isset($row["phone"]) ? $row["phone"] : "" ?>">
+                                       value="<?php echo isset($data["phone"]) ? $data["phone"] : "" ?>">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2" for="phone"><?= $this->lang->line("settings_owner_fax"); ?></label>
+                            <div class="col-md-8">
+                                <input type="text" id="fax" name="fax" class="form-control"
+                                       placeholder="<?= $this->lang->line("settings_owner_fax"); ?>"
+                                       value="<?php echo setFormData($data, $key = "fax"); ?>">
                             </div>
                         </div>
                         <div class="form-group">
@@ -59,15 +67,15 @@
                             <div class="col-md-8">
                                 <input type="text" id="mobile" name="mobile" class="form-control"
                                        placeholder="<?= $this->lang->line("settings_placeholder_mobile"); ?>"
-                                       value="<?php echo isset($row["mobile"]) ? $row["mobile"] : "" ?>">
+                                       value="<?php echo isset($data["mobile"]) ? $data["mobile"] : "" ?>">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-2"><?= $this->lang->line("settings_default_language"); ?></label>
                             <div class="col-md-8">
                                 <select class="form-control" id="default_language" name="default_language">
-                                    <option value="thai" <?= (!isset($row) && strcasecmp($row["default_language"], "thai") == 0) ? "selected" : "" ?>> Thai</option>
-                                    <option value="english" <?= (!isset($row) && strcasecmp($row["default_language"], "english") == 0) ? "selected" : "" ?>>English</option>
+                                    <option value="thai" <?= (!isset($data) && strcasecmp($data["default_language"], "thai") == 0) ? "selected" : "" ?>> Thai</option>
+                                    <option value="english" <?= (!isset($data) && strcasecmp($data["default_language"], "english") == 0) ? "selected" : "" ?>>English</option>
                                 </select>
                             </div>
                         </div>
@@ -82,12 +90,12 @@
                                     <div class="tab-pane active" id="tab1">
                                         <br>
                                     <textarea name="address_th" id="body" class="form-control"
-                                              rows="5"><?= (isset($row["address_th"]) ? $row["address_th"] : "") ?></textarea>
+                                              rows="5"><?= (isset($data["address_th"]) ? $data["address_th"] : "") ?></textarea>
                                     </div>
                                     <div class="tab-pane fade" id="tab2">
                                         <br>
                                    <textarea name="address_en" id="body" class="form-control"
-                                             rows="5"><?= (isset($row["address_en"]) ? $row["address_en"] : "") ?></textarea>
+                                             rows="5"><?= (isset($data["address_en"]) ? $data["address_en"] : "") ?></textarea>
                                     </div>
                                 </div>
 
@@ -107,28 +115,28 @@
                             <label for="facebook_link" class="col-md-2  control-label"><?= $this->lang->line("settings_facebook_link"); ?></label>
                             <div class="col-md-8">
                                 <input type="text" id="facebook_link" name="facebook_link" class="form-control"
-                                       value="<?php echo isset($row["facebook_link"]) ? $row["facebook_link"] : "" ?>">
+                                       value="<?php echo isset($data["facebook_link"]) ? $data["facebook_link"] : "" ?>">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-2" for="twitter_link"><?= $this->lang->line("settings_twitter_link"); ?></label>
                             <div class="col-md-8">
                                 <input type="text" id="twitter_link" name="twitter_link" class="form-control"
-                                       value="<?php echo isset($row["twitter_link"]) ? $row["twitter_link"] : "" ?>">
+                                       value="<?php echo isset($data["twitter_link"]) ? $data["twitter_link"] : "" ?>">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-2" for="instargram_link"><?= $this->lang->line("settings_instargram_link"); ?></label>
                             <div class="col-md-8">
                                 <input type="text" id="instagram_link" name="instagram_link" class="form-control"
-                                       value="<?php echo isset($row["instagram_link"]) ? $row["instagram_link"] : "" ?>">
+                                       value="<?php echo isset($data["instagram_link"]) ? $data["instagram_link"] : "" ?>">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-2" for="line_id"><?= $this->lang->line("settings_line_id"); ?></label>
                             <div class="col-md-8">
                                 <input type="text" id="line_id" name="line_id" class="form-control"
-                                       value="<?php echo isset($row["line_id"]) ? $row["line_id"] : "" ?>">
+                                       value="<?php echo isset($data["line_id"]) ? $data["line_id"] : "" ?>">
                             </div>
                         </div>
                     </div>
@@ -151,12 +159,12 @@
                                 <div class="tab-pane active" id="tab_vision_1">
                                     <br>
                                      <textarea name="vision_th" id="vision_th" class="form-control"
-                                               rows="3"><?= (isset($row["vision_th"]) ? $row["vision_th"] : "") ?></textarea>
+                                               rows="3"><?= (isset($data["vision_th"]) ? $data["vision_th"] : "") ?></textarea>
                                 </div>
                                 <div class="tab-pane fade" id="tab_vision_2">
                                     <br>
                                    <textarea name="vision_en" id="vision_en" class="form-control"
-                                             rows="3"><?= (isset($row["vision_en"]) ? $row["vision_en"] : "") ?></textarea>
+                                             rows="3"><?= (isset($data["vision_en"]) ? $data["vision_en"] : "") ?></textarea>
                                 </div>
                             </div>
 
@@ -295,7 +303,11 @@
             success: function (response) {
                 hideSpinner();
                 if (response.success == true) {
-                    alertSuccessMessageDialog('<?=$this->lang->line("message_save_complete");?>');
+                    alertSuccessMessageDialog(
+                        '<?=$this->lang->line("message_dialog_title_success");?>',
+                        '<?=$this->lang->line("message_save_complete");?>', function () {
+
+                        });
                 } else {
                     $.each(response.messages, function (key, value) {
                         var element = $('#' + key);

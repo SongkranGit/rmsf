@@ -198,6 +198,7 @@ $lang['settings_owner_email'] 	  	            = 'Email';
 $lang['settings_owner_phone'] 	  	            = 'Phone';
 $lang['settings_mobile'] 	  	                = 'Mobile';
 $lang['settings_owner_address'] 	  	        = 'Address';
+$lang['settings_owner_fax'] 	  	            = 'Fax';
 $lang['settings_placeholder_owner_email'] 	  	= 'This address is used for admin purposes, like new user notification.';
 $lang['settings_placeholder_owner_phone'] 	  	= 'Input phone';
 $lang['settings_placeholder_owner_address'] 	= 'Input owner address';

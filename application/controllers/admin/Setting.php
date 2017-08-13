@@ -14,8 +14,8 @@ class Setting extends Admin_Controller
 
     public function index()
     {
-        $data["row"] = $this->Setting_model->getSettings();
-        $this->load->view("admin/settings/setting_general" , $data );
+        $result["data"] = $this->Setting_model->getSettings();
+        $this->load->view("admin/settings/setting_general" , $result );
     }
 
     public function save()
@@ -32,6 +32,7 @@ class Setting extends Admin_Controller
                     "email" => $this->input->post("email"),
                     "phone" => $this->input->post("phone"),
                     "mobile" => $this->input->post("mobile"),
+                    "fax" => $this->input->post("fax"),
                     "address_th" => $this->input->post("address_th"),
                     "address_en" => $this->input->post("address_en"),
                     "facebook_link" => $this->input->post("facebook_link"),

@@ -34,6 +34,33 @@ class Article_Model extends CI_Model
         return $data;
     }
 
+    public function apiQueryArticlesData($lang = 'th' , $page_id)
+    {
+        $data = array();
+        $this->db->select("a.*, ai.id as article_image_id , ai.image_name");
+        $this->db->from('articles a');
+        $this->db->join("article_images ai", "ai.article_id = a.id" , 'left');
+        $this->db->where('a.page_id', $page_id);
+        $this->db->where('a.is_deleted', 0);
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            foreach ($query->result_array() as $row) {
+                $item = array();
+                $item['name'] = ($lang=='th')? $row['name_th']:$row['name_en'];
+                $item['description'] = ($lang=='th')?$row['description_th']:$row['description_en'];
+                $item['detail'] = ($lang=='th')?$row['detail_th']:$row['detail_en'];
+                $item['published_date'] = Calendar::formatDateToDDMMYYYY($row['published_date']);
+                $item['images'] = array(
+                    'id'=> $row['article_image_id'],
+                    'image_name'=> $row['image_name']
+                );
+                array_push($data , $item);
+            }
+        }
+        $query->free_result();
+        return $data;
+    }
+
 
     public function getArticlesByPageId($page_id , $limit= null){
         $data = array();

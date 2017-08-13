@@ -249,6 +249,7 @@ $lang['settings_owner_email'] 	  	                    = 'อีเมล์';
 $lang['settings_owner_phone'] 	  	                    = 'เบอร์โทร';
 $lang['settings_mobile'] 	  	                        = 'มือถือ';
 $lang['settings_owner_address'] 	  	                = 'ที่อยู่';
+$lang['settings_owner_fax'] 	  	                    = 'แฟกซ์';
 $lang['settings_placeholder_owner_email'] 	  	        = 'อีเมล์ที่ใช้ในการติดต่อ';
 $lang['settings_placeholder_owner_phone'] 	  	        = 'เบอร์ดโทรที่ใช้ในการติดต่อ';
 $lang['settings_placeholder_owner_address'] 	        = 'ที่อยู่ที่ใช้ในการติดต่อ';

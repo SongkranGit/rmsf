@@ -82,29 +82,18 @@
 
                     <?php if (isset($data['action']) && $data['action'] != ACTION_CREATE): ?>
 
-                        <div id="div_cbx_enable_article" class="form-group">
-                            <label class="col-md-2 control-label"><?= $this->lang->line("article_title"); ?></label>
-                            <div class="col-md-8">
-                                <div class="row">
-                                    <div class="col-md-2 col-sm-6">
-                                        <input type="checkbox" id="cbx_enable_article" name="enable_article">
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
                         <!--Articles-->
-                        <?php if (isset($data['galleries'])): ?>
+                        <?php if (isset($data['articles']) && count($data['articles']) > 0 ): ?>
                             <div id="div_article_list" class="form-group">
-                                <label class="col-md-2 control-label">&nbsp;</label>
+                                <label class="col-md-2 control-label"><?= $this->lang->line("article_title"); ?></label>
                                 <div class="col-md-8">
                                     <table class=" table table-bordered" >
                                         <thead>
                                         <tr style="background-color: #30bbbb; color: white">
                                             <th class="text-center" width="60"><?= $this->lang->line("table_seq"); ?></th>
-                                            <th><?= $this->lang->line("article_name"); ?> (ไทย)</th>
-                                            <th><?= $this->lang->line("article_name"); ?> (English)</th>
-                                            <th><?= $this->lang->line("table_created_date"); ?></th>
+                                            <th width="32%"><?= $this->lang->line("article_name"); ?> (ไทย)</th>
+                                            <th width="32%"><?= $this->lang->line("article_name"); ?> (English)</th>
+                                            <th width="32%"><?= $this->lang->line("table_created_date"); ?></th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -124,28 +113,18 @@
                             </div>
                         <?php endif; ?>
 
-                        <div class="form-group">
-                            <label class="col-md-2 control-label"><?= $this->lang->line("gallery_title"); ?></label>
-                            <div class="col-md-8">
-                                <div class="row">
-                                    <div class="col-md-2 col-sm-6">
-                                        <input type="checkbox" id="cbx_enable_gallery" name="cbx_enable_gallery">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <!--Galleries-->
-                        <?php if (isset($data['galleries'])): ?>
+                        <?php if (isset($data['galleries']) && count($data['galleries']) > 0): ?>
                             <div id="div_gallery_list" class="form-group">
-                                <label class="col-md-2 control-label">&nbsp;</label>
+                                <label class="col-md-2 control-label"><?= $this->lang->line("gallery_title"); ?></label>
                                 <div class="col-md-8">
                                     <table class=" table table-bordered" >
                                         <thead>
                                         <tr style="background-color: #9ad717; color: white">
                                             <th class="text-center" width="60"><?= $this->lang->line("table_seq"); ?></th>
-                                            <th><?= $this->lang->line("gallery_name"); ?> (ไทย)</th>
-                                            <th><?= $this->lang->line("gallery_name"); ?> (English)</th>
-                                            <th><?= $this->lang->line("table_created_date"); ?></th>
+                                            <th width="32%"><?= $this->lang->line("gallery_name"); ?> (ไทย)</th>
+                                            <th width="32%"><?= $this->lang->line("gallery_name"); ?> (English)</th>
+                                            <th width="32%"><?= $this->lang->line("table_created_date"); ?></th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -189,8 +168,8 @@
             </div>
 
             <!--Hidden Fields-->
-            <input type="hidden" id="hd_is_show_article" name="is_show_article" value="0">
-            <input type="hidden" id="hd_is_show_gallery" name="is_show_gallery" value="0">
+            <input type="hidden" id="hd_is_show_article" name="is_show_article" >
+            <input type="hidden" id="hd_is_show_gallery" name="is_show_gallery" >
         </form>
     </section>
 
@@ -211,19 +190,6 @@
 
     function initView() {
 
-        /** Hide article and gallery*/
-        $("#div_article_list").hide();
-        $('#div_gallery_list').hide();
-
-        /** Toggle Buttons*/
-        $("#cbx_enable_article").bootstrapSwitch('state', false);
-        $("#cbx_enable_gallery").bootstrapSwitch('state', false);
-        $('#cbx_enable_article').on('switchChange.bootstrapSwitch', function (event, state) {
-            if (state) showArticle(); else hideArticle();
-        });
-        $('#cbx_enable_gallery').on('switchChange.bootstrapSwitch', function (event, state) {
-            if (state) showGallery(); else hideGallery();
-        });
 
     }
 
@@ -231,7 +197,7 @@
         var external_filemanager_path = '<?=base_url("assets")?>/libraries/filemanager/';
         var filemanager = '<?=base_url("assets/libraries/filemanager/plugin.min.js")?>';
         tinymce.init({
-            selector: "textarea", theme: "modern", height: 300,
+            selector: "textarea", theme: "modern", height: 200,
             relative_urls: false,
             remove_script_host: false,
             convert_urls: true,
@@ -239,14 +205,15 @@
                 editor.on('change', function () {
                     editor.save();
                 });
+
             },
             plugins: [
                 "advlist autolink link image lists charmap print preview hr anchor pagebreak",
                 "searchreplace wordcount visualblocks visualchars insertdatetime media nonbreaking",
-                "table contextmenu directionality emoticons paste textcolor responsivefilemanager code"
+                "table contextmenu directionality emoticons paste textcolor responsivefilemanager code fullscreen"
             ],
             toolbar1: "undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | styleselect",
-            toolbar2: "| responsivefilemanager | link unlink anchor | image media | forecolor backcolor  | print preview code ",
+            toolbar2: "| responsivefilemanager | link unlink anchor | image media | forecolor backcolor  | print preview code | fullscreen" ,
             image_advtab: true,
             external_filemanager_path: external_filemanager_path,
             filemanager_title: "Responsive Filemanager",
@@ -341,29 +308,6 @@
         });
     }
 
-    function showArticle() {
-        $("#cbx_enable_article").bootstrapSwitch('state', true);
-        $("#div_article_list").show();
-        $('#hd_is_show_article').val(1);
-    }
-
-    function hideArticle() {
-        $("#cbx_enable_article").bootstrapSwitch('state', false);
-        $("#div_article_list").hide();
-        $('#hd_is_show_article').val(0);
-    }
-
-    function showGallery() {
-        $("#cbx_enable_gallery").bootstrapSwitch('state', true);
-        $("#div_gallery_list").show();
-        $('#hd_is_show_gallery').val(1);
-    }
-
-    function hideGallery() {
-        $("#cbx_enable_gallery").bootstrapSwitch('state', false);
-        $("#div_gallery_list").hide();
-        $('#hd_is_show_gallery').val(0);
-    }
 
     function clearForm() {
         validator.resetForm();

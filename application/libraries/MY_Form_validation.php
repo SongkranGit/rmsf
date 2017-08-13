@@ -10,8 +10,8 @@ class MY_Form_validation extends CI_Form_validation {
 
     public function clear_field_data()
     {
+        $_POST = array();
         $this->_field_data = array();
-        unset($this->_field_data);
-        return;
+        return $this;
     }
 }

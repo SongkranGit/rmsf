@@ -1,6 +1,8 @@
 <?php $this->load->view("includes/admin/header"); ?>
 <?php $this->load->view("includes/admin/navbar"); ?>
-
+<link href="<?= base_url("assets/libraries/jquery-filer/css/jquery.filer.css") ?>" type="text/css" rel="stylesheet">
+<link href="<?= base_url("assets/libraries/jquery-filer/css/themes/jquery.filer-dragdropbox-theme.css") ?>" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="<?= base_url("assets/libraries/jquery-filer/js/jquery.filer.min.js?v=1.0.5") ?>"></script>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -27,6 +29,17 @@
                 </div>
 
                 <div class="panel-body">
+                    <div class="form-group required">
+                        <label class="col-md-2  control-label"><?= $this->lang->line("name"); ?></label>
+                        <div class="col-md-8">
+                            <div class="col-md-5 row">
+                                <input type='text' class="form-control" name="page_name" value="<?php echo setFormData($data, $key = "page_name") ?>"/>
+                            </div>
+                            <div class="col-md-5">
+                                <label class="control-label text-red" for="email">Please input english text only</label>
+                            </div>
+                        </div>
+                    </div>
                     <div class="form-group ">
                         <label class="col-md-2  control-label"><?= $this->lang->line("content"); ?></label>
                         <div class="col-md-8">
@@ -83,11 +96,11 @@
                     <?php if (isset($data['action']) && $data['action'] != ACTION_CREATE): ?>
 
                         <!--Articles-->
-                        <?php if (isset($data['articles']) && count($data['articles']) > 0 ): ?>
+                        <?php if (isset($data['articles']) && count($data['articles']) > 0): ?>
                             <div id="div_article_list" class="form-group">
                                 <label class="col-md-2 control-label"><?= $this->lang->line("article_title"); ?></label>
                                 <div class="col-md-8">
-                                    <table class=" table table-bordered" >
+                                    <table class=" table table-bordered">
                                         <thead>
                                         <tr style="background-color: #30bbbb; color: white">
                                             <th class="text-center" width="60"><?= $this->lang->line("table_seq"); ?></th>
@@ -118,7 +131,7 @@
                             <div id="div_gallery_list" class="form-group">
                                 <label class="col-md-2 control-label"><?= $this->lang->line("gallery_title"); ?></label>
                                 <div class="col-md-8">
-                                    <table class=" table table-bordered" >
+                                    <table class=" table table-bordered">
                                         <thead>
                                         <tr style="background-color: #9ad717; color: white">
                                             <th class="text-center" width="60"><?= $this->lang->line("table_seq"); ?></th>
@@ -147,6 +160,31 @@
                     <?php endif; ?>
 
                     <div class="form-group ">
+                        <label class="col-md-2  control-label"><?= $this->lang->line("menu_icon"); ?></label>
+                        <div class="col-md-8">
+                            <input class="form-control" type="file" name="menu_icon" id="menu_icon"
+                                   value="<?= (isset($data["row"]["menu_icon"]) ? $data["row"]["menu_icon"] : "") ?>">
+                            <div id="div_image">
+                                <?php if (isset($data['row']['menu_icon'])): ?>
+                                    <div class="jFiler-items jFiler-row">
+                                        <ul class="jFiler-items-list jFiler-items-grid">
+                                            <li class="jFiler-item">
+                                                <div class="jFiler-item-container">
+                                                    <div class="jFiler-item-inner">
+                                                        <div class="jFiler-item-thumb" style="width:100%">
+                                                            <img src="<?= isset($data["row"]["menu_icon"]) ? base_url("uploads/menu_icon/" . $data["row"]["menu_icon"]) : "" ?>">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group ">
                         <label class="col-md-2 control-label text-right"><?= $this->lang->line("form_field_published"); ?></label>
                         <div class="col-md-2">
                             <select class="form-control" id="published" name="published">
@@ -168,8 +206,8 @@
             </div>
 
             <!--Hidden Fields-->
-            <input type="hidden" id="hd_is_show_article" name="is_show_article" >
-            <input type="hidden" id="hd_is_show_gallery" name="is_show_gallery" >
+            <input type="hidden" id="hd_is_show_article" name="is_show_article">
+            <input type="hidden" id="hd_is_show_gallery" name="is_show_gallery">
         </form>
     </section>
 
@@ -184,13 +222,16 @@
 
         setupTinyFileManager();
 
+        setupFileInput();
+
         validateForm();
 
     });
 
     function initView() {
-
-
+        $("input:file").change(function () {
+            $('#div_image').hide();
+        });
     }
 
     function setupTinyFileManager() {
@@ -213,7 +254,7 @@
                 "table contextmenu directionality emoticons paste textcolor responsivefilemanager code fullscreen"
             ],
             toolbar1: "undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | styleselect",
-            toolbar2: "| responsivefilemanager | link unlink anchor | image media | forecolor backcolor  | print preview code | fullscreen" ,
+            toolbar2: "| responsivefilemanager | link unlink anchor | image media | forecolor backcolor  | print preview code | fullscreen",
             image_advtab: true,
             external_filemanager_path: external_filemanager_path,
             filemanager_title: "Responsive Filemanager",
@@ -230,8 +271,13 @@
             rules: {
                 name_th: "required",
                 name_en: "required",
+                page_name: {
+                    required: true,
+                    letterEnglishOnly: true
+                }
             },
             messages: {
+                page_name: '<?php echo $this->lang->line("message_this_field_is_require");?>',
                 name_th: '<?php echo $this->lang->line("message_this_field_is_require");?>',
                 name_en: {
                     required: '<?php echo $this->lang->line("message_this_field_is_require");?>'
@@ -274,8 +320,10 @@
         $.ajax({
             type: 'POST',
             url: targetUrl,
-            data: $("#form_page_entry").serialize(),
+            data: $("#form_page_entry").serializefiles(),
             dataType: 'json',
+            processData: false,
+            contentType: false,
             success: function (response) {
                 hideSpinner();
                 if (response.success == true) {
@@ -309,6 +357,75 @@
     function clearForm() {
         validator.resetForm();
         $('#form_page_entry')[0].reset();
+    }
+
+    function setupFileInput() {
+        $('#menu_icon').filer({
+            limit: null,
+            maxSize: null,
+            extensions: null,
+            extensions: ['jpg', 'jpeg', 'png'],
+            changeInput: true,
+            showThumbs: true,
+            captions: {button: 'Browse', feedback: ''},
+            addMore: false,
+            templates: {
+                box: '<ul class="jFiler-items-list jFiler-items-grid"></ul>',
+                item: '<li class="jFiler-item">\
+                        <div class="jFiler-item-container">\
+                            <div class="jFiler-item-inner">\
+                                <div class="jFiler-item-thumb">\
+                                    <div class="jFiler-item-status"></div>\
+                                    <div class="jFiler-item-info">\
+                                        <span class="jFiler-item-title"><b title="{{fi-name}}">{{fi-name | limitTo: 25}}</b></span>\
+                                        <span class="jFiler-item-others">{{fi-size2}}</span>\
+                                    </div>\
+                                    {{fi-image}}\
+                                </div>\
+                                <div class="jFiler-item-assets jFiler-row">\
+                                    <ul class="list-inline pull-left">\
+                                        <li>{{fi-progressBar}}</li>\
+                                    </ul>\
+                                    <ul class="list-inline pull-right">\
+                                        <li><a class="icon-jfi-trash jFiler-item-trash-action"></a></li>\
+                                    </ul>\
+                                </div>\
+                            </div>\
+                        </div>\
+                    </li>',
+                itemAppend: '<li class="jFiler-item">\
+                            <div class="jFiler-item-container">\
+                                <div class="jFiler-item-inner">\
+                                    <div class="jFiler-item-thumb">\
+                                        <div class="jFiler-item-status"></div>\
+                                        <div class="jFiler-item-info">\
+                                            <span class="jFiler-item-title"><b title="{{fi-name}}">{{fi-name | limitTo: 25}}</b></span>\
+                                            <span class="jFiler-item-others">{{fi-size2}}</span>\
+                                        </div>\
+                                       \
+                                    </div>\
+                                    <div class="jFiler-item-assets jFiler-row">\
+                                        <ul class="list-inline pull-left">\
+                                            <li><span class="jFiler-item-others">{{fi-icon}}</span></li>\
+                                        </ul>\
+                                        <ul class="list-inline pull-right">\
+                                            <li><a class="icon-jfi-trash jFiler-item-trash-action"></a></li>\
+                                        </ul>\
+                                    </div>\
+                                </div>\
+                            </div>\
+                        </li>',
+                progressBar: '<div class="bar"></div>',
+                itemAppendToEnd: false,
+                removeConfirmation: true,
+                _selectors: {
+                    list: '.jFiler-items-list',
+                    item: '.jFiler-item',
+                    progressBar: '.bar',
+                    remove: '.jFiler-item-trash-action'
+                }
+            }
+        });
     }
 
 </script>

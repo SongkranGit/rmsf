@@ -91,6 +91,8 @@ class Page_Model extends CI_Model
             foreach ($query->result() as $row) {
                 $rows[] = array(
                     "id" => $row->id,
+                    "page_name" => $row->page_name,
+                    "menu_icon" => $row->menu_icon,
                     "name_th" => $row->name_th,
                     "name_en" => $row->name_en,
                     "detail_th" => $row->detail_th,

@@ -35,7 +35,8 @@ $lang['show_data_info'] 	  	        = 'Data information';
 $lang['caption']                        = 'Caption';
 $lang['message']                        = 'Message';
 $lang['subject']                        = 'Subject';
-
+$lang['menu_icon']                      = 'Menu Icon';
+$lang['name']                           = 'Name';
 
 //Menu
 $lang['menu_main'] 	  	                = 'Main Menu';
@@ -68,6 +69,7 @@ $lang['menu_contact_list'] 	            = 'List of Contacts';
 $lang['menu_member'] 	                = 'Member';
 $lang['menu_students'] 	                = 'Students';
 $lang['menu_clip_categories'] 	        = 'Clip Categories';
+$lang['menu_icon']                      = 'Menu Icon';
 //form
 $lang['form_field_status'] 	  	        = 'Status';
 $lang['form_field_published'] 	  	    = 'Published';

@@ -7,6 +7,7 @@ class Article extends Admin_Controller
 {
 
     private $upload_path;
+    private $upload_menu_icon_path;
 
     function __construct()
     {
@@ -16,6 +17,7 @@ class Article extends Admin_Controller
         $this->load->model("Page_model");
         $this->load->library("Uuid");
         $this->upload_path = realpath(APPPATH . '../uploads/article');
+        $this->upload_menu_icon_path = realpath(APPPATH . '../uploads/menu_icon');
 
     }
 
@@ -56,6 +58,11 @@ class Article extends Admin_Controller
                     "created_date" => Calendar::currentDateTime()
                 );
 
+                $arr_data_uploaded = $this->uploadMenuIcon();
+                if (!empty($arr_data_uploaded)) {
+                    $data['menu_icon']  = $arr_data_uploaded['file_name'];
+                }
+
                 $isSuccess = $this->Article_model->save($data);
                 if ($isSuccess) {
                     $article_id = $this->db->insert_id();
@@ -90,7 +97,6 @@ class Article extends Admin_Controller
             $this->load->view("admin/article/article_entry", $view_data);
 
         } else if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
             $result = array('success' => false, 'messages' => array());
 
             $this->validateForm();
@@ -108,6 +114,16 @@ class Article extends Admin_Controller
                     "published" => intval($this->input->post("published")),
                     "updated_date" => Calendar::currentDateTime()
                 );
+
+                if (!empty($_FILES)) {
+                    $arr_data_uploaded = $this->uploadMenuIcon();
+                    if (!empty($arr_data_uploaded)) {
+                        $data["menu_icon"] = $arr_data_uploaded["file_name"];
+                        // delete old image
+                        $arr_result = $this->Article_model->getById($article_id);
+                        $this->deleteMenuIcon($arr_result['menu_icon']);
+                    }
+                }
 
                 $isSuccess = $this->Article_model->update($data, $article_id);
                 if ($isSuccess) {
@@ -181,16 +197,28 @@ class Article extends Admin_Controller
         $this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
     }
 
-    public function deleteImage()
+    public function getImagesByArticleId($article_id)
     {
-        $file = $this->input->post("file");
-        if ($file && file_exists($this->upload_path . "/" . $file)) {
-            @unlink($this->upload_path . "/" . $file);
-            @unlink($this->upload_path . "/" . "thumb_" . $file);
+        if ($article_id != '') {
+            $data = $this->Article_images_model->getImagesByArticleId($article_id);
+            echo json_encode($data);
         }
+    }
 
-        //delete from database
-        $this->Article_images_model->deleteByImageName($file);
+    private function updateArticleImages($list_image_uuid, $article_id)
+    {
+        if (!IsNullOrEmptyString($list_image_uuid)) {
+            $arr_list_image_uuid = explode(',', $list_image_uuid);
+            for ($i = 0; $i < count($arr_list_image_uuid); $i++) {
+                $order = $i;
+                $data_image = array(
+                    "article_id" => $article_id,
+                    "order_seq" => $order + 1
+                );
+                //  echo $arr_list_image_uuid[$i]."::";
+                $this->Article_images_model->updateByImageUUID($data_image, trim($arr_list_image_uuid[$i]));
+            }
+        }
     }
 
     public function uploadImages()
@@ -249,27 +277,47 @@ class Article extends Admin_Controller
         }
     }
 
-    public function getImagesByArticleId($article_id)
+    private function uploadMenuIcon()
     {
-        if ($article_id != '') {
-            $data = $this->Article_images_model->getImagesByArticleId($article_id);
-            echo json_encode($data);
+        $data_uploaded = array();
+        $file_element_name = 'menu_icon';
+
+        if ($this->input->post()) {
+            $uuid = $this->uuid->v4();
+            // config upload
+            $config ['upload_path'] = $this->upload_menu_icon_path;
+            $config ['allowed_types'] = 'gif|jpg|png|jpeg';
+            $config['overwrite'] = FALSE;
+            $config['remove_spaces'] = true;
+            $config['file_name'] = $uuid;
+
+            // load Upload library
+            $this->load->library('upload', $config);
+            if (!$this->upload->do_upload($file_element_name)) {
+                echo $this->upload->display_errors();
+            } else {
+                // uploaded data
+                $data_uploaded = $this->upload->data();
+            }
         }
+        return $data_uploaded;
     }
 
-    private function updateArticleImages($list_image_uuid, $article_id)
+    public function deleteImage()
     {
-        if (!IsNullOrEmptyString($list_image_uuid)) {
-            $arr_list_image_uuid = explode(',', $list_image_uuid);
-            for ($i = 0; $i < count($arr_list_image_uuid); $i++) {
-                $order = $i;
-                $data_image = array(
-                    "article_id" => $article_id,
-                    "order_seq" => $order + 1
-                );
-                //  echo $arr_list_image_uuid[$i]."::";
-                $this->Article_images_model->updateByImageUUID($data_image, trim($arr_list_image_uuid[$i]));
-            }
+        $file = $this->input->post("file");
+        if ($file && file_exists($this->upload_path . "/" . $file)) {
+            @unlink($this->upload_path . "/" . $file);
+            @unlink($this->upload_path . "/" . "thumb_" . $file);
+        }
+
+        //delete from database
+        $this->Article_images_model->deleteByImageName($file);
+    }
+
+    private function deleteMenuIcon($file_name){
+        if (file_exists($this->upload_menu_icon_path . "/" . $file_name)) {
+            @unlink($this->upload_menu_icon_path . "/" . $file_name);
         }
     }
 }

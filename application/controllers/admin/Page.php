@@ -6,12 +6,16 @@ require_once APPPATH.'core/Admin_controller.php';
 class Page extends Admin_Controller
 {
 
+    private $upload_menu_icon_path;
+
     function __construct()
     {
         parent::__construct();
         $this->load->model("Page_model");
         $this->load->model("Gallery_model");
         $this->load->model("Article_model");
+        $this->load->library("Uuid");
+        $this->upload_menu_icon_path = realpath(APPPATH . '../uploads/menu_icon');
     }
 
     public function index()
@@ -40,6 +44,7 @@ class Page extends Admin_Controller
 
             if ($this->form_validation->run()) {
                 $data = array(
+                    "page_name" => trim($this->input->post("page_name")),
                     "name_th" => trim($this->input->post("name_th")),
                     "name_en" => trim($this->input->post("name_en")),
                     "detail_th" => $this->input->post("detail_th"),
@@ -49,6 +54,11 @@ class Page extends Admin_Controller
                     "updated_date" => Calendar::currentDateTime()
                 );
 
+
+                $arr_data_uploaded = $this->uploadMenuIcon();
+                if (!empty($arr_data_uploaded)) {
+                    $data['menu_icon']  = $arr_data_uploaded['file_name'];
+                }
 
                 if ($this->Page_model->save($data)) {
                     $result['success'] = true;
@@ -80,6 +90,7 @@ class Page extends Admin_Controller
         } else if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $result = array('success' => false, 'messages' => array());
             $data = array(
+                "page_name" => trim($this->input->post("page_name")),
                 "name_th" => trim($this->input->post("name_th")),
                 "name_en" => trim($this->input->post("name_en")),
                 "detail_th" => $this->input->post("detail_th"),
@@ -87,6 +98,16 @@ class Page extends Admin_Controller
                 "published" => intval($this->input->post("published")),
                 "updated_date" => Calendar::currentDateTime()
             );
+
+            if (!empty($_FILES)) {
+                $arr_data_uploaded = $this->uploadMenuIcon();
+                if (!empty($arr_data_uploaded)) {
+                    $data["menu_icon"] = $arr_data_uploaded["file_name"];
+                    // delete old image
+                    $arr_result = $this->Page_model->getById($page_id);
+                    $this->deleteMenuIcon($arr_result['menu_icon']);
+                }
+            }
 
             $result['success'] = $this->Page_model->update($data, $page_id);
 
@@ -119,6 +140,37 @@ class Page extends Admin_Controller
         $this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
     }
 
+    private function uploadMenuIcon()
+    {
+        $data_uploaded = array();
+        $file_element_name = 'menu_icon';
+
+        if ($this->input->post()) {
+            $uuid = $this->uuid->v4();
+            // config upload
+            $config ['upload_path'] = $this->upload_menu_icon_path;
+            $config ['allowed_types'] = 'gif|jpg|png|jpeg';
+            $config['overwrite'] = FALSE;
+            $config['remove_spaces'] = true;
+            $config['file_name'] = $uuid;
+
+            // load Upload library
+            $this->load->library('upload', $config);
+            if (!$this->upload->do_upload($file_element_name)) {
+                echo $this->upload->display_errors();
+            } else {
+                // uploaded data
+                $data_uploaded = $this->upload->data();
+            }
+        }
+        return $data_uploaded;
+    }
+
+    private function deleteMenuIcon($file_name){
+        if (file_exists($this->upload_menu_icon_path . "/" . $file_name)) {
+            @unlink($this->upload_menu_icon_path . "/" . $file_name);
+        }
+    }
 
 
 }

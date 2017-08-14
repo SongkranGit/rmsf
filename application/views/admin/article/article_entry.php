@@ -30,9 +30,9 @@
     <section class="content">
         <form id="form_article_entry" role="form" class="form-horizontal">
             <div class="panel panel-default">
-                <div class="panel-heading <?php echo setHeaderClass($data['action'])?>">
+                <div class="panel-heading <?php echo setHeaderClass($data['action']) ?>">
                 <span>
-                    <i class="<?php echo setHeaderIcon($data['action'])?>"></i>
+                    <i class="<?php echo setHeaderIcon($data['action']) ?>"></i>
                     <?= $data["heading_text"] ?>
                 </span>
                 </div>
@@ -66,13 +66,12 @@
                         </div>
                     </div>
 
-
                     <div class="form-group ">
                         <label class="col-md-2  control-label"><?= $this->lang->line("content"); ?></label>
                         <div class="col-md-8">
                             <ul class="nav nav-tabs">
                                 <li role="presentation" class="active"><a href="#tab1" aria-controls="tab1" data-toggle="tab">ไทย</a></li>
-                                <li role="presentation"><a href="#tab2" aria-controls="tab2"  data-toggle="tab">English</a></li>
+                                <li role="presentation"><a href="#tab2" aria-controls="tab2" data-toggle="tab">English</a></li>
                             </ul>
                             <div class="tab-content">
                                 <!--TAB Thai-->
@@ -98,7 +97,8 @@
                                     <div class="form-group">
                                         <label class="col-md-12 " for="body"><?= $this->lang->line("detail"); ?></label>
                                         <div class="col-md-12 ">
-                                            <textarea name="detail_th" id="detail_th" class="form-control" rows="5"><?php echo setFormData($data, $key = "detail_th"); ?></textarea>
+                                            <textarea name="detail_th" id="detail_th" class="form-control"
+                                                      rows="5"><?php echo setFormData($data, $key = "detail_th"); ?></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -127,7 +127,8 @@
                                     <div class="form-group">
                                         <label class="col-md-12" for="body_en"><?= $this->lang->line("detail"); ?></label>
                                         <div class="col-md-12">
-                                        <textarea name="detail_en" id="detail_en" class="form-control" rows="5"><?php echo setFormData($data, $key = "detail_en"); ?></textarea>
+                                            <textarea name="detail_en" id="detail_en" class="form-control"
+                                                      rows="5"><?php echo setFormData($data, $key = "detail_en"); ?></textarea>
                                         </div>
                                     </div>
 
@@ -140,13 +141,37 @@
                     <div class="form-group " id="div_upload">
                         <label class="col-md-2  control-label"><?= $this->lang->line("upload_image"); ?></label>
                         <div class="col-md-8">
-                            <div id="dZUpload" class="dropzone" >
+                            <div id="dZUpload" class="dropzone">
                                 <div class="dz-default dz-message"></div>
                             </div>
                         </div>
                     </div>
 
-
+                    <div class="form-group ">
+                        <label class="col-md-2  control-label"><?= $this->lang->line("menu_icon"); ?></label>
+                        <div class="col-md-8">
+                            <input class="form-control" type="file" name="menu_icon" id="menu_icon"
+                                   value="<?= (isset($data["row"]["menu_icon"]) ? $data["row"]["menu_icon"] : "") ?>">
+                            <div id="div_image">
+                                <?php if (isset($data['row']['menu_icon'])): ?>
+                                    <div class="jFiler-items jFiler-row">
+                                        <ul class="jFiler-items-list jFiler-items-grid">
+                                            <li class="jFiler-item">
+                                                <div class="jFiler-item-container">
+                                                    <div class="jFiler-item-inner">
+                                                        <div class="jFiler-item-thumb" style="width:100%">
+                                                            <img src="<?= isset($data["row"]["menu_icon"]) ? base_url("uploads/menu_icon/" . $data["row"]["menu_icon"] ) : "" ?>">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    </div>
+                    
                     <div class="form-group ">
                         <label class="col-md-2 control-label"><?= $this->lang->line("form_field_published"); ?></label>
                         <div class="col-md-2">
@@ -188,12 +213,21 @@
 
         setupDatePicker();
 
+        setupFileInput();
+
         validateForm();
 
         showDetail();
 
+        initView();
 
     });
+
+    function initView() {
+        $("input:file").change(function () {
+            $('#div_image').hide();
+        });
+    }
 
     function setupDatePicker() {
         $('#datetimepicker_published_date').datetimepicker({
@@ -215,7 +249,7 @@
                 editor.on('change', function () {
                     editor.save();
                 });
-                if($('#'+editor.id).attr('readonly'))
+                if ($('#' + editor.id).attr('readonly'))
                     editor.settings.readonly = true;
             },
             plugins: [
@@ -367,11 +401,11 @@
     }
 
     function showDetail() {
-        var isShowData = '<?=array_key_exists ('is_show_data' , $data)?>';
-        if(isShowData){
-            $("form :input").attr("disabled","disabled");
+        var isShowData = '<?=array_key_exists('is_show_data', $data)?>';
+        if (isShowData) {
+            $("form :input").attr("disabled", "disabled");
             $('#detail_th,#detail_en').prop('readonly', true);
-            $('#dZUpload').css( 'pointer-events', 'none' );
+            $('#dZUpload').css('pointer-events', 'none');
         }
     }
 
@@ -390,8 +424,10 @@
         $.ajax({
             type: 'POST',
             url: targetUrl,
-            data: $("#form_article_entry").serialize(),
+            data: $("#form_article_entry").serializefiles(),
             dataType: 'json',
+            processData: false,
+            contentType: false,
             success: function (response) {
                 hideSpinner();
                 if (response.success == true) {
@@ -428,6 +464,76 @@
     function clearForm() {
         window.location = BASE_URL + 'admin/Article/create';
     }
+
+    function setupFileInput() {
+        $('#menu_icon').filer({
+            limit: null,
+            maxSize: null,
+            extensions: null,
+            extensions: ['jpg', 'jpeg', 'png'],
+            changeInput: true,
+            showThumbs: true,
+            captions: {button: 'Browse', feedback: ''},
+            addMore: false,
+            templates: {
+                box: '<ul class="jFiler-items-list jFiler-items-grid"></ul>',
+                item: '<li class="jFiler-item">\
+                        <div class="jFiler-item-container">\
+                            <div class="jFiler-item-inner">\
+                                <div class="jFiler-item-thumb">\
+                                    <div class="jFiler-item-status"></div>\
+                                    <div class="jFiler-item-info">\
+                                        <span class="jFiler-item-title"><b title="{{fi-name}}">{{fi-name | limitTo: 25}}</b></span>\
+                                        <span class="jFiler-item-others">{{fi-size2}}</span>\
+                                    </div>\
+                                    {{fi-image}}\
+                                </div>\
+                                <div class="jFiler-item-assets jFiler-row">\
+                                    <ul class="list-inline pull-left">\
+                                        <li>{{fi-progressBar}}</li>\
+                                    </ul>\
+                                    <ul class="list-inline pull-right">\
+                                        <li><a class="icon-jfi-trash jFiler-item-trash-action"></a></li>\
+                                    </ul>\
+                                </div>\
+                            </div>\
+                        </div>\
+                    </li>',
+                itemAppend: '<li class="jFiler-item">\
+                            <div class="jFiler-item-container">\
+                                <div class="jFiler-item-inner">\
+                                    <div class="jFiler-item-thumb">\
+                                        <div class="jFiler-item-status"></div>\
+                                        <div class="jFiler-item-info">\
+                                            <span class="jFiler-item-title"><b title="{{fi-name}}">{{fi-name | limitTo: 25}}</b></span>\
+                                            <span class="jFiler-item-others">{{fi-size2}}</span>\
+                                        </div>\
+                                       \
+                                    </div>\
+                                    <div class="jFiler-item-assets jFiler-row">\
+                                        <ul class="list-inline pull-left">\
+                                            <li><span class="jFiler-item-others">{{fi-icon}}</span></li>\
+                                        </ul>\
+                                        <ul class="list-inline pull-right">\
+                                            <li><a class="icon-jfi-trash jFiler-item-trash-action"></a></li>\
+                                        </ul>\
+                                    </div>\
+                                </div>\
+                            </div>\
+                        </li>',
+                progressBar: '<div class="bar"></div>',
+                itemAppendToEnd: false,
+                removeConfirmation: true,
+                _selectors: {
+                    list: '.jFiler-items-list',
+                    item: '.jFiler-item',
+                    progressBar: '.bar',
+                    remove: '.jFiler-item-trash-action'
+                }
+            }
+        });
+    }
+
 
 </script>
 

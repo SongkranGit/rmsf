@@ -10,9 +10,10 @@
         <div class="group-buttons-right">
             <ul class="nav nav-pills">
                 <li>
-                    <?php if ($this->session->userdata('role_id') == ROLE_SYSTEM_ADMIN): ?>
-                        <a href="<?= base_url(ADMIN_PAGE . "/create") ?>"> <i class="fa fa-plus-circle fa-1x"></i><?= $this->lang->line("pages_button_add"); ?>
-                        </a>
+                    <?php if ($this->session->userdata('role_id') == ROLE_SYSTEM_ADMIN
+                        || $this->session->userdata('role_id') == ROLE_SUPER_ADMIN
+                    ): ?>
+                        <a href="<?= base_url(ADMIN_PAGE . "/create") ?>"> <i class="fa fa-plus-circle fa-1x"></i><?= $this->lang->line("pages_button_add"); ?></a>
                     <?php endif; ?>
                 </li>
             </ul>
@@ -108,6 +109,7 @@
                                 <thead>
                                 <tr>
                                     <th class="text-center"><?= $this->lang->line("table_seq"); ?></th>
+                                    <th class="text-center"><?= $this->lang->line("menu_icon"); ?></th>
                                     <th><?= $this->lang->line("pages_title"); ?> (ไทย)</th>
                                     <th><?= $this->lang->line("pages_title"); ?> (Eng)</th>
                                     <th class="text-center"><?= $this->lang->line("table_last_update"); ?></th>
@@ -168,6 +170,12 @@
 
         var columns = [
             {data: null, "sClass": "right", "bSortable": false, "sWidth": "3%"}, //1st column
+            {orderable: false, "sWidth": "7%",
+                mRender: function (data, type, row) {
+                    var img_src = '<?=base_url("uploads/menu_icon")?>'+'/' + row.menu_icon ;
+                    return '<div align="center"><img width="35" height="35  " src=' + img_src + ' class=\"img-responsive\" ></div>';
+                }
+            },
             {data: "name_th", "sClass": "text", "sWidth": "20%"},
             {data: "name_en", "sClass": "text", "sWidth": "20%"},
             {data: "updated_date", "sClass": "text-center", "sWidth": "10%"},

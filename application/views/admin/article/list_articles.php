@@ -107,12 +107,12 @@
                                 <thead>
                                 <tr>
                                     <th><?= $this->lang->line("table_seq"); ?></th>
+                                    <th class="text-center"><?= $this->lang->line("menu_icon"); ?></th>
                                     <th><?= $this->lang->line("web_page"); ?></th>
                                     <th><?= $this->lang->line("article_name");?> (ไทย)</th>
                                     <th><?= $this->lang->line("article_name");?> (English)</th>
-                                    <th><?= $this->lang->line("article_publish_date"); ?></th>
-                                    <th><?= $this->lang->line("table_order"); ?></th>
-                                    <th><?= $this->lang->line("table_record_status"); ?></th>
+                                    <th class="text-center"><?= $this->lang->line("table_order"); ?></th>
+                                    <th class="text-center"><?= $this->lang->line("table_record_status"); ?></th>
                                     <th class="text-center">
                                         <button type="button" id="btn_search" onclick="setVisibleSearchPanel()"
                                                 data-toggle="tooltip" data-placement="top" title="แสดงการค้นหา"
@@ -169,30 +169,38 @@
     function loadArticlesDataTable() {
         var columns = [
             {data: null, "sClass": "right", "bSortable": false, "sWidth": "3%"}, //1st column
+            {data: "menu_icon", "sClass": "text", "sWidth": "7%"},
             {data: "page_name", "sClass": "text", "sWidth": "10%"},
             {data: "name_th", "sClass": "text", "sWidth": "15%"},
             {data: "name_en", "sClass": "text", "sWidth": "15%"},
-            {data: "published_date", "sClass": "text", "sWidth": "10%"},
             {data: "sequence", "sClass": "text", "sWidth": "5%"},
             {data: "status", "sClass": "text", "sWidth": "5%"},
-            {sClass: "text", "sWidth": "10%"},
+            {sClass: "text", "sWidth": "15%"},
             {data: "published", "sClass": "text", "visible": false},
             {data: "page_id", "sClass": "text", "visible": false},
         ];
 
         var columnDefs = [
+            {targets: 1, render:function (data, type, row) {
+                if(row.menu_icon == null){
+                    return '';
+                }
+                var img_src = '<?=base_url("uploads/menu_icon")?>'+'/' + row.menu_icon ;
+                return '<div align="center"><img width="35" height="35  " src=' + img_src + ' class=\"img-responsive\" ></div>';
+            }},
+            {targets: 2, },
             {targets: 3, },
             {targets: 4, },
             {targets: 5, render: function (data, type, row) {
                 var value_order = (row.order_seq != null && row.order_seq != '') ? row.order_seq : 1;
-                return '<input type="number" onblur="updateOrderSeq(this , ' + row.id + ')" value="' + value_order + '" class="form-control" name="order" step="1" min="1" style="width: 60px" >';
+                return '<div align="center" ><input type="number" onblur="updateOrderSeq(this , ' + row.id + ')" value="' + value_order + '" class="form-control" name="order" step="1" min="1" style="width: 60px" ></div>';
             }},
             {targets: 6, render: function (data, type, row) {
                 var label_text = '<div class="text-left"> ';
                 if (parseInt(row.published) == 1) {
-                    label_text += '<h4><span class=\"label label-success\" >' + '<?=$this->lang->line("form_field_published");?>' + '</span></h4>';
+                    label_text += '<h4 class=text-center><span class=\"label label-success\" >' + '<?=$this->lang->line("form_field_published");?>' + '</span></h4>';
                 } else {
-                    label_text += '<h4><span class=\"label label-danger\" >' + '<?=$this->lang->line("form_field_unpublished");?>' + '</span></h4>';
+                    label_text += '<h4 class=text-center><span class=\"label label-danger\" >' + '<?=$this->lang->line("form_field_unpublished");?>' + '</span></h4>';
                 }
                 label_text += '</div>'
                 return label_text;

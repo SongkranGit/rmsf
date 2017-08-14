@@ -164,6 +164,7 @@ class Article_Model extends CI_Model
                     "id" => $row->id,
                     "page_id" => $row->page_id,
                     "page_name" => (isEnglishLang())?$row->page_name_en: $row->page_name_th,
+                    "menu_icon" =>  $row->menu_icon,
                     "name_th" =>  $row->name_th,
                     "name_en" =>  $row->name_en,
                     "order_seq" => $row->order_seq,

@@ -35,6 +35,7 @@ class Setting extends Admin_Controller
                     "fax" => $this->input->post("fax"),
                     "address_th" => $this->input->post("address_th"),
                     "address_en" => $this->input->post("address_en"),
+                    "map_url" => $this->input->post("map_url"),
                     "facebook_link" => $this->input->post("facebook_link"),
                     "twitter_link" => $this->input->post("twitter_link"),
                     "instagram_link" => $this->input->post("instagram_link"),

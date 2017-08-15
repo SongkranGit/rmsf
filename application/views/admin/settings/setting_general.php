@@ -88,19 +88,29 @@
                                 </ul>
                                 <div class="tab-content">
                                     <div class="tab-pane active" id="tab1">
-                                        <br>
-                                    <textarea name="address_th" id="body" class="form-control"
-                                              rows="5"><?= (isset($data["address_th"]) ? $data["address_th"] : "") ?></textarea>
+                                    <textarea name="address_th"  class="form-control"
+                                              rows="3"><?= (isset($data["address_th"]) ? $data["address_th"] : "") ?></textarea>
                                     </div>
                                     <div class="tab-pane fade" id="tab2">
-                                        <br>
-                                   <textarea name="address_en" id="body" class="form-control"
-                                             rows="5"><?= (isset($data["address_en"]) ? $data["address_en"] : "") ?></textarea>
+                                   <textarea name="address_en"  class="form-control"
+                                             rows="3"><?= (isset($data["address_en"]) ? $data["address_en"] : "") ?></textarea>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2" for="phone"><?= $this->lang->line("settings_map_url"); ?></label>
+                            <div class="col-md-8">
+                                <input type="text" id="map_url" name="map_url" class="form-control"
+                                       placeholder="<?= $this->lang->line("settings_map_url"); ?>"
+                                       value="<?php echo isset($data["map_url"]) ? $data["map_url"] : "" ?>">
+                                <?php if(isset($data["map_url"]) && !empty($data["map_url"]) ): ?>
+                                <a href="<?=$data["map_url"]?>" target="_blank">Open map</a>
+                                <?php endif;?>
+                            </div>
+
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -157,12 +167,10 @@
                             </ul>
                             <div class="tab-content">
                                 <div class="tab-pane active" id="tab_vision_1">
-                                    <br>
                                      <textarea name="vision_th" id="vision_th" class="form-control"
                                                rows="3"><?= (isset($data["vision_th"]) ? $data["vision_th"] : "") ?></textarea>
                                 </div>
                                 <div class="tab-pane fade" id="tab_vision_2">
-                                    <br>
                                    <textarea name="vision_en" id="vision_en" class="form-control"
                                              rows="3"><?= (isset($data["vision_en"]) ? $data["vision_en"] : "") ?></textarea>
                                 </div>
@@ -192,14 +200,14 @@
 
     $(document).ready(function () {
         validateForm();
-        initTinyFileManager();
+        setupTinyMCE();
     });
 
-    function initTinyFileManager() {
-        var external_filemanager_path = '<?=base_url("assets")?>/libraries/filemanager/';
-        var filemanager = '<?=base_url("assets/libraries/filemanager/plugin.min.js")?>';
+    function setupTinyMCE() {
         tinymce.init({
-            selector: "#vision_en", theme: "modern", height: 200,
+            selector: 'textarea',
+            height: 80,
+            menubar: false,
             relative_urls: false,
             remove_script_host: false,
             convert_urls: true,
@@ -207,41 +215,16 @@
                 editor.on('change', function () {
                     editor.save();
                 });
+                if ($('#' + editor.id).attr('readonly'))
+                    editor.settings.readonly = true;
             },
             plugins: [
-                "advlist autolink link image lists charmap print preview hr anchor pagebreak",
-                "searchreplace wordcount visualblocks visualchars insertdatetime media nonbreaking",
-                "table contextmenu directionality emoticons paste textcolor responsivefilemanager code"
+                'advlist autolink lists link image charmap print preview anchor',
+                'searchreplace visualblocks code fullscreen',
+                'insertdatetime media table contextmenu paste code textcolor colorpicker'
             ],
-            toolbar1: "undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | styleselect",
-            toolbar2: "| responsivefilemanager | link unlink anchor | image media | forecolor backcolor  | print preview code ",
-            image_advtab: true,
-            external_filemanager_path: external_filemanager_path,
-            filemanager_title: "Responsive Filemanager",
-            external_plugins: {"filemanager": filemanager}
-        });
-
-        tinymce.init({
-            selector: "#vision_th", theme: "modern", height: 200,
-            relative_urls: false,
-            remove_script_host: false,
-            convert_urls: true,
-            setup: function (editor) {
-                editor.on('change', function () {
-                    editor.save();
-                });
-            },
-            plugins: [
-                "advlist autolink link image lists charmap print preview hr anchor pagebreak",
-                "searchreplace wordcount visualblocks visualchars insertdatetime media nonbreaking",
-                "table contextmenu directionality emoticons paste textcolor responsivefilemanager code"
-            ],
-            toolbar1: "undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | styleselect",
-            toolbar2: "| responsivefilemanager | link unlink anchor | image media | forecolor backcolor  | print preview code ",
-            image_advtab: true,
-            external_filemanager_path: external_filemanager_path,
-            filemanager_title: "Responsive Filemanager",
-            external_plugins: {"filemanager": filemanager}
+            toolbar: 'undo redo | insert | styleselect | bold italic | forecolor backcolor fontsizeselect | alignleft aligncenter alignright alignjustify | outdent indent | preview code',
+            fontsize_formats: '8pt 10pt 12pt 14pt 18pt 24pt 36pt',
         });
     }
 

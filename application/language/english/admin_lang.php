@@ -286,4 +286,6 @@ $lang['settings_facebook_link'] 	            = 'Facebook link';
 $lang['settings_twitter_link'] 	                = 'Twitter link';
 $lang['settings_instargram_link'] 	            = 'Instargram link';
 $lang['settings_vision'] 	                    = 'Vision';
+$lang['settings_map_url'] 	                    = 'Map Url';
+
 

@@ -31,10 +31,7 @@
         <form id="form_article_entry" role="form" class="form-horizontal">
             <div class="panel panel-default">
                 <div class="panel-heading <?php echo setHeaderClass($data['action']) ?>">
-                <span>
-                    <i class="<?php echo setHeaderIcon($data['action']) ?>"></i>
-                    <?= $data["heading_text"] ?>
-                </span>
+                <span><i class="<?php echo setHeaderIcon($data['action']) ?>"></i> <?= $data["heading_text"] ?></span>
                 </div>
 
                 <div class="panel-body">
@@ -50,6 +47,31 @@
                                         <?php endforeach; ?>
                                     <?php endif; ?>
                                 </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group ">
+                        <label class="col-md-2  control-label"><?= $this->lang->line("menu_icon"); ?></label>
+                        <div class="col-md-8">
+                            <input class="form-control" type="file" name="menu_icon" id="menu_icon"
+                                   value="<?= (isset($data["row"]["menu_icon"]) ? $data["row"]["menu_icon"] : "") ?>">
+                            <div id="div_image">
+                                <?php if (isset($data['row']['menu_icon'])): ?>
+                                    <div class="jFiler-items jFiler-row">
+                                        <ul class="jFiler-items-list jFiler-items-grid">
+                                            <li class="jFiler-item">
+                                                <div class="jFiler-item-container">
+                                                    <div class="jFiler-item-inner">
+                                                        <div class="jFiler-item-thumb" style="width:100%">
+                                                            <img src="<?= isset($data["row"]["menu_icon"]) ? base_url("uploads/menu_icon/" . $data["row"]["menu_icon"] ) : "" ?>">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
@@ -91,7 +113,7 @@
                                              <textarea id="description_th" name="description_th"
                                                        placeholder="คำอธิบาย"
                                                        class="form-control"
-                                                       rows="3"><?php echo setFormData($data, $key = "description_th"); ?></textarea>
+                                                       rows="5"><?php echo setFormData($data, $key = "description_th"); ?></textarea>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -147,30 +169,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group ">
-                        <label class="col-md-2  control-label"><?= $this->lang->line("menu_icon"); ?></label>
-                        <div class="col-md-8">
-                            <input class="form-control" type="file" name="menu_icon" id="menu_icon"
-                                   value="<?= (isset($data["row"]["menu_icon"]) ? $data["row"]["menu_icon"] : "") ?>">
-                            <div id="div_image">
-                                <?php if (isset($data['row']['menu_icon'])): ?>
-                                    <div class="jFiler-items jFiler-row">
-                                        <ul class="jFiler-items-list jFiler-items-grid">
-                                            <li class="jFiler-item">
-                                                <div class="jFiler-item-container">
-                                                    <div class="jFiler-item-inner">
-                                                        <div class="jFiler-item-thumb" style="width:100%">
-                                                            <img src="<?= isset($data["row"]["menu_icon"]) ? base_url("uploads/menu_icon/" . $data["row"]["menu_icon"] ) : "" ?>">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                <?php endif; ?>
-                            </div>
-                        </div>
-                    </div>
+
                     
                     <div class="form-group ">
                         <label class="col-md-2 control-label"><?= $this->lang->line("form_field_published"); ?></label>

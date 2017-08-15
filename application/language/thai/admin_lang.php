@@ -264,5 +264,5 @@ $lang['settings_facebook_link'] 	                    = 'ลิงค์ facebook
 $lang['settings_twitter_link'] 	                        = 'ลิงค์ twitter';
 $lang['settings_instargram_link'] 	                    = 'ลิงค์ Instargram';
 $lang['settings_vision'] 	                            = 'วิสัยทัศน์';
-
+$lang['settings_map_url'] 	                            = 'ลิงค์แผนที่';
 

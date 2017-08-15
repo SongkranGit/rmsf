@@ -40,6 +40,32 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="form-group ">
+                        <label class="col-md-2  control-label"><?= $this->lang->line("menu_icon"); ?></label>
+                        <div class="col-md-8">
+                            <input class="form-control" type="file" name="menu_icon" id="menu_icon"
+                                   value="<?= (isset($data["row"]["menu_icon"]) ? $data["row"]["menu_icon"] : "") ?>">
+                            <div id="div_image">
+                                <?php if (isset($data['row']['menu_icon'])): ?>
+                                    <div class="jFiler-items jFiler-row">
+                                        <ul class="jFiler-items-list jFiler-items-grid">
+                                            <li class="jFiler-item">
+                                                <div class="jFiler-item-container">
+                                                    <div class="jFiler-item-inner">
+                                                        <div class="jFiler-item-thumb" style="width:100%">
+                                                            <img src="<?= isset($data["row"]["menu_icon"]) ? base_url("uploads/menu_icon/" . $data["row"]["menu_icon"]) : "" ?>">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="form-group ">
                         <label class="col-md-2  control-label"><?= $this->lang->line("content"); ?></label>
                         <div class="col-md-8">
@@ -158,31 +184,6 @@
                         <?php endif; ?>
 
                     <?php endif; ?>
-
-                    <div class="form-group ">
-                        <label class="col-md-2  control-label"><?= $this->lang->line("menu_icon"); ?></label>
-                        <div class="col-md-8">
-                            <input class="form-control" type="file" name="menu_icon" id="menu_icon"
-                                   value="<?= (isset($data["row"]["menu_icon"]) ? $data["row"]["menu_icon"] : "") ?>">
-                            <div id="div_image">
-                                <?php if (isset($data['row']['menu_icon'])): ?>
-                                    <div class="jFiler-items jFiler-row">
-                                        <ul class="jFiler-items-list jFiler-items-grid">
-                                            <li class="jFiler-item">
-                                                <div class="jFiler-item-container">
-                                                    <div class="jFiler-item-inner">
-                                                        <div class="jFiler-item-thumb" style="width:100%">
-                                                            <img src="<?= isset($data["row"]["menu_icon"]) ? base_url("uploads/menu_icon/" . $data["row"]["menu_icon"]) : "" ?>">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                <?php endif; ?>
-                            </div>
-                        </div>
-                    </div>
 
                     <div class="form-group ">
                         <label class="col-md-2 control-label text-right"><?= $this->lang->line("form_field_published"); ?></label>

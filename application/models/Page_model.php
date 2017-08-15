@@ -53,6 +53,7 @@ class Page_Model extends CI_Model
             $data['id'] = $row['id'];
             $data['name'] = ($lang=='th')?$row['name_th']:$row['name_en'];
             $data['detail'] = ($lang=='th')?$row['detail_th']:$row['detail_en'];
+            $data['menu_icon'] = $row['menu_icon'];
             $data['language'] = ($lang=='th')?'thai':'english';
         }
         $query->free_result();

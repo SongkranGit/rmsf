@@ -37,7 +37,7 @@ class Gallery_Model extends CI_Model
                 $item['description'] = ($lang=='th')?$row['description_th']:$row['description_en'];
                 $item['images'] = array(
                     'id'=> $row['gallery_image_id'],
-                    'image_name'=> $row['file_name'],
+                    'image_name'=> ($row['file_name'] != null)? base_url('uploads/gallery/'.$row['id']).'/'.$row['file_name']: null,
                     'caption'=> ($lang=='th')?$row['caption_th']:$row['caption_en']
                 );
                 array_push($data , $item);

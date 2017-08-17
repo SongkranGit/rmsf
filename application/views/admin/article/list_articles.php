@@ -307,9 +307,9 @@
         var published = $("#published option:selected").val();
         var page_name =  $("#page_id option:selected").text();
 
-        dataTable.column(1).search(page_name);
-        dataTable.column(2).search(name_th);
-        dataTable.column(3).search(name_en);
+        dataTable.column(2).search(page_name);
+        dataTable.column(3).search(name_th);
+        dataTable.column(4).search(name_en);
         dataTable.column(8).search(published);
         dataTable.draw();
     }

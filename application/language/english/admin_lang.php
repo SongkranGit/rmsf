@@ -70,6 +70,7 @@ $lang['menu_member'] 	                = 'Member';
 $lang['menu_students'] 	                = 'Students';
 $lang['menu_clip_categories'] 	        = 'Clip Categories';
 $lang['menu_icon']                      = 'Menu Icon';
+$lang['menu_founder']                   = 'Founder';
 //form
 $lang['form_field_status'] 	  	        = 'Status';
 $lang['form_field_published'] 	  	    = 'Published';

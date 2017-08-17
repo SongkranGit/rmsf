@@ -52,7 +52,7 @@ class Page_Model extends CI_Model
             $row = $query->row_array();
             $data['id'] = $row['id'];
             $data['name'] = ($lang=='th')?$row['name_th']:$row['name_en'];
-            $data['detail'] = ($lang=='th')?$row['detail_th']:$row['detail_en'];
+            $data['detail'] = ($lang=='th')?strip_tags($row['detail_th']):strip_tags($row['detail_en']);
             $data['menu_icon'] = ($row['menu_icon'] != null )?base_url('uploads/menu_icon').'/'. $row['menu_icon']: null ;
             $data['language'] = ($lang=='th')?'thai':'english';
         }

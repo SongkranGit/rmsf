@@ -54,20 +54,26 @@ $role = $this->session->userdata('role_id');
                             <i class="<?= ($controller == GALLERIES || $controller == GALLERY_IMAGE) ? "fa fa-circle-o text-green" : "fa fa-circle-o" ?>"></i>
                             <?= $this->lang->line("menu_galleries"); ?></a>
                     </li>
-
-                    <!--Slide Show-->
-                    <li class="<?= (strcasecmp($controller, SLIDE_SHOW) == 0) ? "active" : "" ?>">
-                        <a href="<?= base_url(ADMIN_SLIDE_SHOW) ?>">
-                            <i class="<?= (strcasecmp($controller, SLIDE_SHOW) == 0) ? "fa fa-circle-o text-green" : "fa fa-circle-o" ?>"></i>
-                            <?= $this->lang->line("menu_galleries_slideshow"); ?></a>
-
                 </ul>
             </li>
 
+            <!--Slide Show-->
+            <li class="<?= (strcasecmp($controller, CONTACT) == 0) ? "active" : "" ?>">
+                <a href="<?= base_url(ADMIN_SLIDE_SHOW) ?>">
+                    <i class="glyphicon glyphicon-picture"></i> <span><?= $this->lang->line("menu_galleries_slideshow"); ?></span>
+                </a>
+            </li>
+
+            <!--Founder-->
+            <li class="<?= (strcasecmp($controller, CONTACT) == 0) ? "active" : "" ?>">
+                <a href="<?= base_url(ADMIN_CONTACT) ?>">
+                    <i class="glyphicon glyphicon-user"></i> <span><?= $this->lang->line("menu_founder"); ?></span>
+                </a>
+            </li>
             <!--User-->
             <li class="<?= (strcasecmp($controller, CONTACT) == 0) ? "active" : "" ?>">
                 <a href="<?= base_url(ADMIN_CONTACT) ?>">
-                    <i class="glyphicon glyphicon-user"></i> <span><?= $this->lang->line("menu_contact_list"); ?></span>
+                    <i class="glyphicon glyphicon-briefcase"></i> <span><?= $this->lang->line("menu_contact_list"); ?></span>
                 </a>
             </li>
 

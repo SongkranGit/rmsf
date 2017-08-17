@@ -103,7 +103,8 @@ class Query extends REST_Controller
     }
 
     public function settings_get(){
-        $result = $this->Setting_model->getSettings();
+        $language = trim($this->get('lang'));
+        $result = $this->Setting_model->apiQuerySettingData($language);
         if ($result != null) {
             $this->response($result, REST_Controller::HTTP_OK);
         } else {

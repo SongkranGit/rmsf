@@ -49,7 +49,7 @@ class Article_Model extends CI_Model
                 $item['name'] = ($lang=='th')? $row['name_th']:$row['name_en'];
                 $item['menu_icon'] = ($row['menu_icon'] != null)? base_url('uploads/menu_icon').'/'.$row['menu_icon']: null;
                 $item['description'] = ($lang=='th')?$row['description_th']:$row['description_en'];
-                $item['detail'] = ($lang=='th')?$row['detail_th']:$row['detail_en'];
+                $item['detail'] = ($lang=='th')? strip_tags( $row['detail_th']):strip_tags($row['detail_en']);
                 $item['published_date'] = Calendar::formatDateToDDMMYYYY($row['published_date']);
                 $item['images'] = array(
                     'id'=> $row['article_image_id'],

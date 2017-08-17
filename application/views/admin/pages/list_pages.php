@@ -271,8 +271,8 @@
         var columnCont = $('#pages_datatable thead th').length;
 
         dataTable
-            .column(1).search(name_th)
-            .column(2).search(name_en)
+            .column(2).search(name_th)
+            .column(3).search(name_en)
             .column(columnCont - 3).search(datetimepicker)
             .column(columnCont).search(published)
             .draw();

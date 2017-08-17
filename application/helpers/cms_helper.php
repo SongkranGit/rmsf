@@ -166,13 +166,13 @@ if (!function_exists('setFormData')) {
             if (currentLanguage() == LANGUAGE_THAI) {
                 if (array_key_exists($index_th, $arr_data)) {
                     $ret_data = $arr_data[$index_th];
-                }else{
+                } else {
                     $ret_data = $arr_data[$key];
                 }
             } else if (currentLanguage() == LANGUAGE_ENGLISH) {
                 if (array_key_exists($index_en, $arr_data)) {
                     $ret_data = $arr_data[$index_en];
-                }else{
+                } else {
                     $ret_data = $arr_data[$key];
                 }
             }
@@ -185,35 +185,47 @@ if (!function_exists('setFormData')) {
 if (!function_exists('IsExistFile')) {
     function IsExistFile($file_path)
     {
-        if(file_exists($file_path)){
+        if (file_exists($file_path)) {
             return true;
         }
         return false;
     }
 }
 
-if(!function_exists('setHeaderClass')){
-  function setHeaderClass($action){
-      if($action == 'create'){
-          $class = 'heading-create';
-      }else if($action == 'update'){
-          $class = 'heading-update';
-      }else{
-          $class = 'heading-show';
-      }
-      return $class;
-  }
+if (!function_exists('setHeaderClass')) {
+    function setHeaderClass($action)
+    {
+        if ($action == 'create') {
+            $class = 'heading-create';
+        } else if ($action == 'update') {
+            $class = 'heading-update';
+        } else {
+            $class = 'heading-show';
+        }
+        return $class;
+    }
 }
 
-if(!function_exists('setHeaderIcon')){
-    function setHeaderIcon($action){
-        if($action == 'create'){
+if (!function_exists('setHeaderIcon')) {
+    function setHeaderIcon($action)
+    {
+        if ($action == 'create') {
             $icon = 'fa fa-plus-circle';
-        }else if($action == 'update'){
+        } else if ($action == 'update') {
             $icon = 'fa fa-edit';
-        }else{
+        } else {
             $icon = 'fa fa-info-circle';
         }
         return $icon;
+    }
+}
+
+if (!function_exists('removeHtmlTag')) {
+    function removeHtmlTag($str_with_html)
+    {
+        if ($str_with_html != null && $str_with_html != '') {
+          return  preg_replace("/<([a-z][a-z0-9]*)[^>]*?(\/?)>/i",'<$1$2>', $str_with_html);
+        }
+        return '';
     }
 }

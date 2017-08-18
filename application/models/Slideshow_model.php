@@ -42,6 +42,24 @@ class Slideshow_Model extends CI_Model
         return $data;
     }
 
+    public function apiQuerySlideshowData($lang = 'th' )
+    {
+        $data = array();
+        $this->db->select("*");
+        $this->db->from('slideshow');
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            foreach ($query->result_array() as $row) {
+                $item = array();
+                $item['image_name'] = base_url('uploads/slideshow').'/'.$row['file_name'];
+                $item['caption'] = ($lang=='th')?$row['caption_th']: $row['caption_en'];
+                array_push($data , $item);
+            }
+        }
+        $query->free_result();
+        return $data;
+    }
+
     public function loadSlideShowDataTable()
     {
         $data = array();

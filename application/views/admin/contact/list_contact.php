@@ -85,6 +85,7 @@
                                     <th><?= $this->lang->line("contact_email"); ?></th>
                                     <th><?= $this->lang->line("contact_phone"); ?></th>
                                     <th><?= $this->lang->line("message"); ?></th>
+                                    <th><?= $this->lang->line("register_newsletter"); ?></th>
                                     <th class="text-center"><?= $this->lang->line("table_created_date"); ?></th>
                                     <th class="text-center">
                                         <button type="button" id="btn_search" onclick="setVisibleSearchPanel()" class="btn btn-primary ">
@@ -135,6 +136,15 @@
             {data: "email", "sClass": "text", "sWidth": "10%"},
             {data: "phone", "sClass": "text", "sWidth": "10%"},
             {data: "subject", "sClass": "text", "sWidth": "20%"},
+            {
+                orderable: false, "sWidth": "7%",
+                mRender: function (data, type, row) {
+                    if (parseInt(row.is_sign_up_newsletter) == 1) {
+                        return '<h4 class="text-center"><span class=\"label label-success\" >' + '<?=$this->lang->line("registered");?>' + '</span></h4>';
+                    }
+                    return '';
+                }
+            },
             {data: "created_date", "sClass": "text-center", "sWidth": "10%"},
             {
                 orderable: false, "sWidth": "10%",

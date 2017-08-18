@@ -154,8 +154,9 @@ class Article_Model extends CI_Model
         $this->db->from("articles a");
         $this->db->join("pages p", "p.id = a.page_id");
         $this->db->where("a.is_deleted ", 0);
-        $this->db->order_by("order_seq", 'ASC');
-        $this->db->order_by("created_date", 'DESC');
+        $this->db->order_by("p.id", 'ASC');
+        $this->db->order_by("a.order_seq", 'ASC');
+        $this->db->order_by("a.created_date", 'DESC');
         $query = $this->db->get();
 
         // echo $this->db->last_query();

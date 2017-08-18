@@ -17,6 +17,19 @@ class Contact_Model extends CI_Model
         return $data;
     }
 
+    public function isDuplicateEmail($email)
+    {
+        $this->db->where('email', trim($email));
+        $query = $this->db->get('contacts');
+        $count_row = $query->num_rows();
+        $query->free_result();
+        if ($count_row > 0) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+
 
     public function getAll()
     {
@@ -53,6 +66,7 @@ class Contact_Model extends CI_Model
                     "message" => $row->message,
                     "email" => $row->email,
                     "subject" => $row->subject,
+                    "is_sign_up_newsletter"=> $row->is_sign_up_newsletter,
                     "created_date" => Calendar::formatDateTimeToDDMMYYYY($row->created_date)
                 );
             }

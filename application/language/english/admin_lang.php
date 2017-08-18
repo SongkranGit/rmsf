@@ -37,6 +37,8 @@ $lang['message']                        = 'Message';
 $lang['subject']                        = 'Subject';
 $lang['menu_icon']                      = 'Menu Icon';
 $lang['name']                           = 'Name';
+$lang['register_newsletter']            = 'Register Newsletter';
+$lang['registered']                     = 'Registered';
 
 //Menu
 $lang['menu_main'] 	  	                = 'Main Menu';

@@ -116,7 +116,8 @@ class Query extends REST_Controller
     }
 
     public function slideshow_get(){
-        $result = $this->Slideshow_model->getAll();
+        $language = trim($this->get('lang'));
+        $result = $this->Slideshow_model->apiQuerySlideshowData($language);
         if ($result != null) {
             $this->response($result, REST_Controller::HTTP_OK);
         } else {

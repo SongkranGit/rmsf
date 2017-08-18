@@ -26,7 +26,6 @@ $role = $this->session->userdata('role_id');
             <li class="treeview <?= ($controller == ARTICLE
                 || $controller == GALLERIES
                 || $controller == GALLERY_IMAGE
-                || $controller == SLIDE_SHOW
                 || $controller == PAGE) ? "active" : "" ?>">
 
                 <a href="#">
@@ -58,18 +57,14 @@ $role = $this->session->userdata('role_id');
             </li>
 
             <!--Slide Show-->
-            <li class="<?= (strcasecmp($controller, CONTACT) == 0) ? "active" : "" ?>">
+            <li class="<?= (strcasecmp($controller, SLIDE_SHOW) == 0) ? "active" : "" ?>">
                 <a href="<?= base_url(ADMIN_SLIDE_SHOW) ?>">
                     <i class="glyphicon glyphicon-picture"></i> <span><?= $this->lang->line("menu_galleries_slideshow"); ?></span>
                 </a>
             </li>
 
             <!--Founder-->
-            <li class="<?= (strcasecmp($controller, CONTACT) == 0) ? "active" : "" ?>">
-                <a href="<?= base_url(ADMIN_CONTACT) ?>">
-                    <i class="glyphicon glyphicon-user"></i> <span><?= $this->lang->line("menu_founder"); ?></span>
-                </a>
-            </li>
+
             <!--User-->
             <li class="<?= (strcasecmp($controller, CONTACT) == 0) ? "active" : "" ?>">
                 <a href="<?= base_url(ADMIN_CONTACT) ?>">

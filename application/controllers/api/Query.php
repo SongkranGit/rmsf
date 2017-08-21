@@ -128,6 +128,19 @@ class Query extends REST_Controller
         }
     }
 
+    public function product_get(){
+        $language = trim($this->get('lang'));
+        $result = $this->processQueryPageData( $language, 'product');
+        if ($result != null) {
+            $this->response($result, REST_Controller::HTTP_OK); // OK (200) being the HTTP response code
+        } else {
+            $this->response([
+                'status' => FALSE,
+                'message' => 'No data'
+            ], REST_Controller::HTTP_NOT_FOUND); // NOT_FOUND (404) being the HTTP response code
+        }
+    }
+
     private function processQueryPageData($language , $page_name){
         $result = $this->Page_model->apiQueryPageData( $language , $page_name );
         $result['articles'] = $this->Article_model->apiQueryArticlesData($language ,$result['id']);

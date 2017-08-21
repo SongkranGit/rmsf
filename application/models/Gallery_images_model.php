@@ -64,8 +64,8 @@ class Gallery_Images_Model extends CI_Model
                     "file_name" => $row->file_name,
                     "gallery_name" => isEnglishLang()?$row->name_en : $row->name_th,
                     "order_seq" => $row->order_seq,
-                    "caption_th" => character_limiter($row->caption_th, 30),
-                    "caption_en" => character_limiter($row->caption_en, 30),
+                    "caption_th" => mb_strimwidth($row->caption_th, 0, 40, " ..."),
+                    "caption_en" =>  mb_strimwidth($row->caption_en, 0, 40, " ..."),
                     "published" => $row->published
                 );
             }

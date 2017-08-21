@@ -65,15 +65,15 @@
         var columns = [
             {data: null, "sClass": "right", "bSortable": false, "sWidth": "3%"}, //1st column
             {
-                orderable: false, "sWidth": "10%",
+                orderable: false, "sWidth": "7%",
                 mRender: function (data, type, row) {
                     var img_src = '<?=base_url("uploads/gallery")?>'+'/' + row.gallery_id + '/thumb_' + row.file_name;
                     return '<div align="center"><img width="50" height="50" src=' + img_src + ' class=\"img-responsive\" ></div>';
                 }
             },
-            {data: "gallery_name", "sClass": "text", "sWidth": "20%"},
-            {data: "caption_th", "sClass": "text", "sWidth": "20%"},
-            {data: "caption_en", "sClass": "text", "sWidth": "20%"},
+            {data: "gallery_name", "sClass": "text", "sWidth": "15%"},
+            {data: "caption_th", "sClass": "text", "sWidth": "25%"},
+            {data: "caption_en", "sClass": "text", "sWidth": "25%"},
             {
                 orderable: false, "sWidth": "10%",
                 mRender: function (data, type, row) {

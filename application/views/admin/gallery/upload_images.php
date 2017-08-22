@@ -113,17 +113,47 @@
                             <label class="col-md-2  control-label"><?= $this->lang->line("caption"); ?></label>
                             <div class="col-md-8">
                                 <ul class="nav nav-tabs">
-                                    <li role="presentation" class="active"><a href="#tab1" data-toggle="tab">Thai</a></li>
-                                    <li role="presentation"><a href="#tab2" data-toggle="tab">English</a></li>
+                                    <li role="presentation" class="active"><a href="#tab1" aria-controls="tab1" data-toggle="tab">ไทย</a></li>
+                                    <li role="presentation"><a href="#tab2" aria-controls="tab2" data-toggle="tab">English</a></li>
                                 </ul>
                                 <div class="tab-content">
+                                    <!--TAB Thai-->
                                     <div class="tab-pane active" id="tab1">
-                                        <textarea name="caption_th" id="caption_th" class="form-control"
-                                                  rows="3"><?php echo setFormData($data , $key="caption_th") ?></textarea>
+                                        <br>
+                                        <div class="form-group  ">
+                                            <label class="col-md-12 label-required "><?= $this->lang->line("caption"); ?></label>
+                                            <div class="col-md-12">
+                                            <textarea name="caption_th" id="caption_en" class="form-control"
+                                              rows="3"><?php echo setFormData($data , $key="caption_th") ?></textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group ">
+                                            <label class="col-md-12 label-required" for="detail_th"><?= $this->lang->line("detail"); ?></label>
+                                            <div class="col-md-12 ">
+                                            <textarea name="detail_th" id="detail_th" class="form-control"
+                                                      rows="5"><?php echo setFormData($data, $key = "detail_th"); ?></textarea>
+                                            </div>
+                                        </div>
                                     </div>
+                                    <!--TAB Eng-->
                                     <div class="tab-pane fade" id="tab2">
-                                        <textarea name="caption_en" id="caption_en" class="form-control"
-                                                  rows="3"><?php echo setFormData($data , $key="caption_en") ?></textarea>
+                                        <br>
+                                        <div class="form-group  ">
+                                            <label class="col-md-12 label-required"><?= $this->lang->line("caption"); ?></label>
+                                            <div class="col-md-12">
+                                                 <textarea name="caption_en" id="caption_en" class="form-control" rows="3"><?php echo setFormData($data , $key="caption_en") ?></textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group ">
+                                            <label class="col-md-12 label-required" for="detail_en"><?= $this->lang->line("detail"); ?></label>
+                                            <div class="col-md-12">
+                                            <textarea name="detail_en" id="detail_en" class="form-control"
+                                                      rows="5"><?php echo setFormData($data, $key = "detail_en"); ?></textarea>
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
 
@@ -171,7 +201,7 @@
 
         setupFileInput();
 
-        setupTinyMCE();
+        setupTinyFileManager();
 
         setupToggleAllowImageDetail();
 
@@ -235,11 +265,11 @@
         });
     }
 
-    function setupTinyMCE() {
+    function setupTinyFileManager() {
+        var external_filemanager_path = '<?=base_url("assets")?>/libraries/filemanager/';
+        var filemanager = '<?=base_url("assets/libraries/filemanager/plugin.min.js")?>';
         tinymce.init({
-            selector: 'textarea',
-            height: 100,
-            menubar: false,
+            selector: "#detail_en,#detail_th", theme: "modern", height: 250,
             relative_urls: false,
             remove_script_host: false,
             convert_urls: true,
@@ -247,16 +277,19 @@
                 editor.on('change', function () {
                     editor.save();
                 });
-                if ($('#' + editor.id).attr('readonly'))
-                    editor.settings.readonly = true;
+
             },
             plugins: [
-                'advlist autolink lists link image charmap print preview anchor',
-                'searchreplace visualblocks code fullscreen',
-                'insertdatetime media table contextmenu paste code textcolor colorpicker'
+                "advlist autolink link image lists charmap print preview hr anchor pagebreak",
+                "searchreplace wordcount visualblocks visualchars insertdatetime media nonbreaking",
+                "table contextmenu directionality emoticons paste textcolor responsivefilemanager code fullscreen"
             ],
-            toolbar: 'undo redo | insert | styleselect | bold italic | forecolor backcolor fontsizeselect | alignleft aligncenter alignright alignjustify | outdent indent | preview code',
-            fontsize_formats: '8pt 10pt 12pt 14pt 18pt 24pt 36pt',
+            toolbar1: "undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | styleselect",
+            toolbar2: "| responsivefilemanager | link unlink anchor | image media | forecolor backcolor  | print preview code | fullscreen",
+            image_advtab: true,
+            external_filemanager_path: external_filemanager_path,
+            filemanager_title: "Responsive Filemanager",
+            external_plugins: {"filemanager": filemanager}
         });
     }
 

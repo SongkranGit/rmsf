@@ -19,6 +19,24 @@ class Gallery_Model extends CI_Model
         return $data;
     }
 
+    public function getByPageName($page_name)
+    {
+        $data = array();
+        $this->db->select("g.*");
+        $this->db->from('galleries g');
+        $this->db->join('pages p' , 'p.id = g.page_id');
+        $this->db->where('p.page_name', $page_name);
+        $this->db->where('g.is_deleted', 0);
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            foreach ($query->result_array() as $row) {
+                $data[] = $row;
+            }
+        }
+        $query->free_result();
+        return $data;
+    }
+
     public function apiQueryGalleriesData($lang = 'th' , $page_id)
     {
         $data = array();

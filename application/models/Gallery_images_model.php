@@ -37,6 +37,50 @@ class Gallery_Images_Model extends CI_Model
         return $data;
     }
 
+    public function getByGalleryId($gallery_id , $lang = 'th')
+    {
+        $data = array();
+        $this->db->select("gi.*");
+        $this->db->from('galleries_images gi');
+        $this->db->join('galleries g' , 'g.id = gi.gallery_id' );
+        $this->db->where('gi.gallery_id', $gallery_id);
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            foreach ($query->result_array() as $row) {
+                $item = array();
+                $item['gallery_id'] = $row['gallery_id'];
+                $item['image_name'] = base_url('uploads/gallery/'.$row['file_name']) ;
+                $item['caption'] = ($lang=='th')?$row['caption_th']:$row['caption_en'];
+                $item['detail'] = ($lang=='th')? strip_tags( $row['detail_th']):strip_tags($row['detail_en']);
+
+                array_push($data , $item);
+            }
+        }
+        $query->free_result();
+        return $data;
+    }
+
+    public function apiQueryGetAllGalleryImages($arr_gallery_id , $lang){
+        $data = array();
+        $this->db->select("*");
+        $this->db->from('galleries_images');
+        $this->db->where_in('gallery_id', $arr_gallery_id);
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            foreach ($query->result_array() as $row) {
+                $item = array();
+                $item['gallery_id'] = $row['gallery_id'];
+                $item['image_name'] = base_url('uploads/gallery/'.$row['file_name']) ;
+                $item['caption'] = ($lang=='th')?$row['caption_th']:$row['caption_en'];
+                $item['detail'] = ($lang=='th')? strip_tags( $row['detail_th']):strip_tags($row['detail_en']);
+
+                array_push($data , $item);
+            }
+        }
+        $query->free_result();
+        return $data;
+    }
+
     public function loadUploadImageDataTable()
     {
         $gallery_id = $this->uri->segment(4);

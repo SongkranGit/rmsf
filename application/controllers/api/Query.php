@@ -12,6 +12,7 @@ class Query extends REST_Controller
         $this->load->model('Page_model');
         $this->load->model('Article_model');
         $this->load->model('Gallery_model');
+        $this->load->model('Gallery_Images_Model');
         $this->load->model('Setting_model');
         $this->load->model('Slideshow_model');
     }
@@ -131,6 +132,41 @@ class Query extends REST_Controller
     public function product_get(){
         $language = trim($this->get('lang'));
         $result = $this->processQueryPageData( $language, 'product');
+        if ($result != null) {
+            $this->response($result, REST_Controller::HTTP_OK); // OK (200) being the HTTP response code
+        } else {
+            $this->response([
+                'status' => FALSE,
+                'message' => 'No data'
+            ], REST_Controller::HTTP_NOT_FOUND); // NOT_FOUND (404) being the HTTP response code
+        }
+    }
+
+    public function get_all_products_get(){
+        $language = trim($this->get('lang'));
+        $arr_galleries = $this->Gallery_model->getByPageName('product');
+        if($arr_galleries != null && !empty($arr_galleries) ){
+            $arr_gallery_ids = array();
+            foreach ($arr_galleries as $item){
+                array_push($arr_gallery_ids , $item['id']);
+            }
+            $result = $this->Gallery_Images_Model->apiQueryGetAllGalleryImages($arr_gallery_ids , $language);
+        }
+        if ($result != null) {
+            $this->response($result, REST_Controller::HTTP_OK); // OK (200) being the HTTP response code
+        } else {
+            $this->response([
+                'status' => FALSE,
+                'message' => 'No data'
+            ], REST_Controller::HTTP_NOT_FOUND); // NOT_FOUND (404) being the HTTP response code
+        }
+    }
+
+    public function get_product_get(){
+        $language = trim($this->get('lang'));
+        $gallery_id = trim($this->get('id'));
+        $result = $this->Gallery_Images_Model->getByGalleryId($gallery_id , $language);
+
         if ($result != null) {
             $this->response($result, REST_Controller::HTTP_OK); // OK (200) being the HTTP response code
         } else {

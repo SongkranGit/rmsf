@@ -57,6 +57,8 @@ class GalleryImage extends Admin_Controller
                     "gallery_id" => $gallery_id,
                     "caption_th" => $this->input->post("caption_th"),
                     "caption_en" => $this->input->post("caption_en"),
+                    "detail_th" => $this->input->post("detail_th"),
+                    "detail_en" => $this->input->post("detail_en"),
                     "published" => intval($this->input->post("published")),
                     "order_seq" => 1,
                     "created_date" => Calendar::currentDateTime()
@@ -95,6 +97,8 @@ class GalleryImage extends Admin_Controller
                 "gallery_id" => $this->input->post("gallery_id"),
                 "caption_th" => $this->input->post("caption_th"),
                 "caption_en" => $this->input->post("caption_en"),
+                "detail_th" => $this->input->post("detail_th"),
+                "detail_en" => $this->input->post("detail_en"),
                 "published" => intval($this->input->post("published")),
                 "updated_date" => Calendar::currentDateTime()
             );

@@ -68,6 +68,13 @@
                                                       name="description_th"><?php echo setFormData($data, $key = "description_th"); ?></textarea>
                                         </div>
                                     </div>
+                                    <div class="form-group">
+                                        <label class="col-md-12 " for="body"><?= $this->lang->line("detail"); ?></label>
+                                        <div class="col-md-12 ">
+                                            <textarea name="detail_th" id="detail_th" class="form-control"
+                                                      rows="5"><?php echo setFormData($data, $key = "detail_th"); ?></textarea>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="tab-pane fade" id="tab2">
                                     <br>
@@ -83,6 +90,14 @@
                                         <div class="col-md-12">
                                             <textarea rows="3" class="form-control"
                                                       name="description_en"><?php echo setFormData($data, $key = "description_en"); ?></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-md-12" for="body_en"><?= $this->lang->line("detail"); ?></label>
+                                        <div class="col-md-12">
+                                            <textarea name="detail_en" id="detail_en" class="form-control"
+                                                      rows="5"><?php echo setFormData($data, $key = "detail_en"); ?></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -123,8 +138,36 @@
     var validator;
 
     $(document).ready(function () {
+
+        setupTinyMCE();
+
         validateForm();
     });
+
+    function setupTinyMCE() {
+        tinymce.init({
+            selector: '#detail_th,#detail_en',
+            height: 300,
+            menubar: false,
+            relative_urls: false,
+            remove_script_host: false,
+            convert_urls: true,
+            setup: function (editor) {
+                editor.on('change', function () {
+                    editor.save();
+                });
+                if ($('#' + editor.id).attr('readonly'))
+                    editor.settings.readonly = true;
+            },
+            plugins: [
+                'advlist autolink lists link image charmap print preview anchor',
+                'searchreplace visualblocks code fullscreen',
+                'insertdatetime media table contextmenu paste code textcolor colorpicker'
+            ],
+            toolbar: 'undo redo | insert | styleselect | bold italic | forecolor backcolor fontsizeselect | alignleft aligncenter alignright alignjustify | outdent indent | preview code',
+            fontsize_formats: '8pt 10pt 12pt 14pt 18pt 24pt 36pt',
+        });
+    }
 
     function validateForm() {
         //Fixed not validate hidden tabs

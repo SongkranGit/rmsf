@@ -142,7 +142,7 @@ class Query extends REST_Controller
         }
     }
 
-    public function get_all_products_get(){
+    public function products_get(){
         $language = trim($this->get('lang'));
         $arr_galleries = $this->Gallery_model->getByPageName('product');
         if($arr_galleries != null && !empty($arr_galleries) ){
@@ -162,7 +162,51 @@ class Query extends REST_Controller
         }
     }
 
-    public function get_product_get(){
+    public function product_detail_get(){
+        $language = trim($this->get('lang'));
+        $gallery_id = trim($this->get('id'));
+        $gallery = $this->Gallery_model->getById($gallery_id);
+        $gallery_images = $this->Gallery_Images_Model->getByGalleryId($gallery_id , $language);
+
+        $response = array(
+            "product_name"=> $language == 'th'?$gallery['name_th'] : $gallery['name_en'],
+            "product_description" => $language == 'th'?$gallery['description_th'] : $gallery['description_en'],
+            "product_detail" => $language == 'th'?$gallery['detail_th'] : $gallery['detail_en'],
+            "galleries" => $gallery_images
+        );
+
+        if ($response != null) {
+            $this->response($response, REST_Controller::HTTP_OK); // OK (200) being the HTTP response code
+        } else {
+            $this->response([
+                'status' => FALSE,
+                'message' => 'No data'
+            ], REST_Controller::HTTP_NOT_FOUND); // NOT_FOUND (404) being the HTTP response code
+        }
+    }
+
+    public function albums_get(){
+        $language = trim($this->get('lang'));
+        $arr_galleries = $this->Gallery_model->getByPageName('portfolio');
+        if($arr_galleries != null && !empty($arr_galleries) ){
+            $arr_gallery_ids = array();
+            foreach ($arr_galleries as $item){
+                array_push($arr_gallery_ids , $item['id']);
+            }
+            $result = $this->Gallery_Images_Model->apiQueryGetAllGalleryImages($arr_gallery_ids , $language);
+        }
+
+        if ($result != null) {
+            $this->response($result, REST_Controller::HTTP_OK); // OK (200) being the HTTP response code
+        } else {
+            $this->response([
+                'status' => FALSE,
+                'message' => 'No data'
+            ], REST_Controller::HTTP_NOT_FOUND); // NOT_FOUND (404) being the HTTP response code
+        }
+    }
+
+    public function album_detail_get(){
         $language = trim($this->get('lang'));
         $gallery_id = trim($this->get('id'));
         $result = $this->Gallery_Images_Model->getByGalleryId($gallery_id , $language);

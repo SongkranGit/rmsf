@@ -44,6 +44,8 @@ class Gallery extends Admin_Controller
                     "name_en" => $this->input->post("name_en"),
                     "description_th" => $this->input->post("description_th"),
                     "description_en" => $this->input->post("description_en"),
+                    "detail_th" => $this->input->post("detail_th"),
+                    "detail_en" => $this->input->post("detail_en"),
                     "published" => intval($this->input->post("published")),
                     "created_date" => Calendar::currentDateTime(),
                     "updated_date" => Calendar::currentDateTime()
@@ -85,6 +87,8 @@ class Gallery extends Admin_Controller
                     "name_en" => $this->input->post("name_en"),
                     "description_th" => $this->input->post("description_th"),
                     "description_en" => $this->input->post("description_en"),
+                    "detail_th" => $this->input->post("detail_th"),
+                    "detail_en" => $this->input->post("detail_en"),
                     "published" => intval($this->input->post("published")),
                     "updated_date" => Calendar::currentDateTime()
                 );

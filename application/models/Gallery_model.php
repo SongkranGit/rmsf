@@ -7,7 +7,7 @@ class Gallery_Model extends CI_Model
     public function getById($id)
     {
         $data = array();
-        $this->db->select("name_th,name_en");
+        $this->db->select("*");
         $this->db->from('galleries');
         $this->db->where('id', $id);
         $this->db->where('is_deleted=', 0);

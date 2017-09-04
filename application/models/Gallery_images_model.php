@@ -49,7 +49,7 @@ class Gallery_Images_Model extends CI_Model
             foreach ($query->result_array() as $row) {
                 $item = array();
                 $item['gallery_id'] = $row['gallery_id'];
-                $item['image_name'] = base_url('uploads/gallery/'.$row['file_name']) ;
+                $item['image_name'] = base_url('uploads/gallery/'.$row['gallery_id'].'/'.$row['file_name']) ;
                 $item['caption'] = ($lang=='th')?$row['caption_th']:$row['caption_en'];
                 $item['detail'] = ($lang=='th')? strip_tags( $row['detail_th']):strip_tags($row['detail_en']);
 
@@ -70,7 +70,7 @@ class Gallery_Images_Model extends CI_Model
             foreach ($query->result_array() as $row) {
                 $item = array();
                 $item['gallery_id'] = $row['gallery_id'];
-                $item['image_name'] = base_url('uploads/gallery/'.$row['file_name']) ;
+                $item['image_name'] = base_url('uploads/gallery/'.$row['gallery_id'].'/'.$row['file_name']) ;
                 $item['caption'] = ($lang=='th')?$row['caption_th']:$row['caption_en'];
                 $item['detail'] = ($lang=='th')? strip_tags( $row['detail_th']):strip_tags($row['detail_en']);
 

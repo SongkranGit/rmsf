@@ -40,7 +40,7 @@ class Gallery_Model extends CI_Model
     public function apiQueryGalleriesData($lang = 'th' , $page_id)
     {
         $data = array();
-        $this->db->select("g.id , g.name_th , g.name_en , g.description_th , g.description_en" );
+        $this->db->select("g.id as gallery_id, g.name_th , g.name_en , g.description_th , g.description_en" );
         $this->db->select("gi.id as gallery_image_id, gi.file_name, gi.caption_th, gi.caption_en" );
         $this->db->from('galleries g');
         $this->db->join("galleries_images gi", "gi.gallery_id = g.id" , 'left');
@@ -55,7 +55,7 @@ class Gallery_Model extends CI_Model
                 $item['description'] = ($lang=='th')?$row['description_th']:$row['description_en'];
                 $item['images'] = array(
                     'id'=> $row['gallery_image_id'],
-                    'image_name'=> ($row['file_name'] != null)? base_url('uploads/gallery/'.$row['id']).'/'.$row['file_name']: null,
+                    'image_name'=> ($row['file_name'] != null)? base_url('uploads/gallery/'.$row['gallery_id']).'/'.$row['file_name']: null,
                     'caption'=> ($lang=='th')?$row['caption_th']:$row['caption_en']
                 );
                 array_push($data , $item);

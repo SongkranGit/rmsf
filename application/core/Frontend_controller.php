@@ -4,7 +4,7 @@
  * Base Admin Class - used for all administration pages
  */
 
-require_once APPPATH . 'core/MY_controller.php';
+//require_once APPPATH . 'core/MY_controller.php';
 
 class Frontend_Controller extends MY_Controller
 {

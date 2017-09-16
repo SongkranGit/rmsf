@@ -44,6 +44,18 @@
                         </div>
                     </div>
 
+                    <div class="form-group required">
+                        <label class="col-md-2  control-label"><?= $this->lang->line("article_publish_date"); ?></label>
+                        <div class="col-md-7">
+                            <div class='col-md-5 input-group date' id='datetimepicker_published_date'>
+                                <input type='text' class="form-control" name="published_date"
+                                       value="<?php echo setFormData($data, $key = "published_date") ?>"/>
+                                <span class="input-group-addon">
+                                     <span class="glyphicon glyphicon-calendar"></span>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="form-group ">
                         <label class="col-md-2  control-label"><?= $this->lang->line("gallery_title"); ?></label>
                         <div class="col-md-8">
@@ -138,11 +150,21 @@
     var validator;
 
     $(document).ready(function () {
+        setupDatePicker();
 
         setupTinyMCE();
 
         validateForm();
     });
+
+
+    function setupDatePicker() {
+        $('#datetimepicker_published_date').datetimepicker({
+            locale: 'th',
+            format: "YYYY-MM-DD",
+            defaultDate: new Date()
+        });
+    }
 
     function setupTinyMCE() {
         tinymce.init({

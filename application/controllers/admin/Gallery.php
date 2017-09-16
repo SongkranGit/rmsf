@@ -47,6 +47,7 @@ class Gallery extends Admin_Controller
                     "detail_th" => $this->input->post("detail_th"),
                     "detail_en" => $this->input->post("detail_en"),
                     "published" => intval($this->input->post("published")),
+                    "published_date" => Calendar::con2MysqlDate($this->input->post("published_date")),
                     "created_date" => Calendar::currentDateTime(),
                     "updated_date" => Calendar::currentDateTime()
                 );
@@ -90,6 +91,7 @@ class Gallery extends Admin_Controller
                     "detail_th" => $this->input->post("detail_th"),
                     "detail_en" => $this->input->post("detail_en"),
                     "published" => intval($this->input->post("published")),
+                    "published_date" => Calendar::con2MysqlDate($this->input->post("published_date")),
                     "updated_date" => Calendar::currentDateTime()
                 );
 

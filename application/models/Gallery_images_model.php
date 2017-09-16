@@ -62,14 +62,16 @@ class Gallery_Images_Model extends CI_Model
 
     public function apiQueryGetAllGalleryImages($arr_gallery_id , $lang){
         $data = array();
-        $this->db->select("*");
-        $this->db->from('galleries_images');
-        $this->db->where_in('gallery_id', $arr_gallery_id);
+        $this->db->select("gi.* , g.published_date  ");
+        $this->db->from('galleries_images gi');
+        $this->db->join('galleries g' , 'g.id = gi.gallery_id');
+        $this->db->where_in('gi.gallery_id', $arr_gallery_id);
         $query = $this->db->get();
         if ($query->num_rows() > 0) {
             foreach ($query->result_array() as $row) {
                 $item = array();
                 $item['gallery_id'] = $row['gallery_id'];
+                $item['published_date'] = Calendar::formatDateToDDMMYYYY($row['published_date']);
                 $item['image_name'] = base_url('uploads/gallery/'.$row['gallery_id'].'/'.$row['file_name']) ;
                 $item['caption'] = ($lang=='th')?$row['caption_th']:$row['caption_en'];
                 $item['detail'] = ($lang=='th')? strip_tags( $row['detail_th']):strip_tags($row['detail_en']);

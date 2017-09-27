@@ -100,9 +100,26 @@ class Calendar {
 		}
 	}
 
-	public static function formatDateToDDMMYYYY($mysqldate){
+    public static function formatDateTimeToDDMMYYYYWithDot($mysqldate){
+
+        if(empty($mysqldate)){
+            return "";
+        }else{
+            $format = 'd-m-Y';
+            $phpdate = strtotime( $mysqldate );
+            $date = date( $format, $phpdate );
+            $strDate = date('d' , strtotime($date));
+            $strMonth = date('m' , strtotime($date));
+            $strYear = date('Y' , strtotime($date))+543;
+            return  $strDate.'.'.$strMonth.'.'.$strYear;
+        }
+
+    }
+
+
+    public static function formatDateToDDMMYYYY($mysqldate){
 		if(empty($mysqldate) || $mysqldate == 0){
-			return "-";
+			return "";
 		}else{
 			$format = 'd-m-Y';
 			$phpdate = strtotime( $mysqldate );
